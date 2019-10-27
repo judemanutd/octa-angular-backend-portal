@@ -1,0 +1,38 @@
+
+  
+  .sidebar {
+    padding: 10px;
+  }
+  
+  .sidebar-item{
+    width:60px;
+    display:flex;
+    justify-content: center;
+    text-decoration: none;
+  }
+  
+
+  .sidebar-item .sidebar-icon{
+    color:var(--accent);
+  }
+
+  .sidebar-item.active .sidebar-icon{
+    color:var(--primary);
+  }
+  
+  .sidebar-logo{
+    width:60px;
+    padding: 0.5rem 0;
+  }
+  
+  .sidebar-icon {
+    padding: 2rem 0;
+    transform: scale(1.5);
+  }
+  
+  .sidebar-tooltip{
+    font-size:1.2rem;
+    color:red;
+  }
+  
+  

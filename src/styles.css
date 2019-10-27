@@ -1,4 +1,40 @@
 /* You can add global styles to this file, and also import other style files */
+@import "@angular/material/prebuilt-themes/pink-bluegrey.css";
+
+:root{
+    --primary-light:#6fe2f7;
+    --primary:#35cfeb;
+    --primary-dark:#0ab3d1;
+
+    --accent:#b0bec5;
+
+    --warn:#E91E63;
+
+    --gray-100:#f1f1f1;
+    --gray-200:#e2e2e2;
+    --gray-300:#c9c9c9;
+    --gray-400:#a1a1a1;
+    --gray-500:#7a7a7a;
+    --gray-600:#696868;
+    --gray-700:#555555;
+    --gray-800:#424242;
+    --gray-900:#303030;
+}
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.content-wrapper{
+    flex:1;
+    padding:2rem;
+}
+
+.datatable{
+    width:100%;
+}
+
+.datatable-icon{
+    color:var(--primary-dark);
+}
+
+
