@@ -1,8 +1,9 @@
-<a class="sidebar-item">
+<div class="sidebar-wrapper">
+  <a class="">
     <img class="sidebar-logo" src="assets/images/resources/O-Only.png" />
   </a>
   <mat-divider></mat-divider>
-  <a routerLink="/dashboard" class="sidebar-item" routerLinkActive="active" >
+  <a routerLink="/dashboard" class="sidebar-item" routerLinkActive="active">
     <mat-icon
       matTooltip="Dashboard"
       matTooltipPosition="right"
@@ -13,8 +14,11 @@
     >
       dashboard
     </mat-icon>
+    <span class="sidebar-text" routerLinkActive="active">
+      Dashboard
+    </span>
   </a>
-  <a routerLink="/categories" class="sidebar-item" routerLinkActive="active" >
+  <a routerLink="/categories" class="sidebar-item" routerLinkActive="active">
     <mat-icon
       matTooltip="Categories"
       matTooltipPosition="right"
@@ -25,6 +29,9 @@
     >
       category
     </mat-icon>
+    <span class="sidebar-text" routerLinkActive="active">
+      Category
+    </span>
   </a>
   <a routerLink="/technologies" class="sidebar-item" routerLinkActive="active">
     <mat-icon
@@ -37,4 +44,8 @@
     >
       code
     </mat-icon>
+    <span class="sidebar-text" routerLinkActive="active">
+      Technologies
+    </span>
   </a>
+</div>

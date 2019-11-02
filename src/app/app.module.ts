@@ -2,6 +2,10 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AngularFireModule } from "@angular/fire";
+import { AngularFireAuthModule } from "@angular/fire/auth";
+import { environment } from '../environments/environment';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { MaterialModule } from './material.module';
@@ -17,6 +21,8 @@ import { CategoriesComponent } from '../components/pages/categories/categories.c
 import { TitleComponent } from '../components/pieces/title/title.component';
 import { TechnologiesComponent } from '../components/pages/technologies/technologies.component';
 import { DashboardComponent } from '../components/pages/dashboard/dashboard.component';
+
+import { AuthenticationService } from '../services/authentication.service';
 
 @NgModule({
   declarations: [
@@ -38,7 +44,11 @@ import { DashboardComponent } from '../components/pages/dashboard/dashboard.comp
     AppRoutingModule,
     MaterialModule,
     BrowserAnimationsModule,
+    AngularFireAuthModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    ReactiveFormsModule,
   ],
+  providers: [AuthenticationService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
