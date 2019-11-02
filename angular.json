@@ -124,5 +124,10 @@
       }
     }
   },
-  "defaultProject": "octa-angular-backend-portal"
+  "defaultProject": "octa-angular-backend-portal",
+  "schematics": {
+    "@schematics/angular:component": {
+      "styleext": "scss"
+    }
+  }
 }
