@@ -1,5 +1,8 @@
 import { Injectable } from '@angular/core';
-import { AngularFireAuth } from "@angular/fire/auth";
+import { auth } from 'firebase/app';
+import { Router } from '@angular/router';
+import { AngularFireAuth } from '@angular/fire/auth';
+import { User } from 'firebase';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -7,43 +10,52 @@ import { Observable } from 'rxjs';
 })
 
 export class AuthenticationService {
-  userData: Observable<firebase.User>;
-
-  constructor(private angularFireAuth: AngularFireAuth) {
-    this.userData = angularFireAuth.authState;
+  user: User;
+  constructor(public afAuth: AngularFireAuth, public router: Router) {
+    this.afAuth.authState.subscribe(user => {
+      if (user){
+        this.user = user;
+        localStorage.setItem('user', JSON.stringify(this.user));
+      } else {
+        localStorage.setItem('user', null);
+      }
+    })
   }
 
   /* Sign up */
   SignUp(email: string, password: string) {
-    this.angularFireAuth
-      .auth
+    this.afAuth.auth
       .createUserWithEmailAndPassword(email, password)
       .then(res => {
-        console.log('Successfully signed up!', res);
+        this.router.navigate(['dashboard']);
       })
       .catch(error => {
         console.log('Something is wrong:', error.message);
-      });    
+      });
   }
 
   /* Sign in */
   SignIn(email: string, password: string) {
-    this.angularFireAuth
-      .auth
+    this.afAuth.auth
       .signInWithEmailAndPassword(email, password)
       .then(res => {
-        console.log('Successfully signed in!', res);
+        this.router.navigate(['dashboard']);
       })
       .catch(err => {
-        console.log('Something is wrong:',err.message);
+        console.log('Something is wrong:', err.message);
       });
+  }
+
+  public isAuthenticated(): boolean {
+    // TODO proper token expiry based auth
+    const user = JSON.parse(localStorage.getItem('user'));
+    return (user !== null) ? true : false;
   }
 
   /* Sign out */
   SignOut() {
-    this.angularFireAuth
-      .auth
-      .signOut();
-  }  
-
+    this.afAuth.auth.signOut();
+    localStorage.removeItem('user');
+    this.router.navigate(['login']);
+  }
 }

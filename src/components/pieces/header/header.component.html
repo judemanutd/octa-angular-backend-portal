@@ -1,6 +1,6 @@
 <mat-toolbar class="header mat-elevation-z2">
   <span class="header__spacer"></span>
-  <mat-icon class="header__icon" aria-hidden="false" aria-label="Logout">
-    logout
-  </mat-icon>
+  <button mat-icon-button (click)="signOut($event)"  aria-hidden="false" aria-label="Logout">
+    <mat-icon class="header__icon">logout</mat-icon>
+  </button>
 </mat-toolbar>

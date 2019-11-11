@@ -10,9 +10,12 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { MaterialModule } from './material.module';
 
+import { AppLayoutComponent } from '../components/layouts/app/app-layout.component';
+import { NoneLayoutComponent } from '../components/layouts/none/none-layout.component';
+import { TemplateComponent } from '../components/template/template.component';
+
 import { AppComponent } from './app.component';
 import { LoginComponent } from '../components/pages/login/login.component';
-import { TemplateComponent } from '../components/template/template.component';
 import { UsersComponent } from '../components/pages/users/users.component';
 import { HeaderComponent } from '../components/pieces/header/header.component';
 import { SidebarComponent } from '../components/pieces/sidebar/sidebar.component';
@@ -29,6 +32,8 @@ import { AuthenticationService } from '../services/authentication.service';
     AppComponent,
     LoginComponent,
     TemplateComponent,
+    AppLayoutComponent,
+    NoneLayoutComponent,
     UsersComponent,
     HeaderComponent,
     SidebarComponent,
