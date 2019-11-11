@@ -15,6 +15,7 @@ export class LoginComponent {
   });
 
   constructor(public authenticationService: AuthenticationService, public router: Router) {
+    // Checks if session is valid, if it is then user is redirected to dashboard automatically
     if (this.authenticationService.isAuthenticated()) {
       this.router.navigate(['dashboard']);
     }

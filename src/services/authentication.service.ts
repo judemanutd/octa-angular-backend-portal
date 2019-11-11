@@ -13,11 +13,12 @@ export class AuthenticationService {
   user: User;
   constructor(public afAuth: AngularFireAuth, public router: Router) {
     this.afAuth.authState.subscribe(user => {
+      // Subscriber which is called when the value changes ( successfully logged in)
       if (user){
         this.user = user;
         localStorage.setItem('user', JSON.stringify(this.user));
       } else {
-        localStorage.setItem('user', null);
+        localStorage.removeItem('user');
       }
     })
   }
@@ -54,6 +55,7 @@ export class AuthenticationService {
 
   /* Sign out */
   SignOut() {
+    // Clear everything on logout
     this.afAuth.auth.signOut();
     localStorage.removeItem('user');
     this.router.navigate(['login']);

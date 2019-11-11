@@ -13,6 +13,9 @@ import { CategoriesComponent } from '../components/pages/categories/categories.c
 import { TechnologiesComponent } from '../components/pages/technologies/technologies.component';
 import { DashboardComponent } from '../components/pages/dashboard/dashboard.component';
 
+// Using child routes to handle prebuilt templates
+// 2 layouts as of now App and None
+// App contains the header,sidebar and footer components and auth-guard
 const routes: Routes = [
   {
     path: '',
