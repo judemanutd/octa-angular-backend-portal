@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { FormControl, FormGroup } from '@angular/forms';
 import { AuthenticationService } from '../../../services/authentication.service';
 
@@ -13,7 +14,12 @@ export class LoginComponent {
     password: new FormControl('')
   });
 
-  constructor(public authenticationService: AuthenticationService) {}
+  constructor(public authenticationService: AuthenticationService, public router: Router) {
+    // Checks if session is valid, if it is then user is redirected to dashboard automatically
+    if (this.authenticationService.isAuthenticated()) {
+      this.router.navigate(['dashboard']);
+    }
+  }
 
   signUp() {
     this.authenticationService.SignUp(
@@ -37,7 +43,5 @@ export class LoginComponent {
     });
   }
 
-  signOut() {
-    this.authenticationService.SignOut();
-  }
+
 }
