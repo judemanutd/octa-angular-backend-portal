@@ -6,6 +6,7 @@ import { AngularFireModule } from "@angular/fire";
 import { AngularFireAuthModule } from "@angular/fire/auth";
 import { environment } from '../environments/environment';
 import { ReactiveFormsModule } from '@angular/forms';
+import { MomentModule } from 'ngx-moment';
 
 import { AppRoutingModule } from './app-routing.module';
 import { MaterialModule } from './material.module';
@@ -45,6 +46,7 @@ import { AuthenticationService } from '../services/authentication.service';
   ],
   imports: [
     BrowserModule,
+    MomentModule,
     HttpClientModule,
     AppRoutingModule,
     MaterialModule,

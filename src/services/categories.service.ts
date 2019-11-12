@@ -8,11 +8,12 @@ import { environment } from '../environments/environment';
 })
 export class CategoriesService {
   constructor(private http: HttpClient) {}
-
-  headers = new HttpHeaders().set('X-CustomHeader', 'custom header value');
+  
+  user = JSON.parse(localStorage.getItem('user'));
+  headers = new HttpHeaders().set('Authorization', `Bearer ${this.user.stsTokenManager.accessToken}`);
 
   getCategories() {
-    return this.http.get(`${environment.baseUrl}/categories`, {
+    return this.http.get(`${environment.baseUrl}/category`, {
       headers: this.headers,
     });
   }
