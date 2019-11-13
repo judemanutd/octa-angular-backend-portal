@@ -31,10 +31,16 @@ export class CategoriesComponent implements OnInit {
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
   ngOnInit() {
+    // Call to fetch all Categories on page load
     this.getCategories();
   }
 
   getCategories() {
+    /* Calls the getCategories function in the categories service and updates the
+     * dataSource variable which has 2 way binding wih view layer
+     * This enables the table component to update with the new data
+     * Paginator and Sorting is loaded to the dataSource object
+     */
     this.categoriesService.getCategories().subscribe((result: any) => {
       this.dataSource = result.payload;
     });
@@ -43,10 +49,19 @@ export class CategoriesComponent implements OnInit {
   }
 
   openAddModal(): void {
+    /* Opens a model which contains the AddCategoriesModalComponent defined below */
     const dialogRef = this.dialog.open(AddCategoriesModalComponent, {
       width: "50rem"
     });
 
+    /* Runs when the modal ref created above closes
+     * using this functionality to run successful API calls
+     * If the call is successful, it will make a call to close the api
+     * with "refresh" as a param, so this function checks if the param is refresh
+     * and reloads the table.
+     *
+     * Snackbar is also created on success
+     */
     dialogRef.afterClosed().subscribe(result => {
       if (result === "refresh") {
         this.snackBar.open("Category Added", "", {
@@ -113,15 +128,20 @@ export class AddCategoriesModalComponent {
   ) {}
 
   onNoClick(): void {
+    /* Cancel button */
     this.dialogRef.close();
   }
 
   addCategories() {
+    /* Onsubmit of add modal form */
     const categoryName = this.AddFormGroup.value.name;
     const payload = {
       name: categoryName
     };
     this.categoriesService.addCategory(payload).subscribe((result: any) => {
+      /* Successful call send "refresh" to modal close event binder
+      * which allows us to refresh the table
+      */
       this.dialogRef.close("refresh");
     });
   }
