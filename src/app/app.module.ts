@@ -21,7 +21,8 @@ import { UsersComponent } from '../components/pages/users/users.component';
 import { HeaderComponent } from '../components/pieces/header/header.component';
 import { SidebarComponent } from '../components/pieces/sidebar/sidebar.component';
 import { FooterComponent } from '../components/pieces/footer/footer.component';
-import { CategoriesComponent } from '../components/pages/categories/categories.component';
+
+import { CategoriesComponent, AddCategoriesModalComponent, EditCategoriesModalComponent, DeleteCategoriesModalComponent } from '../components/pages/categories/categories.component';
 import { TitleComponent } from '../components/pieces/title/title.component';
 import { TechnologiesComponent } from '../components/pages/technologies/technologies.component';
 import { DashboardComponent } from '../components/pages/dashboard/dashboard.component';
@@ -39,10 +40,20 @@ import { AuthenticationService } from '../services/authentication.service';
     HeaderComponent,
     SidebarComponent,
     FooterComponent,
+
     CategoriesComponent,
+    AddCategoriesModalComponent,
+    EditCategoriesModalComponent,
+    DeleteCategoriesModalComponent,
+
     TitleComponent,
     TechnologiesComponent,
     DashboardComponent,
+  ],
+  entryComponents: [
+    AddCategoriesModalComponent,
+    EditCategoriesModalComponent,
+    DeleteCategoriesModalComponent,
   ],
   imports: [
     BrowserModule,

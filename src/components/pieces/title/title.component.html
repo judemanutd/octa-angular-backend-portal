@@ -1,7 +1,19 @@
 <div class="title">
-  <mat-card>
+  <mat-card class="title__wrapper">
     <h2 class="title__text">
       {{ title.name }}
     </h2>
+    <button *ngIf="hasCrud" (click)="showCallbackToggle()" mat-icon-button>
+      <mat-icon
+        matTooltip="Add {{ title.name }}"
+        class="title__icon"
+        matTooltipPosition="left"
+        color="accent"
+        aria-hidden="false"
+        aria-label="Add Button"
+      >
+        add
+      </mat-icon>
+    </button>
   </mat-card>
 </div>

@@ -1,0 +1,14 @@
+@import '../../../../../styles/main.scss';
+.modal{
+    &__button{
+        &--primary{
+            background-color: $primary-dark!important;
+        }
+    }
+}
+
+.form{
+    &__field{
+      width: 100%;
+    }
+  }

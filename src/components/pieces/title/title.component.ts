@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -12,8 +12,15 @@ export class TitleComponent implements OnInit {
   routeTitles = {
     categories: {name: 'Categories'},
     technologies: {name: 'Technologies'},
-    dashboard: {name: 'Dashboard'}
+    dashboard: {name: 'Dashboard'},
+    user: {name: 'User'}
   };
+
+
+  @Input()
+    hasCrud: boolean;
+
+  @Output() showCallBackPopUp = new EventEmitter();
 
   constructor(private route: ActivatedRoute) {}
 
@@ -21,8 +28,14 @@ export class TitleComponent implements OnInit {
     this.getPageTitle();
   }
 
+  showCallbackToggle() {
+    this.showCallBackPopUp.emit();
+  }
+
   getPageTitle(): void {
     const url = this.route.snapshot.url.join().split(',')[0];
     this.title = this.routeTitles[url];
   }
+
+
 }
