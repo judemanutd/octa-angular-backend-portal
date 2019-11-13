@@ -4,4 +4,13 @@
     &__text{
         margin:0;
     }
+
+    &__wrapper{
+        display:flex;
+        justify-content: space-between;
+    }
+
+    &__icon{
+        transform:scale(1.5)
+    }
 }
