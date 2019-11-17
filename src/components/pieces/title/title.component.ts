@@ -7,7 +7,7 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./title.component.scss'],
 })
 export class TitleComponent implements OnInit {
-  title: string;
+  title: string = null;
 
   routeTitles = {
     categories: { name: 'Categories' },

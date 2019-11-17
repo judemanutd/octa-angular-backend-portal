@@ -6,13 +6,7 @@
     <form class="login-form" [formGroup]="loginFormGroup" (ngSubmit)="signIn()">
       <mat-card-content>
         <mat-form-field class="login-form__field">
-          <input
-            matInput
-            placeholder="Enter your email"
-            [formControl]="email"
-            value="glenn@octalogic.in"
-            required
-          />
+          <input matInput placeholder="Enter your email" [formControl]="email" required />
           <mat-error *ngIf="email.invalid">{{ getEmailErrorMessage() }}</mat-error>
         </mat-form-field>
 
@@ -20,7 +14,6 @@
           <input
             matInput
             type="password"
-            value="glenn@octalogic.in"
             [formControl]="password"
             autocomplete="off"
             placeholder="Enter your password"
