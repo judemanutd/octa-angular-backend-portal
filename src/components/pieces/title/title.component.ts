@@ -4,21 +4,20 @@ import { ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-title',
   templateUrl: './title.component.html',
-  styleUrls: ['./title.component.scss']
+  styleUrls: ['./title.component.scss'],
 })
 export class TitleComponent implements OnInit {
   title: string;
 
   routeTitles = {
-    categories: {name: 'Categories'},
-    technologies: {name: 'Technologies'},
-    dashboard: {name: 'Dashboard'},
-    user: {name: 'User'}
+    categories: { name: 'Categories' },
+    technologies: { name: 'Technologies' },
+    dashboard: { name: 'Dashboard' },
+    user: { name: 'User' },
   };
 
-
   @Input()
-    hasCrud: boolean;
+  hasCrud: boolean;
 
   @Output() showCallBackPopUp = new EventEmitter();
 
@@ -36,6 +35,4 @@ export class TitleComponent implements OnInit {
     const url = this.route.snapshot.url.join().split(',')[0];
     this.title = this.routeTitles[url];
   }
-
-
 }

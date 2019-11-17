@@ -1,77 +1,77 @@
 {
-  "extends": "tslint:recommended",
+  "extends": ["tslint:latest", "tslint-config-prettier"],
+  "rulesDirectory": ["tslint-plugin-prettier"],
   "rules": {
+    "prettier": true,
+    "no-unused-variable": true,
+    "no-var-requires": true,
+    "import-spacing": true,
+    "ordered-imports": false,
+    "no-submodule-imports": false,
+    "curly": false,
+    "adjacent-overload-signatures": true,
+    "ban-comma-operator": true,
+    "no-namespace": true,
+    "no-parameter-reassignment": true,
+    "no-reference": true,
+    "no-unnecessary-type-assertion": true,
+    "label-position": true,
+    "no-conditional-assignment": true,
+    "no-construct": true,
+    "no-duplicate-super": true,
+    "no-duplicate-variable": [true, "check-parameters"],
+    "no-shadowed-variable": true,
+    "no-empty": [true, "allow-empty-catch"],
+    "no-floating-promises": true,
+    "no-invalid-this": true,
+    "no-string-throw": true,
+    "no-unsafe-finally": true,
+    "no-void-expression": [true, "ignore-arrow-function-shorthand"],
+    "no-duplicate-imports": true,
+    "no-var-keyword": true,
+    "deprecation": true,
+    "no-empty-interface": { "severity": "warning" },
+    "no-import-side-effect": { "severity": "warning" },
+    "triple-equals": { "severity": "warning" },
+    "prefer-for-of": { "severity": "warning" },
+    "unified-signatures": { "severity": "warning" },
+    "prefer-const": { "severity": "warning" },
+    "trailing-comma": true,
+    "defaultSeverity": "error",
+    "jsRules": {
+      "semicolon": true,
+      "triple-equals": true
+    },
+    "linterOptions": {
+      "exclude": ["node_modules/**/*", "dist/**/*", "test/**/*", "e2e/**/*"]
+    },
+
     "array-type": false,
     "arrow-parens": false,
-    "deprecation": {
-      "severity": "warning"
-    },
     "component-class-suffix": true,
     "contextual-lifecycle": true,
     "directive-class-suffix": true,
-    "directive-selector": [
-      true,
-      "attribute",
-      "app",
-      "camelCase"
-    ],
-    "component-selector": [
-      true,
-      "element",
-      "app",
-      "kebab-case"
-    ],
-    "import-blacklist": [
-      true,
-      "rxjs/Rx"
-    ],
+    "directive-selector": [true, "attribute", "app", "camelCase"],
+    "component-selector": [true, "element", "app", "kebab-case"],
+    "import-blacklist": [true, "rxjs/Rx"],
     "interface-name": false,
     "max-classes-per-file": false,
-    "max-line-length": [
-      true,
-      140
-    ],
+    "max-line-length": [true, 140],
     "member-access": false,
     "member-ordering": [
       true,
       {
-        "order": [
-          "static-field",
-          "instance-field",
-          "static-method",
-          "instance-method"
-        ]
+        "order": ["static-field", "instance-field", "static-method", "instance-method"]
       }
     ],
     "no-consecutive-blank-lines": false,
-    "no-console": [
-      true,
-      "debug",
-      "info",
-      "time",
-      "timeEnd",
-      "trace"
-    ],
-    "no-empty": false,
-    "no-inferrable-types": [
-      true,
-      "ignore-params"
-    ],
+    "no-console": [true, "debug", "info", "time", "timeEnd", "trace"],
+    "no-inferrable-types": [true, "ignore-params"],
     "no-non-null-assertion": true,
     "no-redundant-jsdoc": true,
     "no-switch-case-fall-through": true,
-    "no-var-requires": false,
-    "object-literal-key-quotes": [
-      true,
-      "as-needed"
-    ],
+    "object-literal-key-quotes": [true, "as-needed"],
     "object-literal-sort-keys": false,
-    "ordered-imports": false,
-    "quotemark": [
-      true,
-      "single"
-    ],
-    "trailing-comma": false,
     "no-conflicting-lifecycle": true,
     "no-host-metadata-property": true,
     "no-input-rename": true,
@@ -83,9 +83,7 @@
     "template-banana-in-box": true,
     "template-no-negated-async": true,
     "use-lifecycle-interface": true,
-    "use-pipe-transform-interface": true
-  },
-  "rulesDirectory": [
-    "codelyzer"
-  ]
+    "use-pipe-transform-interface": true,
+    "no-implicit-dependencies": [true, ["~services", "~environments", "~interfaces", "~app"]]
+  }
 }
