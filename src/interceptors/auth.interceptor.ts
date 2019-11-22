@@ -6,13 +6,18 @@ import { environment } from '~environments/environment';
 @Injectable()
 export class AuthHttpInterceptor implements HttpInterceptor {
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    const user = JSON.parse(localStorage.getItem('user'));
+    const user = localStorage.getItem('user');
+    console.log(
+      "TCL: AuthHttpInterceptor -> localStorage.getItem('user')",
+      localStorage.getItem('user'),
+    );
+    console.log('TCL: AuthHttpInterceptor -> user', user);
 
     if (!user) return throwError(new Error('User is not logged in'));
 
     const newRequest = req.clone({
       url: `${environment.baseUrl}/${req.url}`,
-      headers: req.headers.set('Authorization', `Bearer ${user.stsTokenManager.accessToken}`),
+      headers: req.headers.set('Authorization', `Bearer ${user}`),
     });
     return next.handle(newRequest);
   }
