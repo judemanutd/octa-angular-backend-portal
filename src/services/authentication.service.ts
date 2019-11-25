@@ -7,7 +7,7 @@ import { User } from 'firebase';
   providedIn: 'root',
 })
 export class AuthenticationService {
-  private user: User;
+  public user: User;
 
   constructor(public afAuth: AngularFireAuth, public router: Router) {
     this.afAuth.authState.subscribe(user => {
@@ -54,9 +54,10 @@ export class AuthenticationService {
     await this.router.navigate(['login']);
   };
 
-  private saveUserToStorage = (user: User) => {
+  public saveUserToStorage = (user: User) => {
     let token;
     let ssd = user.getIdToken().then(data => {
+      console.log('TCL: AuthenticationService -> publicsaveUserToStorage -> data', data);
       token = data;
       localStorage.setItem('user', token);
     });

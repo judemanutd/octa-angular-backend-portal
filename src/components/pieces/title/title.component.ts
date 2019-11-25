@@ -33,6 +33,6 @@ export class TitleComponent implements OnInit {
 
   getPageTitle(): void {
     const url = this.route.snapshot.url.join().split(',')[0];
-    this.title = this.routeTitles[url];
+    this.title = this.routeTitles[url].name;
   }
 }

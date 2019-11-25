@@ -7,11 +7,6 @@ import { environment } from '~environments/environment';
 export class AuthHttpInterceptor implements HttpInterceptor {
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const user = localStorage.getItem('user');
-    console.log(
-      "TCL: AuthHttpInterceptor -> localStorage.getItem('user')",
-      localStorage.getItem('user'),
-    );
-    console.log('TCL: AuthHttpInterceptor -> user', user);
 
     if (!user) return throwError(new Error('User is not logged in'));
 
