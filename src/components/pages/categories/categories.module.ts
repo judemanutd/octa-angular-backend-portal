@@ -12,7 +12,6 @@ import { EditCategoriesModalComponent } from './modals/edit/edit-categories-moda
 import { DeleteCategoriesModalComponent } from './modals/delete/delete-categories-modal.component';
 
 import { CategoriesComponent } from './categories.component';
-import { AddTechnologiesComponent } from './modals/add/add-technologies/add-technologies.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +19,6 @@ import { AddTechnologiesComponent } from './modals/add/add-technologies/add-tech
     EditCategoriesModalComponent,
     DeleteCategoriesModalComponent,
     CategoriesComponent,
-    AddTechnologiesComponent,
   ],
   entryComponents: [
     AddCategoriesModalComponent,

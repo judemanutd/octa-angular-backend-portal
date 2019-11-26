@@ -32,6 +32,8 @@ import { TechnologiesComponent } from '../components/pages/technologies/technolo
 import { DashboardComponent } from '../components/pages/dashboard/dashboard.component';
 
 import { AuthenticationService } from '../services/authentication.service';
+import { AddTechnologiesComponent } from '../components/pages/technologies/modals/add-technologies/add-technologies.component';
+import { MatSelectModule } from '@angular/material';
 
 @NgModule({
   declarations: [
@@ -42,16 +44,19 @@ import { AuthenticationService } from '../services/authentication.service';
     UsersComponent,
     SidebarComponent,
     FooterComponent,
+    AddTechnologiesComponent,
 
     TechnologiesComponent,
     DashboardComponent,
   ],
+  entryComponents: [AddTechnologiesComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     MomentModule,
     HttpClientModule,
     MaterialModule,
+    MatSelectModule,
     ReactiveFormsModule,
     AngularFireAuthModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),

@@ -2,10 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { User } from 'firebase';
 
 import { AuthenticationService } from '~services/authentication.service';
-import { environment } from '~environments/environment';
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
@@ -29,11 +27,10 @@ export class ErrorInterceptor implements HttpInterceptor {
     return next.handle(request).pipe(
       catchError(err => {
         if (err.status === 401) {
-          let token, users;
+          let token;
           let ssd = this.authenticationService.user.getIdToken().then(data => {
             token = data;
             localStorage.setItem('user', token);
-            const users = localStorage.getItem('user');
             // const newRequest = request.clone({
             //   // url: `${environment.baseUrl}/${request.url}`,
             //   headers: request.headers.set('Authorization', `Bearer ${users}`),

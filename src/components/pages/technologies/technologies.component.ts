@@ -5,12 +5,10 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
-import { Category } from '~interfaces/Category';
-import { CategoriesService } from '~services/categories.service';
+import { Technology } from '~interfaces/Technology';
+import { TechnologiesService } from '~services/technologies.service';
 
-import { AddCategoriesModalComponent } from './modals/add/add-categories-modal.componenet';
-import { EditCategoriesModalComponent } from './modals/edit/edit-categories-modal.component';
-import { DeleteCategoriesModalComponent } from './modals/delete/delete-categories-modal.component';
+import { AddTechnologiesComponent } from '../technologies/modals/add-technologies/add-technologies.component';
 
 @Component({
   selector: 'app-technologies',
@@ -19,25 +17,25 @@ import { DeleteCategoriesModalComponent } from './modals/delete/delete-categorie
 })
 export class TechnologiesComponent implements OnInit {
   constructor(
-    private categoriesService: CategoriesService,
+    private technologiesService: TechnologiesService,
     public dialog: MatDialog,
     private snackBar: MatSnackBar,
   ) {}
   displayedColumns: string[] = ['name', 'updatedAt', 'createdAt', 'action'];
-  dataSource = new MatTableDataSource<Category>([]);
+  dataSource = new MatTableDataSource<Technology>([]);
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   ngOnInit() {
-    this.getCategories();
+    this.getTechnologies();
   }
-  getCategories() {
+  getTechnologies() {
     /* Calls the getCategories function in the categories service and updates the
      * dataSource variable which has 2 way binding wih view layer
      * This enables the table component to update with the new data
      * Paginator and Sorting is loaded to the dataSource object
      */
-    this.categoriesService.getCategories().subscribe((result: any) => {
+    this.technologiesService.getTechnologies().subscribe((result: any) => {
       this.dataSource = result.payload;
     });
     this.dataSource.paginator = this.paginator;
@@ -46,25 +44,25 @@ export class TechnologiesComponent implements OnInit {
 
   openAddModal(): void {
     /* Opens a model which contains the AddCategoriesModalComponent defined below */
-    // const dialogRef = this.dialog.open(AddCategoriesModalComponent, {
-    //   width: '50rem',
-    // });
-    // /* Runs when the modal ref created above closes
-    //  * using this functionality to run successful API calls
-    //  * If the call is successful, it will make a call to close the api
-    //  * with "refresh" as a param, so this function checks if the param is refresh
-    //  * and reloads the table.
-    //  *
-    //  * Snackbar is also created on success
-    //  */
-    // dialogRef.afterClosed().subscribe(result => {
-    //   if (result === 'refresh') {
-    //     this.snackBar.open('Category Added', '', {
-    //       duration: 3000,
-    //     });
-    //     this.getCategories();
-    //   }
-    // });
+    const dialogRef = this.dialog.open(AddTechnologiesComponent, {
+      width: '50rem',
+    });
+    /* Runs when the modal ref created above closes
+     * using this functionality to run successful API calls
+     * If the call is successful, it will make a call to close the api
+     * with "refresh" as a param, so this function checks if the param is refresh
+     * and reloads the table.
+     *
+     * Snackbar is also created on success
+     */
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === 'refresh') {
+        this.snackBar.open('Category Added', '', {
+          duration: 3000,
+        });
+        this.getTechnologies();
+      }
+    });
   }
 
   openEditModal(element): void {
