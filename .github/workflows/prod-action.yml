@@ -1,13 +1,13 @@
-name: Firebase
+name: Release_Deployment
 
 on:
   pull_request:
-    branches: develop
+    branches: master
     types: [closed]
 
 jobs:
   deploy:
-    name: Deploy
+    name: Deploy Production
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repo
@@ -24,6 +24,6 @@ jobs:
       - name: Deploy to Firebase
         uses: w9jds/firebase-action@v1.1.0
         with:
-          args: deploy -P default --only hosting:admin-portfolio
+          args: deploy -P prod --only hosting:portfolio-panel
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
