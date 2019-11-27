@@ -1,4 +1,4 @@
-name: Release_Deployment
+name: Deployment_Release
 
 on:
   pull_request:
@@ -19,8 +19,8 @@ jobs:
           yarn install
       - name: Build
         run: |
-          cp robots.txt public/robots.txt
           npm run-script build-prod
+          cp robots.txt public/robots.txt
       - name: Deploy to Firebase
         uses: w9jds/firebase-action@v1.1.0
         with:
