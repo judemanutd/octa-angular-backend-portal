@@ -1,4 +1,4 @@
-name: Release_Deployment
+name: Deployment_Release
 
 on:
   pull_request:
