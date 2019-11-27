@@ -1,17 +1,19 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { AuthGuardService } from '../services/auth-guard.service';
+import { AuthGuardService } from '~app/services/auth-guard.service';
 
-import { AppLayoutComponent as AppLayout } from '../components/layouts/app/app-layout.component';
+import { AppLayoutComponent as AppLayout } from '~app/components/layouts/app/app-layout.component';
 // import { NoneLayoutComponent as NoneLayout } from '../components/layouts/none/none-layout.component';
 
-import { LoginComponent } from '../components/pages/login/login.component';
-import { TemplateComponent } from '../components/template/template.component';
-import { UsersComponent } from '../components/pages/users/users.component';
-import { CategoriesComponent } from '../components/pages/categories/categories.component';
-import { TechnologiesComponent } from '../components/pages/technologies/technologies.component';
-import { DashboardComponent } from '../components/pages/dashboard/dashboard.component';
+import { LoginComponent } from '~app/components/pages/login/login.component';
+import { TemplateComponent } from '~app/components/template/template.component';
+import { UsersComponent } from '~app/components/pages/users/users.component';
+import { CategoriesComponent } from '~app/components/pages/categories/categories.component';
+import { TechnologiesComponent } from '~app/components/pages/technologies/technologies.component';
+import { DashboardComponent } from '~app/components/pages/dashboard/dashboard.component';
+import { ClientComponent } from './components/pages/client/client.component';
+// import { ProjectsComponent } from './components/pages/projects/projects.component';
 
 // Using child routes to handle prebuilt templates
 // 2 layouts as of now App and None
@@ -35,8 +37,10 @@ const routes: Routes = [
       { path: 'template', component: TemplateComponent, canActivate: [AuthGuardService] },
       { path: 'categories', component: CategoriesComponent, canActivate: [AuthGuardService] },
       { path: 'categories/:id', component: CategoriesComponent, canActivate: [AuthGuardService] },
+      { path: 'clients', component: ClientComponent, canActivate: [AuthGuardService] },
       { path: 'technologies', component: TechnologiesComponent, canActivate: [AuthGuardService] },
       { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuardService] },
+      // { path: 'projects', component: ProjectsComponent, canActivate: [AuthGuardService] },
     ],
   },
   { path: '**', redirectTo: '' },
@@ -45,7 +49,7 @@ const routes: Routes = [
 @NgModule({
   imports: [
     RouterModule.forRoot(routes, {
-      enableTracing: true,
+      enableTracing: false,
     }),
   ],
   exports: [RouterModule],

@@ -1,0 +1,20 @@
+<h2 mat-dialog-title>Add Technologies</h2>
+<form class="form" [formGroup]="AddFormGroup" (ngSubmit)="addTechnology()">
+  <mat-dialog-content class="mat-typography">
+    <mat-form-field class="form__field">
+      <input matInput type="text" formControlName="name" placeholder="Name" />
+    </mat-form-field>
+
+    <mat-form-field class="form__field">
+      <mat-select formControlName="category" placeholder="Category">
+        <mat-option [value]="cat.id" *ngFor="let cat of category"> {{ cat.name }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <button mat-button [mat-dialog-close]="false">Cancel</button>
+    <button mat-button cdkFocusInitial class="modal__button--primary">
+      Add
+    </button>
+  </mat-dialog-actions>
+</form>

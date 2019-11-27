@@ -1,0 +1,18 @@
+<h2 mat-dialog-title>Add Client</h2>
+<form class="form" [formGroup]="AddFormGroup" (ngSubmit)="addClient()">
+  <mat-dialog-content class="mat-typography">
+    <mat-form-field class="form__field">
+      <input matInput type="text" formControlName="name" placeholder="Name" />
+    </mat-form-field>
+
+    <mat-form-field class="form__field address">
+      <input matInput type="text" formControlName="address" placeholder="Address" />
+    </mat-form-field>
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <button mat-button [mat-dialog-close]="false">Cancel</button>
+    <button mat-button cdkFocusInitial class="modal__button--primary">
+      Add
+    </button>
+  </mat-dialog-actions>
+</form>
