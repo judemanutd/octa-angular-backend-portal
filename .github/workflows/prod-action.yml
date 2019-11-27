@@ -24,6 +24,6 @@ jobs:
       - name: Deploy to Firebase
         uses: w9jds/firebase-action@v1.1.0
         with:
-          args: deploy -P prod --only hosting:portfolio-panel
+          args: deploy -P prod --only hosting:prod
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
