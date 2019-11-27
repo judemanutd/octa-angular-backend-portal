@@ -20,7 +20,7 @@ export class AddTechnologiesComponent implements OnInit {
     private technologiesService: TechnologiesService,
     private categoriesService: CategoriesService,
   ) {}
-  private category: [];
+  public category: [];
 
   ngOnInit() {
     this.getCategories();

@@ -41,7 +41,7 @@ import { AddClientModalComponent } from './components/pages/client/modals/add-cl
 import { EditClientModalComponent } from './components/pages/client/modals/edit-client-modal/edit-client-modal.component';
 import { DeleteClientModalComponent } from './components/pages/client/modals/delete-client-modal/delete-client-modal.component';
 import { DeleteTechnologiesModalComponent } from './components/pages/technologies/modals/delete/delete-technologies.component';
-import { ProjectsComponent } from './components/pages/projects/projects.component';
+// import { ProjectsComponent } from './components/pages/projects/projects.component';
 
 @NgModule({
   declarations: [
@@ -62,7 +62,7 @@ import { ProjectsComponent } from './components/pages/projects/projects.componen
     EditClientModalComponent,
     DeleteClientModalComponent,
     DeleteTechnologiesModalComponent,
-    ProjectsComponent,
+    // ProjectsComponent,
   ],
   entryComponents: [
     AddTechnologiesComponent,

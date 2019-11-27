@@ -22,7 +22,7 @@ export class EditTechnologiesComponent implements OnInit {
     private technologiesService: TechnologiesService,
     @Inject(MAT_DIALOG_DATA) public data: Technology,
   ) {}
-  private category: [];
+  public category: [];
   ngOnInit() {
     this.getCategories();
     console.log('TCL: AddTechnologiesComponent -> category', this.category);
