@@ -35,13 +35,16 @@ import { AuthenticationService } from '~app/services/authentication.service';
 import { AddTechnologiesComponent } from '~app/components/pages/technologies/modals/add-technologies/add-technologies.component';
 import { EditTechnologiesComponent } from '~app/components/pages/technologies/modals/edit/edit-technologies.component';
 
-import { MatSelectModule } from '@angular/material';
+import { MatSelectModule, MatDatepickerModule, MatNativeDateModule } from '@angular/material';
 import { ClientComponent } from './components/pages/client/client.component';
 import { AddClientModalComponent } from './components/pages/client/modals/add-client-modal/add-client-modal.component';
 import { EditClientModalComponent } from './components/pages/client/modals/edit-client-modal/edit-client-modal.component';
 import { DeleteClientModalComponent } from './components/pages/client/modals/delete-client-modal/delete-client-modal.component';
 import { DeleteTechnologiesModalComponent } from './components/pages/technologies/modals/delete/delete-technologies.component';
 import { ProjectsComponent } from './components/pages/projects/projects.component';
+import { AddProjectModalComponent } from './components/pages/projects/modals/add-project-modal/add-project-modal.component';
+import { EditProjectModalComponent } from './components/pages/projects/modals/edit-project-modal/edit-project-modal.component';
+import { DeleteProjectModalComponent } from './components/pages/projects/modals/delete-project-modal/delete-project-modal.component';
 
 @NgModule({
   declarations: [
@@ -63,6 +66,9 @@ import { ProjectsComponent } from './components/pages/projects/projects.componen
     DeleteClientModalComponent,
     DeleteTechnologiesModalComponent,
     ProjectsComponent,
+    AddProjectModalComponent,
+    EditProjectModalComponent,
+    DeleteProjectModalComponent,
   ],
   entryComponents: [
     AddTechnologiesComponent,
@@ -71,6 +77,9 @@ import { ProjectsComponent } from './components/pages/projects/projects.componen
     AddClientModalComponent,
     EditClientModalComponent,
     DeleteClientModalComponent,
+    AddProjectModalComponent,
+    EditProjectModalComponent,
+    DeleteProjectModalComponent,
   ],
   imports: [
     BrowserModule,
@@ -79,6 +88,8 @@ import { ProjectsComponent } from './components/pages/projects/projects.componen
     HttpClientModule,
     MaterialModule,
     MatSelectModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
     ReactiveFormsModule,
     AngularFireAuthModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
@@ -90,10 +101,11 @@ import { ProjectsComponent } from './components/pages/projects/projects.componen
     AppRoutingModule,
   ],
   providers: [
+    MatDatepickerModule,
     AuthenticationService,
     { provide: HTTP_INTERCEPTORS, useClass: AuthHttpInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
   ],
-  bootstrap: [AppComponent],
+  bootstrap: [AppComponent, AppLayoutComponent, SidebarComponent],
 })
 export class AppModule {}

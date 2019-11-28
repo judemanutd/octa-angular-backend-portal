@@ -3,6 +3,8 @@ export interface Project {
   name: string;
   clientId: number;
   cost: number;
+  startDate: string;
+  endDate: string;
   createdAt: string;
   updatedAt: string;
   currency: string;
