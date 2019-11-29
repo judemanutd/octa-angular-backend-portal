@@ -1,8 +1,7 @@
-import { Component, Inject } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { MAT_DIALOG_DATA } from '@angular/material';
-import { ProjectsService } from '~app/services/projects.service';
-import { Project } from '~app/interfaces/Project';
+import {} from '@angular/material';
+import {} from '~app/interfaces/Project';
 
 @Component({
   selector: 'app-edit-project-modal',
@@ -11,27 +10,36 @@ import { Project } from '~app/interfaces/Project';
 })
 export class EditProjectModalComponent {
   EditFormGroup = new FormGroup({
-    name: new FormControl(this.data.name),
-    client: new FormControl(this.data.clientId),
-    start: new FormControl(this.data.startDate),
-    end: new FormControl(this.data.endDate),
-    cost: new FormControl(this.data.cost),
-    currency: new FormControl(this.data.currency),
+    name: new FormControl(''),
+    client: new FormControl(''),
+    start: new FormControl(''),
+    end: new FormControl(''),
+    cost: new FormControl(''),
+    currency: new FormControl(''),
   });
+  files: File[];
 
-  constructor(
-    private projectsService: ProjectsService,
-    @Inject(MAT_DIALOG_DATA) public data: Project,
-  ) {
+  constructor() // private projectsService: ProjectsService, // @Inject(MAT_DIALOG_DATA) public data: Project,
+  {
     console.log('sdsd');
   }
 
   editProjects() {
-    const categoryName = this.EditFormGroup.value.name;
-    const id = this.data.id;
-    const payload = {
-      name: categoryName,
-    };
-    this.projectsService.editProject(id, payload).subscribe((result: any) => {});
+    // const categoryName = this.EditFormGroup.value.name;
+    // // const id = this.data.id;
+    // const payload = {
+    //   name: categoryName,
+    // };
+    // // this.projectsService.editProject(id, payload).subscribe((result: any) => {});
+  }
+
+  onSelect(event) {
+    console.log(event);
+    this.files.push(...event.addedFiles);
+  }
+
+  onRemove(event) {
+    console.log(event);
+    this.files.splice(this.files.indexOf(event), 1);
   }
 }

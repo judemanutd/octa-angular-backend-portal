@@ -22,4 +22,20 @@ export class ProjectsService {
   deleteProject(id) {
     return this.http.delete(`project/${id}`);
   }
+
+  addLogo(id, payload) {
+    return this.http.post(`project/${id}/logo`, payload);
+  }
+
+  deleteLogo(id) {
+    return this.http.delete(`project/${id}/logo`);
+  }
+
+  addCover(id, payload) {
+    return this.http.post(`project/${id}/cover`, payload);
+  }
+
+  deleteCover(id) {
+    return this.http.delete(`project/${id}/cover`);
+  }
 }

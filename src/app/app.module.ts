@@ -21,7 +21,6 @@ import { SiteTemplateModule } from '~app/components/layouts/site/site-template.m
 
 import { AppLayoutComponent } from '~app/components/layouts/app/app-layout.component';
 import { NoneLayoutComponent } from '~app/components/layouts/none/none-layout.component';
-
 import { AppComponent } from './app.component';
 import { LoginComponent } from '~app/components/pages/login/login.component';
 import { UsersComponent } from '~app/components/pages/users/users.component';
@@ -30,6 +29,8 @@ import { FooterComponent } from '~app/components/pieces/footer/footer.component'
 
 import { TechnologiesComponent } from '~app/components/pages/technologies/technologies.component';
 import { DashboardComponent } from '~app/components/pages/dashboard/dashboard.component';
+import { AngularFileUploaderModule } from 'angular-file-uploader';
+import { NgxDropzoneModule } from 'ngx-dropzone';
 
 import { AuthenticationService } from '~app/services/authentication.service';
 import { AddTechnologiesComponent } from '~app/components/pages/technologies/modals/add-technologies/add-technologies.component';
@@ -91,15 +92,18 @@ import { DeleteProjectModalComponent } from './components/pages/projects/modals/
     MatDatepickerModule,
     MatNativeDateModule,
     ReactiveFormsModule,
+    NgxDropzoneModule,
     AngularFireAuthModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     TitleModule,
     HeaderModule,
     TemplateModule,
     SiteTemplateModule,
+    AngularFileUploaderModule,
     CategoriesModule,
     AppRoutingModule,
   ],
+  exports: [MaterialModule],
   providers: [
     MatDatepickerModule,
     AuthenticationService,

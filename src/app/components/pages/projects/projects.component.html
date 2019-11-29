@@ -31,7 +31,7 @@
         <th mat-header-cell *matHeaderCellDef>Action</th>
         <td mat-cell *matCellDef="let element">
           <div>
-            <a routerLink="/projects/element.id">
+            <a routerLink="/projects/{{ element.id }}">
               <button mat-icon-button>
                 <mat-icon
                   matTooltip="Edit"
