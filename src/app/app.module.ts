@@ -46,6 +46,7 @@ import { ProjectsComponent } from './components/pages/projects/projects.componen
 import { AddProjectModalComponent } from './components/pages/projects/modals/add-project-modal/add-project-modal.component';
 import { EditProjectModalComponent } from './components/pages/projects/modals/edit-project-modal/edit-project-modal.component';
 import { DeleteProjectModalComponent } from './components/pages/projects/modals/delete-project-modal/delete-project-modal.component';
+import { FileUploadComponent } from './components/pieces/file-upload/file-upload.component';
 
 @NgModule({
   declarations: [
@@ -70,6 +71,7 @@ import { DeleteProjectModalComponent } from './components/pages/projects/modals/
     AddProjectModalComponent,
     EditProjectModalComponent,
     DeleteProjectModalComponent,
+    FileUploadComponent,
   ],
   entryComponents: [
     AddTechnologiesComponent,

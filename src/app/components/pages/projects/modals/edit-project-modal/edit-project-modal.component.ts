@@ -2,6 +2,9 @@ import { Component } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import {} from '@angular/material';
 import {} from '~app/interfaces/Project';
+import { ProjectsService } from '~app/services/projects.service';
+import { ActivatedRoute } from '@angular/router';
+import { pluck } from 'rxjs/operators';
 
 @Component({
   selector: 'app-edit-project-modal',
@@ -16,30 +19,41 @@ export class EditProjectModalComponent {
     end: new FormControl(''),
     cost: new FormControl(''),
     currency: new FormControl(''),
+    file: new FormControl(''),
   });
-  files: File[];
+  fileToUpload: File = null;
+  param1: any;
 
-  constructor() // private projectsService: ProjectsService, // @Inject(MAT_DIALOG_DATA) public data: Project,
-  {
+  constructor(
+    private projectsService: ProjectsService,
+    private route: ActivatedRoute, // @Inject(MAT_DIALOG_DATA) public data: Project,
+  ) {
+    this.param1 = this.route.snapshot.params.id;
+    console.log('TCL: EditProjectModalComponent -> this.param1', this.param1);
     console.log('sdsd');
   }
 
   editProjects() {
-    // const categoryName = this.EditFormGroup.value.name;
-    // // const id = this.data.id;
-    // const payload = {
-    //   name: categoryName,
-    // };
-    // // this.projectsService.editProject(id, payload).subscribe((result: any) => {});
+    const categoryName = this.EditFormGroup.value.name;
+    const file = this.EditFormGroup.value.file;
+    const payload = {
+      logo: file,
+    };
+    this.projectsService.addLogo(this.param1, payload).subscribe((result: any) => {});
   }
 
-  onSelect(event) {
-    console.log(event);
-    this.files.push(...event.addedFiles);
+  handleLogoInput(files: FileList) {
+    this.EditFormGroup.value.file = files.item(0);
   }
 
-  onRemove(event) {
-    console.log(event);
-    this.files.splice(this.files.indexOf(event), 1);
+  uploadFileToActivity() {
+    this.projectsService.addLogo(this.param1, this.fileToUpload).subscribe(
+      data => {
+        // do something, if upload success
+      },
+      error => {
+        console.log(error);
+      },
+    );
   }
 }

@@ -1,6 +1,6 @@
 <div class="content-wrapper mat-typography">
   <app-title [hasCrud]="true" (showCallBackPopUp)="openAddModal()"></app-title>
-  <form class="form" [formGroup]="EditFormGroup">
+  <form class="form" [formGroup]="EditFormGroup" (ngSubmit)="editProjects()">
     <mat-card class="example-card">
       <mat-card-header>
         <div mat-card-avatar class="example-header-image"></div>
@@ -80,11 +80,22 @@
         <div class="row">
           <div class="col-md-6">
             <div class="form-group">
-              <label for="file">Choose File</label>
-              <input type="file" id="file" (change)="handleFileInput($event.target.files)" />
+              <label for="file">Choose Logo Image</label>
+              <input
+                type="file"
+                id="file"
+                formControlName="logo"
+                (change)="handleLogoInput($event.target.files)"
+              />
+              <button (click)="uploadFileToActivity()" type="button">Add Logo</button>
             </div>
           </div>
-          <div class="col-md-6"></div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="file">Choose Cover Image</label>
+              <input type="file" id="file" (change)="handleCoverInput($event.target.files)" />
+            </div>
+          </div>
         </div>
         <div></div>
       </mat-card-content>
