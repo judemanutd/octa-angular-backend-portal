@@ -19,7 +19,7 @@ jobs:
           yarn install
       - name: Build
         run: |
-          npm run-script build-prod
+          npm run-script build-dev
           cp robots.txt public/robots.txt
       - name: Deploy to Firebase
         uses: w9jds/firebase-action@v1.1.0
