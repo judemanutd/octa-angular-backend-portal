@@ -11,6 +11,10 @@ export class ProjectsService {
     return this.http.get('project');
   }
 
+  getSingleProject(id) {
+    return this.http.get(`project/${id}`);
+  }
+
   addProject(payload) {
     return this.http.post('project', payload);
   }

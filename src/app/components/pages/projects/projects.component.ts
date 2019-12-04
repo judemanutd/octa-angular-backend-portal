@@ -16,6 +16,7 @@ import { DeleteProjectModalComponent } from './modals/delete-project-modal/delet
   selector: 'app-projects',
   templateUrl: './projects.component.html',
   styleUrls: ['./projects.component.scss'],
+  providers: [ProjectsService],
 })
 export class ProjectsComponent implements OnInit {
   constructor(

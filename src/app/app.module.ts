@@ -47,6 +47,7 @@ import { AddProjectModalComponent } from './components/pages/projects/modals/add
 import { EditProjectModalComponent } from './components/pages/projects/modals/edit-project-modal/edit-project-modal.component';
 import { DeleteProjectModalComponent } from './components/pages/projects/modals/delete-project-modal/delete-project-modal.component';
 import { FileUploadComponent } from './components/pieces/file-upload/file-upload.component';
+import { MatProgressBarModule } from '@angular/material';
 
 @NgModule({
   declarations: [
@@ -104,6 +105,7 @@ import { FileUploadComponent } from './components/pieces/file-upload/file-upload
     AngularFileUploaderModule,
     CategoriesModule,
     AppRoutingModule,
+    MatProgressBarModule,
   ],
   exports: [MaterialModule],
   providers: [
