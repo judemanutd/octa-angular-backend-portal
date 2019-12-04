@@ -6,7 +6,7 @@
     "start": "ng serve -c local",
     "build": "ng build",
     "build-prod": "npx run-scripts reset-public && ng build -c production",
-    "build-dev": "npx run-scripts reset-public && ng build -c local",
+    "build-dev": "npx run-scripts reset-public && ng build -c development",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
