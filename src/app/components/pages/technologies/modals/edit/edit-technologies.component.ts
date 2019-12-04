@@ -4,6 +4,8 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { CategoriesService } from '~app/services/categories.service';
 import { TechnologiesService } from '~app/services/technologies.service';
 import { Technology } from '~app/interfaces/Technology';
+import { Category } from '~app/interfaces/Category';
+import IResponse from '~app/interfaces/IResponse';
 
 @Component({
   selector: 'app-edit-technologies',
@@ -14,6 +16,8 @@ export class EditTechnologiesComponent implements OnInit {
   EditFormGroup = new FormGroup({
     name: new FormControl(this.data.name),
     category: new FormControl(this.data.category),
+    icon_type: new FormControl(this.data.icon !== null ? this.data.icon.type : ''),
+    icon_name: new FormControl(this.data.icon !== null ? this.data.icon.name : ''),
   });
 
   constructor(
@@ -21,11 +25,16 @@ export class EditTechnologiesComponent implements OnInit {
     private categoriesService: CategoriesService,
     private technologiesService: TechnologiesService,
     @Inject(MAT_DIALOG_DATA) public data: Technology,
-  ) {}
-  public category: [];
+  ) {
+    this.selected = data.category;
+    this.category.push(data.category);
+    this.technology = data;
+  }
+  public category: Category[] = [];
+  public selected: Category;
+  public technology: Technology;
   ngOnInit() {
     this.getCategories();
-    console.log('TCL: AddTechnologiesComponent -> category', this.category);
   }
 
   onNoClick(): void {
@@ -34,25 +43,30 @@ export class EditTechnologiesComponent implements OnInit {
 
   editTechnologies() {
     const technologyName = this.EditFormGroup.value.name;
-    const categoryId = this.EditFormGroup.value.category;
+    const categoryId = this.EditFormGroup.value.category.id;
+    const icon_name = this.EditFormGroup.value.icon_name;
+    const icon_type = this.EditFormGroup.value.icon_type;
     const id = this.data.id;
 
-    const payload = {
+    const payload: any = {
       name: technologyName,
       category: categoryId,
     };
-    this.technologiesService.editTechnology(id, payload).subscribe((result: any) => {
+
+    if (icon_name && icon_type) {
+      payload.icon_type = icon_type;
+      payload.icon_name = icon_name;
+    }
+
+    this.technologiesService.editTechnology(id, payload).subscribe(() => {
       this.dialogRef.close('refresh');
     });
   }
 
   getCategories() {
-    this.categoriesService.getCategories().subscribe((result: any) => {
-      this.category = result.payload;
-      console.log(
-        'TCL: AddTechnologiesComponent -> getCategories ->  this.category',
-        this.category,
-      );
+    this.categoriesService.getCategories().subscribe((result: IResponse<Category[]>) => {
+      const categories = result.payload;
+      this.category.push(...categories.filter(category => category.id !== this.selected.id));
     });
   }
 }

@@ -6,9 +6,17 @@
     </mat-form-field>
 
     <mat-form-field class="form__field">
-      <mat-select formControlName="category" placeholder="Category">
-        <mat-option [value]="cat.id" *ngFor="let cat of category"> {{ cat.name }}</mat-option>
+      <mat-select formControlName="category" [(value)]="selected" placeholder="Category">
+        <mat-option [value]="cat" *ngFor="let cat of category"> {{ cat.name }}</mat-option>
       </mat-select>
+    </mat-form-field>
+
+    <mat-form-field class="form__field">
+      <input matInput type="text" formControlName="icon_type" placeholder="Icon type" />
+    </mat-form-field>
+
+    <mat-form-field class="form__field">
+      <input matInput type="text" formControlName="icon_name" placeholder="Icon name" />
     </mat-form-field>
   </mat-dialog-content>
   <mat-dialog-actions align="end">
