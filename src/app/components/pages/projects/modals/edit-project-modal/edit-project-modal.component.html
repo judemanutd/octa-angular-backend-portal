@@ -113,4 +113,27 @@
       </mat-card-actions>
     </form>
   </mat-card>
+
+  <mat-card class="example-card">
+    <mat-card-header>
+      <div mat-card-avatar class="example-header-image"></div>
+      <mat-card-title></mat-card-title>
+    </mat-card-header>
+    <button (click)="openAddModal()" mat-icon-button>
+      Add Image
+      <mat-icon color="accent" aria-hidden="false" aria-label="Add Button">
+        library_add
+      </mat-icon>
+    </button>
+    <mat-card-content>
+      <div class="row">
+        <div class="gallerize-example">
+          <h3>Project Images</h3>
+          <p class="container">
+            <img *ngFor="let item of items; index as i" [lightbox]="i" [src]="item.link" />
+          </p>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
 </div>

@@ -1,11 +1,13 @@
-import { Component, ChangeDetectorRef, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, Renderer2 } from '@angular/core';
 import { FormControl, FormGroup, FormBuilder } from '@angular/forms';
-import {} from '@angular/material';
+import { MatDialog, MatSnackBar } from '@angular/material';
 import {} from '~app/interfaces/Project';
+import { Gallery, GalleryItem, ImageItem, ThumbnailsPosition, ImageSize } from '@ngx-gallery/core';
+import { map } from 'rxjs/operators';
 import { ProjectsService } from '~app/services/projects.service';
 import { ActivatedRoute } from '@angular/router';
-import { pluck } from 'rxjs/operators';
 import { ClientsService } from '~app/services/clients.service';
+import { ImageModalComponent } from './image.modal/image.modal.component';
 
 @Component({
   selector: 'app-edit-project-modal',
@@ -13,6 +15,7 @@ import { ClientsService } from '~app/services/clients.service';
   styleUrls: ['./edit-project-modal.component.scss'],
 })
 export class EditProjectModalComponent implements OnInit {
+  items: [];
   private project: any;
   private logoImage: any;
   private coverImage: any;
@@ -26,7 +29,6 @@ export class EditProjectModalComponent implements OnInit {
     currency: new FormControl(''),
     logo: new FormControl(''),
   });
-  form: FormGroup;
   fileToUpload: File = null;
   param1: any;
   uploadForm: FormGroup;
@@ -35,18 +37,28 @@ export class EditProjectModalComponent implements OnInit {
     private projectsService: ProjectsService,
     private clientService: ClientsService,
     private route: ActivatedRoute,
-    private cd: ChangeDetectorRef,
-    public fb: FormBuilder, // @Inject(MAT_DIALOG_DATA) public data: Project,
+    public fb: FormBuilder,
+    public dialog: MatDialog,
+    private snackBar: MatSnackBar,
+    public gallery: Gallery, //
   ) {
     this.param1 = this.route.snapshot.params.id;
-    this.form = this.fb.group({
-      logo: [null],
-    });
   }
 
   ngOnInit() {
+    // this.items = data.map(item =>
+    //   new ImageItem({ src: item.link, name: item.name, desc: item.description })
+    // );
+
+    // Load items into the lightbox
+    this.basicLightboxExample();
+    this.getProjects();
+
+    // Load item into different lightbox instance
+    // With custom gallery config
+    this.withCustomGalleryConfig();
     this.getClients();
-    const prod = this.projectsService.getSingleProject(this.param1).subscribe((result: any) => {
+    this.projectsService.getSingleProject(this.param1).subscribe((result: any) => {
       this.project = result.payload;
       this.EditFormGroup.controls['name'].setValue(result.payload.name);
       this.EditFormGroup.controls['client'].setValue(result.payload.client.name);
@@ -64,11 +76,28 @@ export class EditProjectModalComponent implements OnInit {
       cover: [''],
     });
   }
+  basicLightboxExample() {
+    this.gallery.ref().load(this.items);
+  }
+
+  /**
+   * Use custom gallery config with the lightbox
+   */
+  withCustomGalleryConfig() {
+    // 2. Get a lightbox gallery ref
+    const lightboxGalleryRef = this.gallery.ref('anotherLightbox');
+
+    // (Optional) Set custom gallery config to this lightbox
+    lightboxGalleryRef.setConfig({
+      imageSize: ImageSize.Cover,
+      thumbPosition: ThumbnailsPosition.Top,
+    });
+
+    // 3. Load the items into the lightbox
+    lightboxGalleryRef.load(this.items);
+  }
 
   editProjectsImages() {
-    const categoryName = this.EditFormGroup.value.name;
-    const file = this.form.value.logo;
-
     const formData = new FormData();
     formData.append('logo', this.uploadForm.get('logo').value);
     // formData.append('file', this.uploadForm.get('cover').value);
@@ -116,6 +145,33 @@ export class EditProjectModalComponent implements OnInit {
       const file = event.target.files[0];
       this.uploadForm.get('logo').setValue(file);
     }
+  }
+
+  getProjects() {
+    /* Calls the getCategories function in the categories service and updates the
+     * dataSource variable which has 2 way binding wih view layer
+     * This enables the table component to update with the new data
+     * Paginator and Sorting is loaded to the dataSource object
+     */
+    this.projectsService.getSingleProject(this.param1).subscribe((result: any) => {
+      this.items = result.payload.gallery;
+    });
+  }
+
+  openAddModal(): void {
+    /* Opens a model which contains the AddCategoriesModalComponent defined below */
+    const dialogRef = this.dialog.open(ImageModalComponent, {
+      width: '40rem',
+      data: this.param1,
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === 'refresh') {
+        this.snackBar.open('Image Added', '', {
+          duration: 3000,
+        });
+        this.getProjects();
+      }
+    });
   }
 
   uploadFileCover(event) {

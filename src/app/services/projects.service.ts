@@ -31,6 +31,10 @@ export class ProjectsService {
     return this.http.post(`project/${id}/logo`, payload);
   }
 
+  addGallery(id, payload) {
+    return this.http.post(`project/${id}/gallery`, payload);
+  }
+
   deleteLogo(id) {
     return this.http.delete(`project/${id}/logo`);
   }

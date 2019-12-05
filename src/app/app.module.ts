@@ -17,11 +17,14 @@ import { CategoriesModule } from '~app/components/pages/categories/categories.mo
 import { TitleModule } from '~app/components/pieces/title/title.module';
 import { HeaderModule } from '~app/components/pieces/header/header.module';
 import { TemplateModule } from '~app/components/template/template.module';
+import { CarouselModule, WavesModule } from 'angular-bootstrap-md';
 import { SiteTemplateModule } from '~app/components/layouts/site/site-template.module';
 
 import { AppLayoutComponent } from '~app/components/layouts/app/app-layout.component';
 import { NoneLayoutComponent } from '~app/components/layouts/none/none-layout.component';
 import { AppComponent } from './app.component';
+import { LightboxModule } from '@ngx-gallery/lightbox';
+import { GalleryModule } from '@ngx-gallery/core';
 import { LoginComponent } from '~app/components/pages/login/login.component';
 import { UsersComponent } from '~app/components/pages/users/users.component';
 import { SidebarComponent } from '~app/components/pieces/sidebar/sidebar.component';
@@ -46,8 +49,8 @@ import { ProjectsComponent } from './components/pages/projects/projects.componen
 import { AddProjectModalComponent } from './components/pages/projects/modals/add-project-modal/add-project-modal.component';
 import { EditProjectModalComponent } from './components/pages/projects/modals/edit-project-modal/edit-project-modal.component';
 import { DeleteProjectModalComponent } from './components/pages/projects/modals/delete-project-modal/delete-project-modal.component';
-import { FileUploadComponent } from './components/pieces/file-upload/file-upload.component';
 import { MatProgressBarModule } from '@angular/material';
+import { ImageModalComponent } from './components/pages/projects/modals/edit-project-modal/image.modal/image.modal.component';
 
 @NgModule({
   declarations: [
@@ -72,9 +75,10 @@ import { MatProgressBarModule } from '@angular/material';
     AddProjectModalComponent,
     EditProjectModalComponent,
     DeleteProjectModalComponent,
-    FileUploadComponent,
+    ImageModalComponent,
   ],
   entryComponents: [
+    ImageModalComponent,
     AddTechnologiesComponent,
     EditTechnologiesComponent,
     DeleteTechnologiesModalComponent,
@@ -93,7 +97,11 @@ import { MatProgressBarModule } from '@angular/material';
     MaterialModule,
     MatSelectModule,
     MatDatepickerModule,
+    CarouselModule,
+    WavesModule,
     MatNativeDateModule,
+    LightboxModule,
+    GalleryModule,
     ReactiveFormsModule,
     NgxDropzoneModule,
     AngularFireAuthModule,
