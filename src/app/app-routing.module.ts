@@ -15,6 +15,7 @@ import { DashboardComponent } from '~app/components/pages/dashboard/dashboard.co
 import { ClientComponent } from './components/pages/client/client.component';
 import { ProjectsComponent } from './components/pages/projects/projects.component';
 import { EditProjectModalComponent } from './components/pages/projects/modals/edit-project-modal/edit-project-modal.component';
+import { ComponentComponent } from './components/pages/projects/component/component.component';
 
 // Using child routes to handle prebuilt templates
 // 2 layouts as of now App and None
@@ -45,6 +46,11 @@ const routes: Routes = [
       {
         path: 'projects/:id',
         component: EditProjectModalComponent,
+        canActivate: [AuthGuardService],
+      },
+      {
+        path: 'components/:id',
+        component: ComponentComponent,
         canActivate: [AuthGuardService],
       },
     ],

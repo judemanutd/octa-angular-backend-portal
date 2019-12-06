@@ -29,6 +29,7 @@ import { LoginComponent } from '~app/components/pages/login/login.component';
 import { UsersComponent } from '~app/components/pages/users/users.component';
 import { SidebarComponent } from '~app/components/pieces/sidebar/sidebar.component';
 import { FooterComponent } from '~app/components/pieces/footer/footer.component';
+import { MatExpansionModule } from '@angular/material/expansion';
 
 import { TechnologiesComponent } from '~app/components/pages/technologies/technologies.component';
 import { DashboardComponent } from '~app/components/pages/dashboard/dashboard.component';
@@ -39,7 +40,13 @@ import { AuthenticationService } from '~app/services/authentication.service';
 import { AddTechnologiesComponent } from '~app/components/pages/technologies/modals/add-technologies/add-technologies.component';
 import { EditTechnologiesComponent } from '~app/components/pages/technologies/modals/edit/edit-technologies.component';
 
-import { MatSelectModule, MatDatepickerModule, MatNativeDateModule } from '@angular/material';
+import {
+  MatSelectModule,
+  MatDatepickerModule,
+  MatNativeDateModule,
+  MatListModule,
+  MatGridListModule,
+} from '@angular/material';
 import { ClientComponent } from './components/pages/client/client.component';
 import { AddClientModalComponent } from './components/pages/client/modals/add-client-modal/add-client-modal.component';
 import { EditClientModalComponent } from './components/pages/client/modals/edit-client-modal/edit-client-modal.component';
@@ -51,6 +58,7 @@ import { EditProjectModalComponent } from './components/pages/projects/modals/ed
 import { DeleteProjectModalComponent } from './components/pages/projects/modals/delete-project-modal/delete-project-modal.component';
 import { MatProgressBarModule } from '@angular/material';
 import { ImageModalComponent } from './components/pages/projects/modals/edit-project-modal/image.modal/image.modal.component';
+import { ComponentComponent } from './components/pages/projects/component/component.component';
 
 @NgModule({
   declarations: [
@@ -76,6 +84,7 @@ import { ImageModalComponent } from './components/pages/projects/modals/edit-pro
     EditProjectModalComponent,
     DeleteProjectModalComponent,
     ImageModalComponent,
+    ComponentComponent,
   ],
   entryComponents: [
     ImageModalComponent,
@@ -98,6 +107,8 @@ import { ImageModalComponent } from './components/pages/projects/modals/edit-pro
     MatSelectModule,
     MatDatepickerModule,
     CarouselModule,
+    MatExpansionModule,
+    MatGridListModule,
     WavesModule,
     MatNativeDateModule,
     LightboxModule,

@@ -10,16 +10,31 @@
     <form class="form" [formGroup]="EditFormGroup" (ngSubmit)="editProjectsDetails()">
       <mat-card-content>
         <div class="row cover">
-          <img
-            src="{{ logoImage }}"
-            style="float:left; height: 187px; width: 23%; border: double"
-            alt="Add a Logo Image"
-          />
-          <img
-            src="{{ coverImage }}"
-            style="float:right;height: 254px; width: 75%; border: double"
-            alt="Add a cover Image"
-          />
+          <div class="img-wrap">
+            <button
+              id="clear"
+              style="display: inherit; margin-bottom: 30px"
+              *ngIf="logoImage"
+              onclick="deleteLogo()"
+            >
+              <mat-icon>clear</mat-icon>
+            </button>
+            <img
+              src="{{ logoImage }}"
+              style="float:left; height: 187px; width: 23%; border: double"
+              alt="Add a Logo Image"
+            />
+          </div>
+          <div class="img-wrap">
+            <a id="clear" *ngIf="coverImage" style="margin-left: 18px" onclick="deleteCover()">
+              <mat-icon>clear</mat-icon>
+            </a>
+            <img
+              src="{{ coverImage }}"
+              style="float:right;height: 254px; width: 75%; border: double;margin-top: -23px;"
+              alt="Add a cover Image"
+            />
+          </div>
         </div>
         <div class="row">
           <div class="col-md-4">
@@ -129,9 +144,19 @@
       <div class="row">
         <div class="gallerize-example">
           <h3>Project Images</h3>
-          <p class="container">
-            <img *ngFor="let item of items; index as i" [lightbox]="i" [src]="item.link" />
-          </p>
+          <div class="container">
+            <div *ngFor="let item of items; index as i">
+              <button
+                id="clear"
+                *ngIf="coverImage"
+                style="margin-left: 18px; position: absolute;"
+                onclick=""
+              >
+                x
+              </button>
+              <img [lightbox]="i" [src]="item.link" />
+            </div>
+          </div>
         </div>
       </div>
     </mat-card-content>

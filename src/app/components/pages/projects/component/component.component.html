@@ -1,0 +1,86 @@
+<div class="content-wrapper mat-typography">
+  <app-title [hasCrud]="false" (showCallBackPopUp)="openAddModal()"></app-title>
+
+  <mat-card class="example-card">
+    <mat-card-header>
+      <div mat-card-avatar class="example-header-image"></div>
+      <mat-card-title>Edit Project</mat-card-title>
+      <mat-card-subtitle>Project Details</mat-card-subtitle>
+    </mat-card-header>
+    <mat-accordion>
+      <mat-expansion-panel *ngFor="let comp of components">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            {{ comp.name }}
+          </mat-panel-title>
+          <mat-panel-description>
+            {{ comp.description }}
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+
+        <p>{{ comp.summary }}</p>
+        <p>{{ comp.technology.name }}</p>
+        <button class="btn btn-primary" (click)="editComponent(comp.id)">Edit</button>
+      </mat-expansion-panel>
+    </mat-accordion>
+    <form class="form" [formGroup]="ComponentFormGroup" (ngSubmit)="addComponent()">
+      <mat-card-content>
+        <div class="row cover"></div>
+        <div class="row">
+          <div class="col-md-6">
+            <mat-form-field class="form__field">
+              <input matInput type="text" formControlName="name" placeholder="Name" required />
+            </mat-form-field>
+          </div>
+          <div class="col-md-6">
+            <mat-form-field class="form__field">
+              <mat-select placeholder="Category" required formControlName="categoryId">
+                <mat-option [value]="cat.id" *ngFor="let cat of categories">
+                  {{ cat.name }}</mat-option
+                >
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <mat-form-field class="form__field">
+              <textarea
+                matInput
+                placeholder="Description"
+                formControlName="description"
+                rows="5"
+              ></textarea>
+            </mat-form-field>
+          </div>
+          <div class="col-md-6">
+            <mat-form-field class="form__field">
+              <textarea
+                matInput
+                placeholder="Summary"
+                formControlName="summary"
+                rows="5"
+              ></textarea>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <mat-form-field class="form__field">
+              <mat-label>Technologies</mat-label>
+              <mat-select [formControl]="technologyId" formControlName="technologyId" multiple>
+                <mat-option *ngFor="let tech of technologies" [value]="tech.id">{{
+                  tech.name
+                }}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="col-md-6"></div>
+        </div>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-button type="submit">Submit</button>
+      </mat-card-actions>
+    </form>
+  </mat-card>
+</div>
