@@ -4,6 +4,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { ProjectsService } from '~app/services/projects.service';
 import { ActivatedRoute } from '@angular/router';
 import { Project } from '~app/interfaces/Project';
+import { ComponentsService } from '~app/services/components.service';
 
 @Component({
   selector: 'app-image-modal',
@@ -16,6 +17,7 @@ export class ImageModalComponent implements OnInit {
   image: any;
 
   constructor(
+    private componentService: ComponentsService,
     public dialogRef: MatDialogRef<ImageModalComponent>,
     private projectsService: ProjectsService,
     private route: ActivatedRoute,
@@ -59,12 +61,21 @@ export class ImageModalComponent implements OnInit {
     formData.append('name', this.uploadForm.get('name').value);
     formData.append('description', this.uploadForm.get('desc').value);
     // formData.append('file', this.uploadForm.get('cover').value);
-
-    this.projectsService.addGallery(this.data, formData).subscribe((result: any) => {
-      console.log(result);
-      // this.image = result.payload.link;
-      this.dialogRef.close('refresh');
-    });
+    if (this.data.projectImage) {
+      this.projectsService.addGallery(this.data.project, formData).subscribe((result: any) => {
+        console.log(result);
+        // this.image = result.payload.link;
+        this.dialogRef.close('refresh');
+      });
+    } else {
+      this.componentService
+        .addGallery(this.data.project, this.data.component, formData)
+        .subscribe((result: any) => {
+          console.log(result);
+          // this.image = result.payload.link;
+          this.dialogRef.close('refresh');
+        });
+    }
 
     // this.technologiesService.addTechnology(payload).subscribe((result: any) => {
     //   /* Successful call send "refresh" to modal close event binder

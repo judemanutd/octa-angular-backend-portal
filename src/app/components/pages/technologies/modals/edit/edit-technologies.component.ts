@@ -15,6 +15,7 @@ export class EditTechnologiesComponent implements OnInit {
     name: new FormControl(this.data.name),
     category: new FormControl(this.data.category),
   });
+  selectedValue: any = this.data.category;
 
   constructor(
     public dialogRef: MatDialogRef<EditTechnologiesComponent>,
@@ -24,6 +25,7 @@ export class EditTechnologiesComponent implements OnInit {
   ) {}
   public category: [];
   ngOnInit() {
+    console.log(this.data);
     this.getCategories();
     console.log('TCL: AddTechnologiesComponent -> category', this.category);
   }

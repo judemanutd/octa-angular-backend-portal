@@ -12,7 +12,7 @@ export class ComponentsService {
   }
 
   getSingleComponent(cId, pId) {
-    return this.http.get(`project/${pId}/component/${pId}`);
+    return this.http.get(`project/${pId}/component/${cId}`);
   }
 
   addComponent(id, payload) {
@@ -45,5 +45,9 @@ export class ComponentsService {
 
   deleteCover(pId, cId) {
     return this.http.delete(`project/${pId}/component/${cId}/cover`);
+  }
+
+  deleteGallery(pId, cId, gId) {
+    return this.http.delete(`project/${pId}/component/${cId}/gallery/${gId}`);
   }
 }

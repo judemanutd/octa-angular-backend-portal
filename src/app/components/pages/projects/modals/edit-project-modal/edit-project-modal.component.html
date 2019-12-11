@@ -13,9 +13,11 @@
           <div class="img-wrap">
             <button
               id="clear"
+              class="btns"
+              type="button"
               style="display: inherit; margin-bottom: 30px"
               *ngIf="logoImage"
-              onclick="deleteLogo()"
+              (click)="deleteLogo()"
             >
               <mat-icon>clear</mat-icon>
             </button>
@@ -26,12 +28,19 @@
             />
           </div>
           <div class="img-wrap">
-            <a id="clear" *ngIf="coverImage" style="margin-left: 18px" onclick="deleteCover()">
+            <button
+              class="btns"
+              id="clear"
+              type="button"
+              *ngIf="coverImage"
+              style="margin-left: 18px;"
+              (click)="deleteCover()"
+            >
               <mat-icon>clear</mat-icon>
-            </a>
+            </button>
             <img
               src="{{ coverImage }}"
-              style="float:right;height: 254px; width: 75%; border: double;margin-top: -23px;"
+              style="float:right;height: 254px; width: 75%; border: double; margin-bottom: 15px;"
               alt="Add a cover Image"
             />
           </div>
@@ -44,7 +53,12 @@
           </div>
           <div class="col-md-4">
             <mat-form-field class="form__field">
-              <mat-select formControlName="client" placeholder="Client" required>
+              <mat-select
+                formControlName="client"
+                placeholder="Client"
+                [(ngModel)]="client.id"
+                required
+              >
                 <mat-option [value]="client.id" *ngFor="let client of clients">
                   {{ client.name }}</mat-option
                 >
@@ -146,15 +160,17 @@
           <h3>Project Images</h3>
           <div class="container">
             <div *ngFor="let item of items; index as i">
-              <button
+              <a
                 id="clear"
-                *ngIf="coverImage"
-                style="margin-left: 18px; position: absolute;"
-                onclick=""
+                class="btns"
+                type="button"
+                style="display: inherit; margin-bottom: 30px"
+                *ngIf="logoImage"
+                (click)="deleteGallery(item.data.id)"
               >
-                x
-              </button>
-              <img [lightbox]="i" [src]="item.link" />
+                <mat-icon>clear</mat-icon>
+              </a>
+              <img [lightbox]="i" [src]="item.data.thumb" />
             </div>
           </div>
         </div>

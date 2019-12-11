@@ -16,6 +16,9 @@ import { ClientComponent } from './components/pages/client/client.component';
 import { ProjectsComponent } from './components/pages/projects/projects.component';
 import { EditProjectModalComponent } from './components/pages/projects/modals/edit-project-modal/edit-project-modal.component';
 import { ComponentComponent } from './components/pages/projects/component/component.component';
+import { ViewComponent } from './components/pages/projects/component/view/view.component';
+import {} from './components/pages/projects/project.module';
+import { PortfolioComponent } from './components/pages/portfolio/portfolio.component';
 
 // Using child routes to handle prebuilt templates
 // 2 layouts as of now App and None
@@ -53,8 +56,15 @@ const routes: Routes = [
         component: ComponentComponent,
         canActivate: [AuthGuardService],
       },
+      {
+        path: 'component/view/:pId/:cId',
+        component: ViewComponent,
+        canActivate: [AuthGuardService],
+      },
+      { path: 'portfolios', component: PortfolioComponent, canActivate: [AuthGuardService] },
     ],
   },
+  // { path: 'projects', loadChildren: './components/pages/projects/project.module#ProjectModule' },
   { path: '**', redirectTo: '' },
 ];
 

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
 import { TechnologiesService } from '~app/services/technologies.service';
 import { CategoriesService } from '~app/services/categories.service';
@@ -13,6 +13,10 @@ import { ComponentsService } from '~app/services/components.service';
 export class ComponentComponent implements OnInit {
   panelOpenState = false;
   param1: any;
+  editMode: boolean;
+  componentId: any;
+  editCat: any;
+  selectedValue: any;
   toppings = new FormControl();
   technologies: any = [];
   components: any = [];
@@ -28,6 +32,7 @@ export class ComponentComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     private fb: FormBuilder,
     private technologiesService: TechnologiesService,
     private categoriesService: CategoriesService,
@@ -64,17 +69,33 @@ export class ComponentComponent implements OnInit {
     });
   }
 
+  clearForm() {
+    this.ComponentFormGroup.reset();
+    this.editMode = false;
+  }
+
   editComponent(id) {
-    this.componentService.getSingleComponent(this.param1, id).subscribe((result: any) => {
-      this.ComponentFormGroup.controls['name'].setValue(result.payload.name);
-      this.ComponentFormGroup.controls['summary'].setValue(result.payload.summary);
-      this.ComponentFormGroup.controls['description'].setValue(result.payload.description);
-      this.ComponentFormGroup.controls['categoryId'].setValue(result.payload.categoryId);
-      this.ComponentFormGroup.controls['technologyId'].setValue(result.payload.technologyId);
-      // this.ComponentFormGroup.controls['currency'].setValue(result.payload.currency);
-      // this.logoImage = result.payload.logo.link;
-      // this.coverImage = result.payload.cover.link;
-    });
+    this.componentId = id;
+    this.componentService
+      .getSingleComponent(this.componentId, this.param1)
+      .subscribe((result: any) => {
+        this.editMode = true;
+        this.ComponentFormGroup.controls['name'].setValue(result.payload.name);
+        this.ComponentFormGroup.controls['summary'].setValue(result.payload.summary);
+        this.ComponentFormGroup.controls['description'].setValue(result.payload.description);
+        this.ComponentFormGroup.controls['categoryId'].setValue(result.payload.category.id);
+        this.ComponentFormGroup.controls['technologyId'].setValue(result.payload.technology.id);
+        this.editCat = result.payload.category.name;
+        this.selectedValue = result.payload.category;
+        console.log(
+          'TCL: ComponentComponent -> editComponent -> result.payload.category.name',
+          result.payload.category.name,
+        );
+        this.getCategories();
+        // this.ComponentFormGroup.controls['currency'].setValue(result.payload.currency);
+        // this.logoImage = result.payload.logo.link;
+        // this.coverImage = result.payload.cover.link;
+      });
   }
 
   addComponent() {
@@ -90,13 +111,27 @@ export class ComponentComponent implements OnInit {
       description: description,
       categoryId: categoryId,
       technologyId: technologyId,
-      links: links,
     };
-    this.componentService.addComponent(this.param1, payload).subscribe((result: any) => {
-      /* Successful call send "refresh" to modal close event binder
-       * which allows us to refresh the table
-       */
-    });
+    if (this.editMode) {
+      this.componentService
+        .editComponent(this.param1, this.componentId, payload)
+        .subscribe((result: any) => {
+          this.editMode = false;
+          this.getProjectComponents();
+          this.ComponentFormGroup.reset();
+        });
+    } else {
+      this.componentService.addComponent(this.param1, payload).subscribe((result: any) => {
+        /* Successful call send "refresh" to modal close event binder
+         * which allows us to refresh the table
+         */
+        this.getProjectComponents();
+      });
+    }
+  }
+
+  viewComponent(id) {
+    this.router.navigateByUrl(`component/view/${this.param1}/${id}`);
   }
 
   getProjectComponents() {

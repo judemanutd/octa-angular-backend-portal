@@ -31,6 +31,8 @@ export class EditProjectModalComponent implements OnInit {
   });
   fileToUpload: File = null;
   param1: any;
+  client: any;
+  gal: any;
   uploadForm: FormGroup;
 
   constructor(
@@ -56,7 +58,7 @@ export class EditProjectModalComponent implements OnInit {
 
     // Load item into different lightbox instance
     // With custom gallery config
-    this.withCustomGalleryConfig();
+    // this.withCustomGalleryConfig();
     this.getClients();
     this.projectsService.getSingleProject(this.param1).subscribe((result: any) => {
       this.project = result.payload;
@@ -66,8 +68,13 @@ export class EditProjectModalComponent implements OnInit {
       this.EditFormGroup.controls['end'].setValue(result.payload.endDate);
       this.EditFormGroup.controls['cost'].setValue(result.payload.cost);
       this.EditFormGroup.controls['currency'].setValue(result.payload.currency);
-      this.logoImage = result.payload.logo.link;
-      this.coverImage = result.payload.cover.link;
+      if (result.payload.logo) {
+        this.logoImage = result.payload.logo.link;
+      }
+      this.client = result.payload.client;
+      if (result.payload.cover) {
+        this.coverImage = result.payload.cover.link;
+      }
     });
     console.log('TCL: EditProjectModalComponent -> ngOnInit -> this.project', this.project);
 
@@ -76,26 +83,24 @@ export class EditProjectModalComponent implements OnInit {
       cover: [''],
     });
   }
-  basicLightboxExample() {
-    this.gallery.ref().load(this.items);
-  }
+  basicLightboxExample() {}
 
   /**
    * Use custom gallery config with the lightbox
    */
-  withCustomGalleryConfig() {
-    // 2. Get a lightbox gallery ref
-    const lightboxGalleryRef = this.gallery.ref('anotherLightbox');
+  // withCustomGalleryConfig() {
+  //   // 2. Get a lightbox gallery ref
+  //   const lightboxGalleryRef = this.gallery.ref('anotherLightbox');
 
-    // (Optional) Set custom gallery config to this lightbox
-    lightboxGalleryRef.setConfig({
-      imageSize: ImageSize.Cover,
-      thumbPosition: ThumbnailsPosition.Top,
-    });
+  //   // (Optional) Set custom gallery config to this lightbox
+  //   lightboxGalleryRef.setConfig({
+  //     imageSize: ImageSize.Cover,
+  //     thumbPosition: ThumbnailsPosition.Top,
+  //   });
 
-    // 3. Load the items into the lightbox
-    lightboxGalleryRef.load(this.items);
-  }
+  //   // 3. Load the items into the lightbox
+  //   lightboxGalleryRef.load(this.items);
+  // }
 
   editProjectsImages() {
     const formData = new FormData();
@@ -154,7 +159,13 @@ export class EditProjectModalComponent implements OnInit {
      * Paginator and Sorting is loaded to the dataSource object
      */
     this.projectsService.getSingleProject(this.param1).subscribe((result: any) => {
-      this.items = result.payload.gallery;
+      this.gal = result.payload.gallery;
+      console.log('TCL: EditProjectModalComponent -> getProjects -> this.gal', this.gal);
+      this.items = this.gal.map(
+        item => new ImageItem({ src: item.link, thumb: item.link, name: item.name, id: item.id }),
+      );
+      this.gallery.ref().load(this.items);
+      console.log('TCL: EditProjectModalComponent -> getProjects -> this.items', this.items);
     });
   }
 
@@ -162,7 +173,10 @@ export class EditProjectModalComponent implements OnInit {
     /* Opens a model which contains the AddCategoriesModalComponent defined below */
     const dialogRef = this.dialog.open(ImageModalComponent, {
       width: '40rem',
-      data: this.param1,
+      data: {
+        projectImage: true,
+        project: this.param1,
+      },
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'refresh') {
@@ -184,6 +198,25 @@ export class EditProjectModalComponent implements OnInit {
   getClients() {
     this.clientService.getClient().subscribe((result: any) => {
       this.clients = result.payload;
+    });
+  }
+
+  deleteLogo() {
+    console.log('sdsd');
+    this.projectsService.deleteLogo(this.param1).subscribe((result: any) => {
+      this.logoImage = null;
+    });
+  }
+
+  deleteCover() {
+    this.projectsService.deleteCover(this.param1).subscribe((result: any) => {
+      this.coverImage = null;
+    });
+  }
+
+  deleteGallery(id) {
+    this.projectsService.deleteGallery(this.param1, id).subscribe((result: any) => {
+      this.getProjects();
     });
   }
 }

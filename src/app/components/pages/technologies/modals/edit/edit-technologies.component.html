@@ -6,7 +6,7 @@
     </mat-form-field>
 
     <mat-form-field class="form__field">
-      <mat-select formControlName="category" placeholder="Category">
+      <mat-select formControlName="category" placeholder="Category" [(ngModel)]="selectedValue.id">
         <mat-option [value]="cat.id" *ngFor="let cat of category"> {{ cat.name }}</mat-option>
       </mat-select>
     </mat-form-field>

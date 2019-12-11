@@ -46,4 +46,8 @@ export class ProjectsService {
   deleteCover(id) {
     return this.http.delete(`project/${id}/cover`);
   }
+
+  deleteGallery(pId, gId) {
+    return this.http.delete(`project/${pId}/gallery/${gId}`);
+  }
 }
