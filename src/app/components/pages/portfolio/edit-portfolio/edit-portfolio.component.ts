@@ -19,10 +19,10 @@ export class EditPortfolioComponent implements OnInit {
   EditFormGroup = new FormGroup({
     title: new FormControl(this.data.title),
     description: new FormControl(this.data.description),
-    componentId: new FormControl(this.data.componentId),
-    technologyId: new FormControl(this.data.technologyId),
-    categoryId: new FormControl(this.data.categoryId),
-    projectId: new FormControl(this.data.projectId),
+    componentId: new FormControl(this.data.component),
+    technologyId: new FormControl(this.data.technology),
+    categoryId: new FormControl(this.data.category),
+    projectId: new FormControl(this.data.project),
   });
   project: any = [];
   component: any = [];
@@ -32,6 +32,7 @@ export class EditPortfolioComponent implements OnInit {
   componentSelect: any;
   techSelect: any;
   catSelect: any;
+  portfolio: any = [];
 
   constructor(
     public dialogRef: MatDialogRef<EditPortfolioComponent>,
@@ -49,62 +50,94 @@ export class EditPortfolioComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.progressRef = this.progress.ref('myProgress');
+    this.progressRef.start();
     this.getProjects();
     this.getTechnologies();
     this.getComponents();
     this.getCategories();
-    this.progressRef = this.progress.ref('myProgress');
-    this.progressRef.start();
-    this.portfolioService.getSinglePortfolio(this.data.id).subscribe((result: any) => {
-      this.project = result.payload;
-      this.EditFormGroup.controls['title'].setValue(result.payload.title);
-      this.EditFormGroup.controls['description'].setValue(result.payload.description);
-      this.EditFormGroup.controls['componentId'].setValue(result.payload);
-      this.EditFormGroup.controls['technologyId'].setValue(result.payload);
-      this.EditFormGroup.controls['categoryId'].setValue(result.payload);
-      this.EditFormGroup.controls['projectId'].setValue(result.payload);
-      const res = result.payload.technology;
-      // var tech = [], cat = [], proj = [], comp = [];
-      console.log('TCL: ComponentComponent -> editComponent -> res', res);
-      res.forEach(element => {
-        console.log(element.id);
-        this.technology.push(element.id);
-        // this.technology = tech;
-        console.log('TCL: EditPortfolioComponent -> ngOnInit -> technology', this.technology);
-      });
-      const res1 = result.payload.category;
-      res1.forEach(element => {
-        this.category.push(element.id);
-        // this.category = cat;
-        console.log('TCL: EditPortfolioComponent -> ngOnInit -> this.category', this.category);
-      });
-      const res2 = result.payload.project;
-      res1.forEach(element => {
-        this.project.push(element.id);
-        // this.project = proj
-      });
-      const res3 = result.payload.component;
-      res1.forEach(element => {
-        this.component.push(element.id);
-        // this.component = comp;
-      });
-      this.progressRef.complete();
+
+    this.EditFormGroup.controls['title'].setValue(this.data.title);
+    this.EditFormGroup.controls['description'].setValue(this.data.description);
+    this.EditFormGroup.controls['componentId'].setValue(this.data.component);
+    this.EditFormGroup.controls['technologyId'].setValue(this.data.technology);
+    this.EditFormGroup.controls['categoryId'].setValue(this.data.category);
+    this.EditFormGroup.controls['projectId'].setValue(this.data.project);
+    const res = this.data.technology;
+    console.log('TCL: EditPortfolioComponent -> ngOnInit -> this.data', this.data);
+    // var tech = [], cat = [], proj = [], comp = [];
+    console.log('TCL: ComponentComponent -> editComponent -> res', res);
+    res.forEach(element => {
+      this.technology.push(element.id);
+      // this.technology = tech;
     });
-    console.log('TCL: EditPortfolioComponent -> this.data', this.data);
+    const res1 = this.data.category;
+    res1.forEach(element => {
+      this.category.push(element.id);
+      // this.category = cat;
+    });
+
+    const res2 = this.data.project;
+    console.log('TCL: EditPortfolioComponent -> ngOnInit -> project', this.project);
+    console.log('TCL: EditPortfolioComponent -> ngOnInit -> res2', res2);
+    res2.forEach(element => {
+      console.log('TCL: EditPortfolioComponent -> ngOnInit -> element', element);
+      this.project.push(element.id);
+
+      // this.project = proj
+    });
+    console.log('TCL: EditPortfolioComponent -> ngOnInit -> project', this.project);
+    const res3 = this.data.component;
+    res3.forEach(element => {
+      if (element.id !== undefined) {
+        this.component.push(element.id);
+      }
+
+      // this.component = comp;
+    });
+    console.log('TCL: EditPortfolioComponent -> ngOnInit -> component', this.component);
+    this.progressRef.complete();
+    // this.portfolioService.getSinglePortfolio(this.data.id).subscribe((result: any) => {
+    //   console.log('TCL: EditPortfolioComponent -> ngOnInit -> result', result);
+    //   this.portfolio = result.payload;
+    //   console.log('TCL: EditPortfolioComponent -> ngOnInit -> project', this.portfolio);
+
+    //
+
+    //
+
+    // });
+    // console.log('TCL: EditPortfolioComponent -> this.data', this.data);
   }
 
-  editCategories() {
-    const categoryName = this.EditFormGroup.value.name;
-    const id = this.data.id;
+  editPortfolio() {
+    this.progressRef.start();
+    const portfolio = this.EditFormGroup.value.title;
+    const description = this.EditFormGroup.value.description;
+    const comp = this.EditFormGroup.value.componentId;
+    const tech = this.EditFormGroup.value.technologyId;
+    const cat = this.EditFormGroup.value.categoryId;
+    const project = this.EditFormGroup.value.projectId;
     const payload = {
-      name: categoryName,
+      payload: {
+        title: portfolio,
+        description: description,
+        componentId: comp,
+        technologyId: tech,
+        categoryId: cat,
+        projectId: project,
+      },
     };
-    this.categoriesService.editCategory(id, payload).subscribe((result: any) => {
-      this.dialogRef.close('refresh');
+    this.portfolioService.editPortfolio(this.data.id, payload).subscribe((result: any) => {
+      /* Successful call send "refresh" to modal close event binder
+       * which allows us to refresh the table
+       */
+      this.progressRef.complete();
     });
   }
 
   getCategories() {
+    this.progressRef.start();
     /* Calls the getCategories function in the categories service and updates the
      * dataSource variable which has 2 way binding wih view layer
      * This enables the table component to update with the new data
@@ -112,10 +145,12 @@ export class EditPortfolioComponent implements OnInit {
      */
     this.categoriesService.getCategories().subscribe((result: any) => {
       this.catSelect = result.payload;
+      this.progressRef.complete();
     });
   }
 
   getTechnologies() {
+    this.progressRef.start();
     /* Calls the getCategories function in the categories service and updates the
      * dataSource variable which has 2 way binding wih view layer
      * This enables the table component to update with the new data
@@ -123,18 +158,23 @@ export class EditPortfolioComponent implements OnInit {
      */
     this.technologiesService.getTechnologies().subscribe((result: any) => {
       this.techSelect = result.payload;
+      this.progressRef.complete();
     });
   }
 
   getComponents() {
+    this.progressRef.start();
     this.componentsService.getAllComponenets().subscribe((result: any) => {
       this.componentSelect = result.payload.results;
+      this.progressRef.complete();
     });
   }
 
   getProjects() {
+    this.progressRef.start();
     this.projectService.getProjects().subscribe((result: any) => {
       this.projectSelect = result.payload;
+      this.progressRef.complete();
     });
   }
 }

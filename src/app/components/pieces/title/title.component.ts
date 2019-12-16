@@ -16,6 +16,7 @@ export class TitleComponent implements OnInit {
     user: { name: 'User' },
     clients: { name: 'Clients' },
     projects: { name: 'Projects' },
+    portfolios: { name: 'Portfolios' },
   };
 
   @Input()

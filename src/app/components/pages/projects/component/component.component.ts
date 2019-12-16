@@ -4,6 +4,7 @@ import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
 import { TechnologiesService } from '~app/services/technologies.service';
 import { CategoriesService } from '~app/services/categories.service';
 import { ComponentsService } from '~app/services/components.service';
+import { NgProgress, NgProgressRef } from '@ngx-progressbar/core';
 
 @Component({
   selector: 'app-component',
@@ -11,6 +12,7 @@ import { ComponentsService } from '~app/services/components.service';
   styleUrls: ['./component.component.scss'],
 })
 export class ComponentComponent implements OnInit {
+  progressRef: NgProgressRef;
   panelOpenState = false;
   param1: any;
   editMode: boolean;
@@ -38,11 +40,13 @@ export class ComponentComponent implements OnInit {
     private technologiesService: TechnologiesService,
     private categoriesService: CategoriesService,
     private componentService: ComponentsService,
+    private progress: NgProgress,
   ) {
     this.param1 = this.route.snapshot.params.id;
   }
 
   ngOnInit() {
+    this.progressRef = this.progress.ref('myProgress');
     this.getTechnologies();
     this.getCategories();
     this.getProjectComponents();
@@ -76,12 +80,15 @@ export class ComponentComponent implements OnInit {
   }
 
   editComponent(id) {
-    this.selectedTech = [];
+    this.progressRef.start();
+    // this.selectedTech = [''];
+
     console.log('TCL: ComponentComponent -> editComponent -> selectedTech', this.selectedTech);
     this.componentId = id;
     this.componentService
       .getSingleComponent(this.componentId, this.param1)
       .subscribe((result: any) => {
+        console.log('TCL: ComponentComponent -> editComponent -> selectedTech', this.selectedTech);
         this.editMode = true;
         this.ComponentFormGroup.controls['name'].setValue(result.payload.name);
         this.ComponentFormGroup.controls['summary'].setValue(result.payload.summary);
@@ -90,9 +97,10 @@ export class ComponentComponent implements OnInit {
         this.ComponentFormGroup.controls['technologyId'].setValue(result.payload.technology.id);
         this.editCat = result.payload.category.name;
         this.selectedValue = result.payload.category;
-        const res = result.payload.technology;
+        let res = result.payload.technology;
         console.log('TCL: ComponentComponent -> editComponent -> res', res);
         res.forEach(element => {
+          console.log('TCL: ComponentComponent -> editComponent -> element', element);
           this.selectedTech.push(element.id);
         });
         console.log('TCL: ComponentComponent -> editComponent -> selectedTech', this.selectedTech);
@@ -104,6 +112,7 @@ export class ComponentComponent implements OnInit {
         // this.ComponentFormGroup.controls['currency'].setValue(result.payload.currency);
         // this.logoImage = result.payload.logo.link;
         // this.coverImage = result.payload.cover.link;
+        this.progressRef.complete();
       });
   }
 

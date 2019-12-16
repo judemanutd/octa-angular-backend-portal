@@ -175,7 +175,7 @@ export class EditProjectModalComponent implements OnInit {
       this.items = this.gal.map(
         item =>
           new ImageItem({
-            src: `https://storage.googleapis.com/octalogic-portfolio-dev.appspot.com//public/images/b58cf5c4-575d-40c6-955e-24f0f11a456b`,
+            src: item.link,
             thumb: item.link,
             name: item.name,
             id: item.id,

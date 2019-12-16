@@ -1,5 +1,5 @@
-<h2 mat-dialog-title>Add Projects</h2>
-<form class="form" [formGroup]="EditFormGroup" (ngSubmit)="addPortfolio()">
+<h2 mat-dialog-title>Edit Portfolio</h2>
+<form class="form" [formGroup]="EditFormGroup" (ngSubmit)="editPortfolio()">
   <mat-dialog-content class="mat-typography">
     <div class="row">
       <div class="col-md-6">
@@ -24,10 +24,10 @@
           <mat-select
             formControlName="projectId"
             placeholder="Projects"
-            [(ngModel)]="project.id"
+            [(ngModel)]="project"
             multiple
           >
-            <mat-option *ngFor="let project of projectSelect" [value]="project">
+            <mat-option *ngFor="let project of projectSelect" [value]="project.id">
               {{ project.name }}</mat-option
             >
           </mat-select>
@@ -38,10 +38,10 @@
           <mat-select
             formControlName="componentId"
             placeholder="Component"
-            [(ngModel)]="component.id"
+            [(ngModel)]="component"
             multiple
           >
-            <mat-option *ngFor="let component of componentSelect" [value]="component">
+            <mat-option *ngFor="let component of componentSelect" [value]="component.id">
               {{ component.text }}</mat-option
             >
           </mat-select>
@@ -82,7 +82,7 @@
   <mat-dialog-actions align="end">
     <button mat-button [mat-dialog-close]="false">Cancel</button>
     <button mat-button cdkFocusInitial class="modal__button--primary">
-      Add
+      Edit
     </button>
   </mat-dialog-actions>
 </form>

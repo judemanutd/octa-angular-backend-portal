@@ -2,8 +2,8 @@ export interface Portfolio {
   id: string;
   title: string;
   description: string;
-  componentId: string;
-  technologyId: string;
-  categoryId: string;
-  projectId: string;
+  component: any;
+  technology: any;
+  category: any;
+  project: any;
 }
