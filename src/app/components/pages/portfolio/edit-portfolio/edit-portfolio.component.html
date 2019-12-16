@@ -23,12 +23,11 @@
         <mat-form-field class="form__field">
           <mat-select
             formControlName="projectId"
-            (selectionChange)="getComp($event)"
             placeholder="Projects"
             [(ngModel)]="project.id"
-            required
+            multiple
           >
-            <mat-option [value]="project.id" *ngFor="let project of projects">
+            <mat-option *ngFor="let project of projectSelect" [value]="project">
               {{ project.name }}</mat-option
             >
           </mat-select>
@@ -40,10 +39,10 @@
             formControlName="componentId"
             placeholder="Component"
             [(ngModel)]="component.id"
-            required
+            multiple
           >
-            <mat-option [value]="component.id" *ngFor="let component of components">
-              {{ component.name }}</mat-option
+            <mat-option *ngFor="let component of componentSelect" [value]="component">
+              {{ component.text }}</mat-option
             >
           </mat-select>
         </mat-form-field>
@@ -56,10 +55,10 @@
           <mat-select
             formControlName="technologyId"
             placeholder="Technology"
-            [(ngModel)]="technology.id"
-            required
+            [(ngModel)]="technology"
+            multiple
           >
-            <mat-option [value]="tech.id" *ngFor="let tech of technologies">
+            <mat-option *ngFor="let tech of techSelect" [value]="tech.id">
               {{ tech.name }}</mat-option
             >
           </mat-select>
@@ -71,10 +70,10 @@
           <mat-select
             formControlName="categoryId"
             placeholder="Category"
-            [(ngModel)]="category.id"
-            required
+            [(ngModel)]="category"
+            multiple
           >
-            <mat-option [value]="cat.id" *ngFor="let cat of categories"> {{ cat.name }}</mat-option>
+            <mat-option *ngFor="let cat of catSelect" [value]="cat.id"> {{ cat.name }}</mat-option>
           </mat-select>
         </mat-form-field>
       </div>

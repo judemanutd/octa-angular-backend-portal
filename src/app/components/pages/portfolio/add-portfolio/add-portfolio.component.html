@@ -21,12 +21,7 @@
     <div class="row">
       <div class="col-md-6">
         <mat-form-field class="form__field">
-          <mat-select
-            formControlName="projectId"
-            (selectionChange)="getComp($event)"
-            placeholder="Projects"
-            multiple
-          >
+          <mat-select formControlName="projectId" placeholder="Projects" multiple>
             <mat-option [value]="project.id" *ngFor="let project of projects">
               {{ project.name }}</mat-option
             >
@@ -37,7 +32,7 @@
         <mat-form-field class="form__field">
           <mat-select formControlName="componentId" placeholder="Component" multiple>
             <mat-option [value]="component.id" *ngFor="let component of components">
-              {{ component.name }}</mat-option
+              {{ component.text }}</mat-option
             >
           </mat-select>
         </mat-form-field>

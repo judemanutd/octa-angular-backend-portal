@@ -8,6 +8,7 @@ import { ProjectsService } from '~app/services/projects.service';
 import { ActivatedRoute } from '@angular/router';
 import { ClientsService } from '~app/services/clients.service';
 import { ImageModalComponent } from './image.modal/image.modal.component';
+import { NgProgressRef, NgProgress } from '@ngx-progressbar/core';
 
 @Component({
   selector: 'app-edit-project-modal',
@@ -15,6 +16,7 @@ import { ImageModalComponent } from './image.modal/image.modal.component';
   styleUrls: ['./edit-project-modal.component.scss'],
 })
 export class EditProjectModalComponent implements OnInit {
+  progressRef: NgProgressRef;
   items: [];
   private project: any;
   private logoImage: any;
@@ -41,6 +43,7 @@ export class EditProjectModalComponent implements OnInit {
     private route: ActivatedRoute,
     public fb: FormBuilder,
     public dialog: MatDialog,
+    private progress: NgProgress,
     private snackBar: MatSnackBar,
     public gallery: Gallery, //
   ) {
@@ -48,6 +51,8 @@ export class EditProjectModalComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.progressRef = this.progress.ref('myProgress');
+    this.progressRef.start();
     // this.items = data.map(item =>
     //   new ImageItem({ src: item.link, name: item.name, desc: item.description })
     // );
@@ -75,6 +80,7 @@ export class EditProjectModalComponent implements OnInit {
       if (result.payload.cover) {
         this.coverImage = result.payload.cover.link;
       }
+      this.progressRef.complete();
     });
     console.log('TCL: EditProjectModalComponent -> ngOnInit -> this.project', this.project);
 
@@ -103,6 +109,7 @@ export class EditProjectModalComponent implements OnInit {
   // }
 
   editProjectsImages() {
+    this.progressRef.start();
     const formData = new FormData();
     formData.append('logo', this.uploadForm.get('logo').value);
     // formData.append('file', this.uploadForm.get('cover').value);
@@ -119,9 +126,11 @@ export class EditProjectModalComponent implements OnInit {
       console.log(result);
       this.coverImage = result.payload.link;
     });
+    this.progressRef.complete();
   }
 
   editProjectsDetails() {
+    this.progressRef.start();
     const projectName = this.EditFormGroup.value.name;
     const clientId = this.EditFormGroup.value.client;
     const startDate = this.EditFormGroup.value.start;
@@ -140,6 +149,7 @@ export class EditProjectModalComponent implements OnInit {
       /* Successful call send "refresh" to modal close event binder
        * which allows us to refresh the table
        */
+      this.progressRef.complete();
     });
   }
 
@@ -153,6 +163,7 @@ export class EditProjectModalComponent implements OnInit {
   }
 
   getProjects() {
+    this.progressRef.start();
     /* Calls the getCategories function in the categories service and updates the
      * dataSource variable which has 2 way binding wih view layer
      * This enables the table component to update with the new data
@@ -162,10 +173,17 @@ export class EditProjectModalComponent implements OnInit {
       this.gal = result.payload.gallery;
       console.log('TCL: EditProjectModalComponent -> getProjects -> this.gal', this.gal);
       this.items = this.gal.map(
-        item => new ImageItem({ src: item.link, thumb: item.link, name: item.name, id: item.id }),
+        item =>
+          new ImageItem({
+            src: `https://storage.googleapis.com/octalogic-portfolio-dev.appspot.com//public/images/b58cf5c4-575d-40c6-955e-24f0f11a456b`,
+            thumb: item.link,
+            name: item.name,
+            id: item.id,
+          }),
       );
       this.gallery.ref().load(this.items);
       console.log('TCL: EditProjectModalComponent -> getProjects -> this.items', this.items);
+      this.progressRef.complete();
     });
   }
 
@@ -202,21 +220,27 @@ export class EditProjectModalComponent implements OnInit {
   }
 
   deleteLogo() {
+    this.progressRef.start();
     console.log('sdsd');
     this.projectsService.deleteLogo(this.param1).subscribe((result: any) => {
       this.logoImage = null;
+      this.progressRef.complete();
     });
   }
 
   deleteCover() {
+    this.progressRef.start();
     this.projectsService.deleteCover(this.param1).subscribe((result: any) => {
       this.coverImage = null;
+      this.progressRef.complete();
     });
   }
 
   deleteGallery(id) {
+    this.progressRef.start();
     this.projectsService.deleteGallery(this.param1, id).subscribe((result: any) => {
       this.getProjects();
+      this.progressRef.complete();
     });
   }
 }

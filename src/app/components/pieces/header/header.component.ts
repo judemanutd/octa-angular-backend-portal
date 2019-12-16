@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthenticationService } from '~app/services/authentication.service';
+// import { NgProgress } from '@ngx-progressbar/core';
 
 @Component({
   selector: 'app-header',
@@ -14,4 +15,9 @@ export class HeaderComponent {
     await this.authenticationService.signOutUser();
     await this.router.navigate(['/']);
   };
+
+  // ngOnInit() {
+  //   /** request started */
+  //   this.ngProgress.start();
+  // }
 }

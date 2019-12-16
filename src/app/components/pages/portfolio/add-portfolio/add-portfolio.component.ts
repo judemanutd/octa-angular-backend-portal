@@ -5,8 +5,8 @@ import { ComponentsService } from '~app/services/components.service';
 import { TechnologiesService } from '~app/services/technologies.service';
 import { CategoriesService } from '~app/services/categories.service';
 import { ProjectsService } from '~app/services/projects.service';
-import { ClientsService } from '~app/services/clients.service';
 import { PortfolioService } from '~app/services/portfolio.service';
+import { NgProgressRef, NgProgress } from '@ngx-progressbar/core';
 
 @Component({
   selector: 'app-add-portfolio',
@@ -14,13 +14,14 @@ import { PortfolioService } from '~app/services/portfolio.service';
   styleUrls: ['./add-portfolio.component.scss'],
 })
 export class AddPortfolioComponent implements OnInit {
+  progressRef: NgProgressRef;
   AddFormGroup = new FormGroup({
     title: new FormControl(''),
-    description: new FormControl(''),
-    componentId: new FormControl(''),
-    technologyId: new FormControl(''),
-    categoryId: new FormControl(''),
-    projectId: new FormControl(''),
+    description: new FormControl(),
+    componentId: new FormControl([]),
+    technologyId: new FormControl([]),
+    categoryId: new FormControl([]),
+    projectId: new FormControl([]),
   });
   categories: any;
   technologies: any;
@@ -31,6 +32,7 @@ export class AddPortfolioComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<AddPortfolioComponent>,
     private projectsService: ProjectsService,
+    private progress: NgProgress,
     private componentService: ComponentsService,
     private technologyService: TechnologiesService,
     private categoryService: CategoriesService,
@@ -39,9 +41,11 @@ export class AddPortfolioComponent implements OnInit {
   public clients: [];
 
   ngOnInit() {
+    this.progressRef = this.progress.ref('myProgress');
     this.getCategories();
     this.getProjects();
     this.getTechnologies();
+    this.getProjectComponents();
   }
 
   onNoClick(): void {
@@ -49,12 +53,13 @@ export class AddPortfolioComponent implements OnInit {
     this.dialogRef.close();
   }
 
-  getComp(id) {
-    this.getProjectComponents(id.value);
-    console.log('proj id', id.value);
-  }
+  // getComp(id) {
+  //   this.getProjectComponents(id.value);
+  //   console.log('proj id', id.value);
+  // }
 
   addPortfolio() {
+    this.progressRef.start();
     /* Onsubmit of add modal form */
     const projectName = this.AddFormGroup.value.projectId;
     const title = this.AddFormGroup.value.title;
@@ -63,18 +68,21 @@ export class AddPortfolioComponent implements OnInit {
     const technologyId = this.AddFormGroup.value.technologyId;
     const componentId = this.AddFormGroup.value.componentId;
     const payload = {
-      title: title,
-      componentId: componentId,
-      description: description,
-      projectId: projectName,
-      categoryId: categoryId,
-      technologyId: technologyId,
+      payload: {
+        title: title,
+        componentId: componentId,
+        description: description,
+        projectId: projectName,
+        categoryId: categoryId,
+        technologyId: technologyId,
+      },
     };
     this.portfolioService.addPortfolio(payload).subscribe((result: any) => {
       /* Successful call send "refresh" to modal close event binder
        * which allows us to refresh the table
        */
       this.dialogRef.close('refresh');
+      this.progressRef.complete();
     });
   }
 
@@ -116,9 +124,9 @@ export class AddPortfolioComponent implements OnInit {
     });
   }
 
-  getProjectComponents(id) {
-    this.componentService.getcomponents(id).subscribe((result: any) => {
-      this.components = result.payload;
+  getProjectComponents() {
+    this.componentService.getAllComponenets().subscribe((result: any) => {
+      this.components = result.payload.results;
     });
   }
 }

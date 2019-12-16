@@ -50,4 +50,8 @@ export class ComponentsService {
   deleteGallery(pId, cId, gId) {
     return this.http.delete(`project/${pId}/component/${cId}/gallery/${gId}`);
   }
+
+  getAllComponenets() {
+    return this.http.get(`component/select`);
+  }
 }

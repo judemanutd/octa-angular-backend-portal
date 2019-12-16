@@ -11,6 +11,7 @@ import { Project } from '~app/interfaces/Project';
 import { AddProjectModalComponent } from './modals/add-project-modal/add-project-modal.component';
 import { EditProjectModalComponent } from './modals/edit-project-modal/edit-project-modal.component';
 import { DeleteProjectModalComponent } from './modals/delete-project-modal/delete-project-modal.component';
+import { NgProgress, NgProgressRef } from '@ngx-progressbar/core';
 
 @Component({
   selector: 'app-projects',
@@ -19,9 +20,11 @@ import { DeleteProjectModalComponent } from './modals/delete-project-modal/delet
   providers: [ProjectsService],
 })
 export class ProjectsComponent implements OnInit {
+  progressRef: NgProgressRef;
   constructor(
     private projectsService: ProjectsService,
     public dialog: MatDialog,
+    private progress: NgProgress,
     private snackBar: MatSnackBar,
   ) {}
 
@@ -32,11 +35,13 @@ export class ProjectsComponent implements OnInit {
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
   ngOnInit() {
+    this.progressRef = this.progress.ref('myProgress');
     // Call to fetch all Categories on page load
     this.getProjects();
   }
 
   getProjects() {
+    this.progressRef.start();
     /* Calls the getCategories function in the categories service and updates the
      * dataSource variable which has 2 way binding wih view layer
      * This enables the table component to update with the new data
@@ -44,6 +49,7 @@ export class ProjectsComponent implements OnInit {
      */
     this.projectsService.getProjects().subscribe((result: any) => {
       this.dataSource = result.payload;
+      this.progressRef.complete();
     });
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;

@@ -24,6 +24,7 @@ import { SiteTemplateModule } from './components/layouts/site/site-template.modu
 import { AngularFileUploaderModule } from 'angular-file-uploader';
 import { AngularFireModule } from '@angular/fire';
 import { environment } from '~environments/environment';
+import { NgProgressModule } from '@ngx-progressbar/core';
 
 @NgModule({
   declarations: [],
@@ -49,6 +50,7 @@ import { environment } from '~environments/environment';
     HeaderModule,
     TemplateModule,
     SiteTemplateModule,
+    NgProgressModule,
     AngularFileUploaderModule,
     MatProgressBarModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
@@ -66,6 +68,7 @@ import { environment } from '~environments/environment';
     WavesModule,
     MatNativeDateModule,
     LightboxModule,
+    NgProgressModule,
     GalleryModule,
     ReactiveFormsModule,
     NgxDropzoneModule,

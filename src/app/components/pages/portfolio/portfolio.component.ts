@@ -12,6 +12,7 @@ import { Portfolio } from '~app/interfaces/Portfolio';
 import { AddPortfolioComponent } from './add-portfolio/add-portfolio.component';
 import { EditPortfolioComponent } from './edit-portfolio/edit-portfolio.component';
 import { DeletePortfolioComponent } from './delete-portfolio/delete-portfolio.component';
+import { NgProgressRef, NgProgress } from '@ngx-progressbar/core';
 
 @Component({
   selector: 'app-portfolio',
@@ -19,9 +20,11 @@ import { DeletePortfolioComponent } from './delete-portfolio/delete-portfolio.co
   styleUrls: ['./portfolio.component.scss'],
 })
 export class PortfolioComponent implements OnInit {
+  progressRef: NgProgressRef;
   constructor(
     private categoriesService: CategoriesService,
     private portfolioService: PortfolioService,
+    private progress: NgProgress,
     public dialog: MatDialog,
     private snackBar: MatSnackBar,
   ) {}
@@ -33,11 +36,13 @@ export class PortfolioComponent implements OnInit {
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
   ngOnInit() {
+    this.progressRef = this.progress.ref('myProgress');
     // Call to fetch all Categories on page load
     this.getPortfolios();
   }
 
   getPortfolios() {
+    this.progressRef.start();
     /* Calls the getCategories function in the categories service and updates the
      * dataSource variable which has 2 way binding wih view layer
      * This enables the table component to update with the new data
@@ -45,6 +50,7 @@ export class PortfolioComponent implements OnInit {
      */
     this.portfolioService.getPortfolios().subscribe((result: any) => {
       this.dataSource = result.payload;
+      this.progressRef.complete();
       console.log('TCL: PortfolioComponent -> getPortfolios -> result.payload', result.payload);
     });
     this.dataSource.paginator = this.paginator;
@@ -76,6 +82,7 @@ export class PortfolioComponent implements OnInit {
   }
 
   openEditModal(element): void {
+    console.log(element);
     const dialogRef = this.dialog.open(EditPortfolioComponent, {
       width: '50rem',
       data: element,
@@ -86,7 +93,6 @@ export class PortfolioComponent implements OnInit {
         this.snackBar.open('Category Updated', '', {
           duration: 3000,
         });
-        this.getCategories();
       }
     });
   }
@@ -102,7 +108,7 @@ export class PortfolioComponent implements OnInit {
         this.snackBar.open('Category Deleted', '', {
           duration: 3000,
         });
-        this.getCategories();
+        this.getPortfolios();
       }
     });
   }

@@ -16,7 +16,8 @@ export class ComponentComponent implements OnInit {
   editMode: boolean;
   componentId: any;
   editCat: any;
-  selectedValue: any;
+  selectedValue: any[];
+  selectedTech: any = [];
   toppings = new FormControl();
   technologies: any = [];
   components: any = [];
@@ -75,6 +76,8 @@ export class ComponentComponent implements OnInit {
   }
 
   editComponent(id) {
+    this.selectedTech = [];
+    console.log('TCL: ComponentComponent -> editComponent -> selectedTech', this.selectedTech);
     this.componentId = id;
     this.componentService
       .getSingleComponent(this.componentId, this.param1)
@@ -83,10 +86,16 @@ export class ComponentComponent implements OnInit {
         this.ComponentFormGroup.controls['name'].setValue(result.payload.name);
         this.ComponentFormGroup.controls['summary'].setValue(result.payload.summary);
         this.ComponentFormGroup.controls['description'].setValue(result.payload.description);
-        this.ComponentFormGroup.controls['categoryId'].setValue(result.payload.category.id);
+        // this.ComponentFormGroup.controls['categoryId'].setValue(result.payload.category.id);
         this.ComponentFormGroup.controls['technologyId'].setValue(result.payload.technology.id);
         this.editCat = result.payload.category.name;
         this.selectedValue = result.payload.category;
+        const res = result.payload.technology;
+        console.log('TCL: ComponentComponent -> editComponent -> res', res);
+        res.forEach(element => {
+          this.selectedTech.push(element.id);
+        });
+        console.log('TCL: ComponentComponent -> editComponent -> selectedTech', this.selectedTech);
         console.log(
           'TCL: ComponentComponent -> editComponent -> result.payload.category.name',
           result.payload.category.name,

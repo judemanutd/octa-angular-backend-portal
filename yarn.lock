@@ -1112,6 +1112,20 @@
   dependencies:
     tslib "^1.9.0"
 
+"@ngx-progressbar/core@^5.3.2":
+  version "5.3.2"
+  resolved "https://registry.yarnpkg.com/@ngx-progressbar/core/-/core-5.3.2.tgz#d2e76034324d459dbbd7b9d89aa3b550db5e46f6"
+  integrity sha512-z0VzsJpgWxoU7wLXviCutXPXDop1Ry/SPOlVOtXHlkUGFAzHs3soDeXpTyigSdBB8Q16Nisow4EVuOKCByp6PQ==
+  dependencies:
+    tslib "^1.9.0"
+
+"@ngx-progressbar/http@^5.3.2":
+  version "5.3.2"
+  resolved "https://registry.yarnpkg.com/@ngx-progressbar/http/-/http-5.3.2.tgz#8c61245390fe9b5c0935d665c7f2920f07977c1b"
+  integrity sha512-QijNeXRw1bLdYQ3yU4UJnoWV/aMM3FWOq0FYVVjazMoXfirz3OgaI298TuBRKsA0OGYXSZ3p2VTiEKb/bIYf4g==
+  dependencies:
+    tslib "^1.9.0"
+
 "@nodelib/fs.scandir@2.1.3":
   version "2.1.3"
   resolved "https://registry.yarnpkg.com/@nodelib/fs.scandir/-/fs.scandir-2.1.3.tgz#3a582bdb53804c6ba6d146579c46e52130cf4a3b"
@@ -6369,6 +6383,11 @@ ngx-gallery@^5.10.0:
   version "5.10.0"
   resolved "https://registry.yarnpkg.com/ngx-gallery/-/ngx-gallery-5.10.0.tgz#21f623cb788578dbb5a3625c869712de2b95258c"
   integrity sha512-+2DnsBfkIzNQoReOHf6+OMf06+qyQQMyVVN4iQAtL0+KykjVqDZiBwLQtmwajDWMGph6O1HNKLrqTcmgqw+d2A==
+
+ngx-lightbox@^2.1.1:
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/ngx-lightbox/-/ngx-lightbox-2.1.1.tgz#94d4abe91063ac327109baeb5afcb26cc84b1e3d"
+  integrity sha512-mI1hUo/DrhcTeWi/7AVusKfzLr5ySz+EFrOksNlCEiaQKVMqCZdUgj+7ruKDROF7dZcNkJL9Wf99yyiG2nhezQ==
 
 ngx-moment@^3.5.0:
   version "3.5.0"

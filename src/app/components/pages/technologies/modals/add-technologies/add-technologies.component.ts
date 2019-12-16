@@ -3,6 +3,7 @@ import { FormGroup, FormControl } from '@angular/forms';
 import { MatDialogRef } from '@angular/material';
 import { TechnologiesService } from '~app/services/technologies.service';
 import { CategoriesService } from '~app/services/categories.service';
+import { NgProgress, NgProgressRef } from '@ngx-progressbar/core';
 
 @Component({
   selector: 'app-add-technologies',
@@ -10,6 +11,7 @@ import { CategoriesService } from '~app/services/categories.service';
   styleUrls: ['./add-technologies.component.scss'],
 })
 export class AddTechnologiesComponent implements OnInit {
+  progressRef: NgProgressRef;
   AddFormGroup = new FormGroup({
     name: new FormControl(''),
     category: new FormControl('category'),
@@ -19,10 +21,12 @@ export class AddTechnologiesComponent implements OnInit {
     public dialogRef: MatDialogRef<AddTechnologiesComponent>,
     private technologiesService: TechnologiesService,
     private categoriesService: CategoriesService,
+    private progress: NgProgress,
   ) {}
   public category: [];
 
   ngOnInit() {
+    this.progressRef = this.progress.ref('myProgress');
     this.getCategories();
     console.log('TCL: AddTechnologiesComponent -> category', this.category);
   }
@@ -33,6 +37,7 @@ export class AddTechnologiesComponent implements OnInit {
   }
 
   addTechnology() {
+    this.progressRef.start();
     /* Onsubmit of add modal form */
     const technologyName = this.AddFormGroup.value.name;
     const categoryId = this.AddFormGroup.value.category;
@@ -46,6 +51,7 @@ export class AddTechnologiesComponent implements OnInit {
        * which allows us to refresh the table
        */
       this.dialogRef.close('refresh');
+      this.progressRef.complete();
     });
   }
   getCategories() {
