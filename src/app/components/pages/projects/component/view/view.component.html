@@ -9,19 +9,13 @@
     <form class="form" [formGroup]="uploadForm" (ngSubmit)="uploadCover()">
       <mat-card-content>
         <div class="row cover">
-          <div
-            class="img-wrap"
-            style="margin-right: 10%;
-                    margin-left: 10%;
-                    border: double;
-                    height: 160px;"
-          >
+          <div class="cell">
             <button
               class="btns"
               id="clear"
               type="button"
               *ngIf="coverImage"
-              style="margin-left: 18px;"
+              alt="Add a Logo Image"
               (click)="deleteCover()"
             >
               <mat-icon>clear</mat-icon>

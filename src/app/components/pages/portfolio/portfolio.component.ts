@@ -90,9 +90,10 @@ export class PortfolioComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'refresh') {
-        this.snackBar.open('Category Updated', '', {
+        this.snackBar.open('Portfolio Updated', '', {
           duration: 3000,
         });
+        this.getPortfolios();
       }
     });
   }
@@ -105,7 +106,7 @@ export class PortfolioComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'refresh') {
-        this.snackBar.open('Category Deleted', '', {
+        this.snackBar.open('Portfolio Deleted', '', {
           duration: 3000,
         });
         this.getPortfolios();

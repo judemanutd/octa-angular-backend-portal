@@ -9,40 +9,33 @@
     </mat-card-header>
     <form class="form" [formGroup]="EditFormGroup" (ngSubmit)="editProjectsDetails()">
       <mat-card-content>
-        <div class="row cover">
-          <div class="img-wrap">
-            <button
-              id="clear"
-              class="btns"
-              type="button"
-              style="display: inherit; margin-bottom: 30px"
-              *ngIf="logoImage"
-              (click)="deleteLogo()"
-            >
-              <mat-icon>clear</mat-icon>
-            </button>
-            <img
-              src="{{ logoImage }}"
-              style="float:left; height: 187px; width: 23%; border: double"
-              alt="Add a Logo Image"
-            />
-          </div>
-          <div class="img-wrap">
-            <button
-              class="btns"
-              id="clear"
-              type="button"
-              *ngIf="coverImage"
-              style="margin-left: 18px;"
-              (click)="deleteCover()"
-            >
-              <mat-icon>clear</mat-icon>
-            </button>
-            <img
-              src="{{ coverImage }}"
-              style="float:right;height: 254px; width: 75%; border: double; margin-bottom: 15px;"
-              alt="Add a cover Image"
-            />
+        <div class="content">
+          <div class="row log">
+            <div class="cell">
+              <button
+                id="clear"
+                class="btns"
+                type="button"
+                *ngIf="logoImage"
+                (click)="deleteLogo()"
+              >
+                <mat-icon>clear</mat-icon>
+              </button>
+              <img src="{{ logoImage }}" />
+            </div>
+            <div class="cell">
+              <button
+                class="btns"
+                id="clear"
+                type="button"
+                *ngIf="coverImage"
+                alt="Add a Logo Image"
+                (click)="deleteCover()"
+              >
+                <mat-icon>clear</mat-icon>
+              </button>
+              <img src="{{ coverImage }}" alt="Add a cover Image" />
+            </div>
           </div>
         </div>
         <div class="row">

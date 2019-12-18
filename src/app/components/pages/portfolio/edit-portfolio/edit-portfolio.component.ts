@@ -97,6 +97,7 @@ export class EditPortfolioComponent implements OnInit {
     });
     console.log('TCL: EditPortfolioComponent -> ngOnInit -> component', this.component);
     this.progressRef.complete();
+
     // this.portfolioService.getSinglePortfolio(this.data.id).subscribe((result: any) => {
     //   console.log('TCL: EditPortfolioComponent -> ngOnInit -> result', result);
     //   this.portfolio = result.payload;
@@ -133,6 +134,7 @@ export class EditPortfolioComponent implements OnInit {
        * which allows us to refresh the table
        */
       this.progressRef.complete();
+      this.dialogRef.close();
     });
   }
 
