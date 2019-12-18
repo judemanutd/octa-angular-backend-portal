@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
+import { FormGroup, FormControl } from '@angular/forms';
 import { TechnologiesService } from '~app/services/technologies.service';
 import { CategoriesService } from '~app/services/categories.service';
 import { ComponentsService } from '~app/services/components.service';
@@ -36,7 +36,6 @@ export class ComponentComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private fb: FormBuilder,
     private technologiesService: TechnologiesService,
     private categoriesService: CategoriesService,
     private componentService: ComponentsService,
@@ -122,7 +121,7 @@ export class ComponentComponent implements OnInit {
     const summary = this.ComponentFormGroup.value.summary;
     const description = this.ComponentFormGroup.value.description;
     const technologyId = this.ComponentFormGroup.value.technologyId;
-    const links = this.ComponentFormGroup.value.links;
+    // const links = this.ComponentFormGroup.value.links;
     const payload = {
       name: name,
       summary: summary,
@@ -153,8 +152,10 @@ export class ComponentComponent implements OnInit {
   }
 
   getProjectComponents() {
+    this.progressRef.start();
     this.componentService.getcomponents(this.param1).subscribe((result: any) => {
       this.components = result.payload;
+      this.progressRef.complete();
     });
   }
 }

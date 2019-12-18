@@ -25,6 +25,7 @@ import { AngularFileUploaderModule } from 'angular-file-uploader';
 import { AngularFireModule } from '@angular/fire';
 import { environment } from '~environments/environment';
 import { NgProgressModule } from '@ngx-progressbar/core';
+import { ClipboardModule } from 'ngx-clipboard';
 
 @NgModule({
   declarations: [],
@@ -41,6 +42,7 @@ import { NgProgressModule } from '@ngx-progressbar/core';
     MatGridListModule,
     WavesModule,
     MatNativeDateModule,
+    ClipboardModule,
     LightboxModule,
     GalleryModule,
     ReactiveFormsModule,
@@ -60,6 +62,7 @@ import { NgProgressModule } from '@ngx-progressbar/core';
     MomentModule,
     HttpClientModule,
     MaterialModule,
+    ClipboardModule,
     MatSelectModule,
     MatDatepickerModule,
     CarouselModule,

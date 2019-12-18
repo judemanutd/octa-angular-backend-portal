@@ -24,6 +24,7 @@
         <a class="btn btn-success" (click)="viewComponent(comp.id)">View</a>
       </mat-expansion-panel>
     </mat-accordion>
+    <hr />
     <div *ngIf="editMode; else other_content">
       <form class="form" [formGroup]="ComponentFormGroup" (ngSubmit)="addComponent()">
         <mat-card-content>

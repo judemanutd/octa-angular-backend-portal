@@ -1,13 +1,15 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA, MatSnackBar } from '@angular/material';
 import { CategoriesService } from '~app/services/categories.service';
 import { Portfolio } from '~app/interfaces/Portfolio';
+import { ClipboardService } from 'ngx-clipboard';
 import { PortfolioService } from '~app/services/portfolio.service';
 import { NgProgress, NgProgressRef } from '@ngx-progressbar/core';
 import { TechnologiesService } from '~app/services/technologies.service';
 import { ComponentsService } from '~app/services/components.service';
 import { ProjectsService } from '~app/services/projects.service';
+import { environment } from '~environments/environment';
 
 @Component({
   selector: 'app-edit-portfolio',
@@ -15,6 +17,10 @@ import { ProjectsService } from '~app/services/projects.service';
   styleUrls: ['./edit-portfolio.component.scss'],
 })
 export class EditPortfolioComponent implements OnInit {
+  text1: string;
+  text2: string;
+  textModal: string;
+  isCopied1: boolean;
   progressRef: NgProgressRef;
   EditFormGroup = new FormGroup({
     title: new FormControl(this.data.title),
@@ -25,6 +31,7 @@ export class EditPortfolioComponent implements OnInit {
     projectId: new FormControl(this.data.project),
   });
   project: any = [];
+  link: any;
   component: any = [];
   technology: any = [];
   category: any = [];
@@ -35,6 +42,8 @@ export class EditPortfolioComponent implements OnInit {
   portfolio: any = [];
 
   constructor(
+    private snackBar: MatSnackBar,
+    private _clipboardService: ClipboardService,
     public dialogRef: MatDialogRef<EditPortfolioComponent>,
     private portfolioService: PortfolioService,
     private categoriesService: CategoriesService,
@@ -63,6 +72,7 @@ export class EditPortfolioComponent implements OnInit {
     this.EditFormGroup.controls['technologyId'].setValue(this.data.technology);
     this.EditFormGroup.controls['categoryId'].setValue(this.data.category);
     this.EditFormGroup.controls['projectId'].setValue(this.data.project);
+    this.link = this.data.id;
     const res = this.data.technology;
     console.log('TCL: EditPortfolioComponent -> ngOnInit -> this.data', this.data);
     // var tech = [], cat = [], proj = [], comp = [];
@@ -109,6 +119,13 @@ export class EditPortfolioComponent implements OnInit {
 
     // });
     // console.log('TCL: EditPortfolioComponent -> this.data', this.data);
+  }
+
+  callServiceToCopy() {
+    this._clipboardService.copyFromContent(environment.portfolioUrl + '' + this.link);
+    this.snackBar.open('Link copied', '', {
+      duration: 3000,
+    });
   }
 
   editPortfolio() {

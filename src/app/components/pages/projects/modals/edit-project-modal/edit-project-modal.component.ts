@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormBuilder } from '@angular/forms';
 import { MatDialog, MatSnackBar } from '@angular/material';
 import {} from '~app/interfaces/Project';
-import { Gallery, GalleryItem, ImageItem, ThumbnailsPosition, ImageSize } from '@ngx-gallery/core';
+import { Gallery, ImageItem } from '@ngx-gallery/core';
 // import { map } from 'rxjs/operators';
 import { ProjectsService } from '~app/services/projects.service';
 import { ActivatedRoute } from '@angular/router';

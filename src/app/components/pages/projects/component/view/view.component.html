@@ -23,7 +23,7 @@
             <img src="{{ coverImage }}" alt="Add a cover Image" />
           </div>
         </div>
-        <div class="row">
+        <div class="row" *ngIf="!coverImage">
           <div class="col-md-6">
             <div class="form-group">
               <label for="file">Choose Cover Image</label>
@@ -33,7 +33,7 @@
         </div>
       </mat-card-content>
       <mat-card-actions>
-        <button mat-button type="submit">Submit</button>
+        <button *ngIf="!coverImage" mat-button type="submit">Submit</button>
       </mat-card-actions>
     </form>
   </mat-card>

@@ -2,12 +2,21 @@
 <form class="form" [formGroup]="EditFormGroup" (ngSubmit)="editPortfolio()">
   <mat-dialog-content class="mat-typography">
     <div class="row">
-      <div class="col-md-6">
+      <mat-card>
+        <a type="button" (click)="callServiceToCopy()">
+          <span>{{ link }}</span>
+        </a></mat-card
+      >
+    </div>
+    <hr />
+
+    <div class="row">
+      <div class="col-md-12">
         <mat-form-field class="form__field">
           <input matInput type="text" formControlName="title" placeholder="Title" required />
         </mat-form-field>
       </div>
-      <div class="col-md-6">
+      <div class="col-md-12">
         <mat-form-field class="form__field">
           <textarea
             matInput

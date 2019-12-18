@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ProjectsService } from '~app/services/projects.service';
 import { ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialog, MatSnackBar } from '@angular/material';
-import { Gallery, ImageSize, ThumbnailsPosition, ImageItem } from '@ngx-gallery/core';
+import { Gallery, ImageItem } from '@ngx-gallery/core';
 import { ImageModalComponent } from '../../modals/edit-project-modal/image.modal/image.modal.component';
 import { ComponentsService } from '~app/services/components.service';
 

@@ -44,11 +44,13 @@ export class AddProjectModalComponent {
     const cost = this.AddFormGroup.value.cost;
     const currency = this.AddFormGroup.value.currency;
     const payload = {
+      // tslint:disable-next-line: object-literal-shorthand
       name: projectName,
       clientId: clientId,
       startDate: startDate,
       endDate: endDate,
       cost: cost,
+
       currency: currency,
     };
     this.projectsService.addProject(payload).subscribe((result: any) => {

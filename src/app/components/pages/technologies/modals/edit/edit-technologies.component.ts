@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { CategoriesService } from '~app/services/categories.service';
 import { TechnologiesService } from '~app/services/technologies.service';
@@ -14,8 +14,8 @@ import { NgProgress, NgProgressRef } from '@ngx-progressbar/core';
 export class EditTechnologiesComponent implements OnInit {
   progressRef: NgProgressRef;
   EditFormGroup = new FormGroup({
-    name: new FormControl(this.data.name),
-    category: new FormControl(this.data.category),
+    name: new FormControl(this.data.name, [Validators.required]),
+    category: new FormControl(this.data.category, [Validators.required]),
   });
   selectedValue: any = this.data.category;
 
@@ -39,19 +39,21 @@ export class EditTechnologiesComponent implements OnInit {
   }
 
   editTechnologies() {
-    this.progressRef.start();
-    const technologyName = this.EditFormGroup.value.name;
-    const categoryId = this.EditFormGroup.value.category;
-    const id = this.data.id;
+    if (this.EditFormGroup.valid) {
+      this.progressRef.start();
+      const technologyName = this.EditFormGroup.value.name;
+      const categoryId = this.EditFormGroup.value.category;
+      const id = this.data.id;
 
-    const payload = {
-      name: technologyName,
-      category: categoryId,
-    };
-    this.technologiesService.editTechnology(id, payload).subscribe((result: any) => {
-      this.dialogRef.close('refresh');
-      this.progressRef.complete();
-    });
+      const payload = {
+        name: technologyName,
+        category: categoryId,
+      };
+      this.technologiesService.editTechnology(id, payload).subscribe((result: any) => {
+        this.dialogRef.close('refresh');
+        this.progressRef.complete();
+      });
+    }
   }
 
   getCategories() {

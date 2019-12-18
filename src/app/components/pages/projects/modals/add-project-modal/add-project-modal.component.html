@@ -2,12 +2,12 @@
 <form class="form" [formGroup]="AddFormGroup" (ngSubmit)="addProjects()">
   <mat-dialog-content class="mat-typography">
     <div class="row">
-      <div class="col-md-4">
+      <div class="col-md-6">
         <mat-form-field class="form__field">
           <input matInput type="text" formControlName="name" placeholder="Name" required />
         </mat-form-field>
       </div>
-      <div class="col-md-4">
+      <div class="col-md-6">
         <mat-form-field class="form__field">
           <mat-select formControlName="client" placeholder="Client" required>
             <mat-option [value]="client.id" *ngFor="let client of clients">
@@ -18,12 +18,12 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-md-4">
+      <div class="col-md-6">
         <mat-form-field class="form__field">
           <input matInput type="number" formControlName="cost" placeholder="Cost" />
         </mat-form-field>
       </div>
-      <div class="col-md-4">
+      <div class="col-md-6">
         <mat-form-field class="form__field">
           <input matInput type="text" formControlName="currency" placeholder="Currency" />
         </mat-form-field>
@@ -31,7 +31,7 @@
     </div>
 
     <div class="row">
-      <div class="col-md-4">
+      <div class="col-md-6">
         <mat-form-field class="form__field">
           <input
             formControlName="start"
@@ -44,7 +44,7 @@
         </mat-form-field>
       </div>
 
-      <div class="col-md-4">
+      <div class="col-md-6">
         <mat-form-field class="form__field">
           <input formControlName="end" matInput [matDatepicker]="picker2" placeholder="End date" />
           <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>

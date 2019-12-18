@@ -39,11 +39,6 @@ export class ErrorInterceptor implements HttpInterceptor {
           let ssd = this.authenticationService.user.getIdToken().then(data => {
             token = data;
             localStorage.setItem('user', token);
-            // const newRequest = request.clone({
-            //   // url: `${environment.baseUrl}/${request.url}`,
-            //   headers: request.headers.set('Authorization', `Bearer ${users}`),
-            // });
-            // console.log('TCL: ErrorInterceptor -> constructor -> newRequest', newRequest);
 
             this.var = this.applyCredentials(request);
           });

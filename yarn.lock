@@ -6365,6 +6365,14 @@ neo-async@^2.5.0, neo-async@^2.6.0, neo-async@^2.6.1:
   resolved "https://registry.yarnpkg.com/neo-async/-/neo-async-2.6.1.tgz#ac27ada66167fa8849a6addd837f6b189ad2081c"
   integrity sha512-iyam8fBuCUpWeKPGpaNMetEocMt364qkCsfL9JuhjXX6dRnguRVOfk2GZaDpPjcOKiiXCPINZC1GczQ7iTq3Zw==
 
+ngx-clipboard@^12.3.0:
+  version "12.3.0"
+  resolved "https://registry.yarnpkg.com/ngx-clipboard/-/ngx-clipboard-12.3.0.tgz#8e61a894ff57249db64b733d26f9a0b98c08829f"
+  integrity sha512-ToSsuDv9I1L0g+TcthePcZ4B859/MpoarlHVr2KnHWy3pR8SxfJlNyP2i9STYRQkJ5bSEg65RFErW4tx52lHYQ==
+  dependencies:
+    ngx-window-token "^2.0.0"
+    tslib "^1.9.0"
+
 ngx-dropzone@^2.2.0:
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/ngx-dropzone/-/ngx-dropzone-2.2.0.tgz#f612467a0a12e8dda72558da10e843c50fef9a7f"
@@ -6393,6 +6401,13 @@ ngx-moment@^3.5.0:
   version "3.5.0"
   resolved "https://registry.yarnpkg.com/ngx-moment/-/ngx-moment-3.5.0.tgz#97a4575a05d038612229b9fe09c4910353020613"
   integrity sha512-QC/5XNC0BW6WkJkwZT4r2A29j/8sJAmhuQJrEnEdpW35GvkemccuxEUAwo/PwkzPB/CHaquR00E6P2HVEQ1iEg==
+  dependencies:
+    tslib "^1.9.0"
+
+ngx-window-token@^2.0.0:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/ngx-window-token/-/ngx-window-token-2.0.1.tgz#8f91221af4116aa9f49bb3f7a6f1111639884fba"
+  integrity sha512-rvqdqJEfnWXQFU5fyfYt06E10tR/UtFOYdF3QebfcOh5VIJhnTKiprX8e4B9OrX7WEVFm9BT8uV72xXcEgsaKA==
   dependencies:
     tslib "^1.9.0"
 

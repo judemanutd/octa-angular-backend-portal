@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material';
 import { TechnologiesService } from '~app/services/technologies.service';
 import { CategoriesService } from '~app/services/categories.service';
@@ -12,10 +12,7 @@ import { NgProgress, NgProgressRef } from '@ngx-progressbar/core';
 })
 export class AddTechnologiesComponent implements OnInit {
   progressRef: NgProgressRef;
-  AddFormGroup = new FormGroup({
-    name: new FormControl(''),
-    category: new FormControl('category'),
-  });
+  AddFormGroup: FormGroup;
 
   constructor(
     public dialogRef: MatDialogRef<AddTechnologiesComponent>,
@@ -26,6 +23,10 @@ export class AddTechnologiesComponent implements OnInit {
   public category: [];
 
   ngOnInit() {
+    this.AddFormGroup = new FormGroup({
+      name: new FormControl('', Validators.required),
+      category: new FormControl('category', [Validators.required]),
+    });
     this.progressRef = this.progress.ref('myProgress');
     this.getCategories();
     console.log('TCL: AddTechnologiesComponent -> category', this.category);
@@ -37,22 +38,24 @@ export class AddTechnologiesComponent implements OnInit {
   }
 
   addTechnology() {
-    this.progressRef.start();
-    /* Onsubmit of add modal form */
-    const technologyName = this.AddFormGroup.value.name;
-    const categoryId = this.AddFormGroup.value.category;
-    console.log('TCL: AddTechnologiesComponent -> addTechnology -> categoryId', categoryId);
-    const payload = {
-      name: technologyName,
-      category: categoryId,
-    };
-    this.technologiesService.addTechnology(payload).subscribe((result: any) => {
-      /* Successful call send "refresh" to modal close event binder
-       * which allows us to refresh the table
-       */
-      this.dialogRef.close('refresh');
-      this.progressRef.complete();
-    });
+    if (this.AddFormGroup.valid) {
+      this.progressRef.start();
+      /* Onsubmit of add modal form */
+      const technologyName = this.AddFormGroup.value.name;
+      const categoryId = this.AddFormGroup.value.category;
+      console.log('TCL: AddTechnologiesComponent -> addTechnology -> categoryId', categoryId);
+      const payload = {
+        name: technologyName,
+        category: categoryId,
+      };
+      this.technologiesService.addTechnology(payload).subscribe((result: any) => {
+        /* Successful call send "refresh" to modal close event binder
+         * which allows us to refresh the table
+         */
+        this.dialogRef.close('refresh');
+        this.progressRef.complete();
+      });
+    }
   }
   getCategories() {
     this.categoriesService.getCategories().subscribe((result: any) => {

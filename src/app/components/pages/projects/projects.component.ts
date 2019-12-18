@@ -9,7 +9,6 @@ import {
 import { ProjectsService } from '~app/services/projects.service';
 import { Project } from '~app/interfaces/Project';
 import { AddProjectModalComponent } from './modals/add-project-modal/add-project-modal.component';
-import { EditProjectModalComponent } from './modals/edit-project-modal/edit-project-modal.component';
 import { DeleteProjectModalComponent } from './modals/delete-project-modal/delete-project-modal.component';
 import { NgProgress, NgProgressRef } from '@ngx-progressbar/core';
 
@@ -70,22 +69,7 @@ export class ProjectsComponent implements OnInit {
     //  */
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'refresh') {
-        this.snackBar.open('Category Added', '', {
-          duration: 3000,
-        });
-        this.getProjects();
-      }
-    });
-  }
-
-  openEditModal(element): void {
-    const dialogRef = this.dialog.open(EditProjectModalComponent, {
-      width: '50rem',
-      data: element,
-    });
-    dialogRef.afterClosed().subscribe(result => {
-      if (result === 'refresh') {
-        this.snackBar.open('Category Updated', '', {
+        this.snackBar.open('Project Added', '', {
           duration: 3000,
         });
         this.getProjects();
@@ -100,7 +84,7 @@ export class ProjectsComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'refresh') {
-        this.snackBar.open('Category Deleted', '', {
+        this.snackBar.open('Project Deleted', '', {
           duration: 3000,
         });
         this.getProjects();

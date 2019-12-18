@@ -1,15 +1,24 @@
 <h2 mat-dialog-title>Edit Technologies</h2>
 <form class="form" [formGroup]="EditFormGroup" (ngSubmit)="editTechnologies()">
   <mat-dialog-content class="mat-typography">
-    <mat-form-field class="form__field">
-      <input matInput type="text" formControlName="name" placeholder="Name" />
-    </mat-form-field>
-
-    <mat-form-field class="form__field">
-      <mat-select formControlName="category" placeholder="Category" [(ngModel)]="selectedValue.id">
-        <mat-option [value]="cat.id" *ngFor="let cat of category"> {{ cat.name }}</mat-option>
-      </mat-select>
-    </mat-form-field>
+    <div class="row">
+      <div class="col-md-6">
+        <mat-form-field class="form__field">
+          <input matInput type="text" formControlName="name" placeholder="Name" required />
+        </mat-form-field>
+      </div>
+      <div class="col-md-6">
+        <mat-form-field class="form__field">
+          <mat-select
+            formControlName="category"
+            placeholder="Category"
+            [(ngModel)]="selectedValue.id"
+          >
+            <mat-option [value]="cat.id" *ngFor="let cat of category"> {{ cat.name }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
   </mat-dialog-content>
   <mat-dialog-actions align="end">
     <button mat-button [mat-dialog-close]="false">Cancel</button>

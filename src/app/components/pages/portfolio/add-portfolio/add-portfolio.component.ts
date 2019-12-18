@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material';
 import { ComponentsService } from '~app/services/components.service';
 import { TechnologiesService } from '~app/services/technologies.service';
@@ -16,8 +16,8 @@ import { NgProgressRef, NgProgress } from '@ngx-progressbar/core';
 export class AddPortfolioComponent implements OnInit {
   progressRef: NgProgressRef;
   AddFormGroup = new FormGroup({
-    title: new FormControl(''),
-    description: new FormControl(),
+    title: new FormControl('', [Validators.required]),
+    description: new FormControl('', [Validators.required]),
     componentId: new FormControl([]),
     technologyId: new FormControl([]),
     categoryId: new FormControl([]),
@@ -59,31 +59,33 @@ export class AddPortfolioComponent implements OnInit {
   // }
 
   addPortfolio() {
-    this.progressRef.start();
-    /* Onsubmit of add modal form */
-    const projectName = this.AddFormGroup.value.projectId;
-    const title = this.AddFormGroup.value.title;
-    const description = this.AddFormGroup.value.description;
-    const categoryId = this.AddFormGroup.value.categoryId;
-    const technologyId = this.AddFormGroup.value.technologyId;
-    const componentId = this.AddFormGroup.value.componentId;
-    const payload = {
-      payload: {
-        title: title,
-        componentId: componentId,
-        description: description,
-        projectId: projectName,
-        categoryId: categoryId,
-        technologyId: technologyId,
-      },
-    };
-    this.portfolioService.addPortfolio(payload).subscribe((result: any) => {
-      /* Successful call send "refresh" to modal close event binder
-       * which allows us to refresh the table
-       */
-      this.dialogRef.close('refresh');
-      this.progressRef.complete();
-    });
+    if (this.AddFormGroup.valid) {
+      this.progressRef.start();
+      /* Onsubmit of add modal form */
+      const projectName = this.AddFormGroup.value.projectId;
+      const title = this.AddFormGroup.value.title;
+      const description = this.AddFormGroup.value.description;
+      const categoryId = this.AddFormGroup.value.categoryId;
+      const technologyId = this.AddFormGroup.value.technologyId;
+      const componentId = this.AddFormGroup.value.componentId;
+      const payload = {
+        payload: {
+          title: title,
+          componentId: componentId,
+          description: description,
+          projectId: projectName,
+          categoryId: categoryId,
+          technologyId: technologyId,
+        },
+      };
+      this.portfolioService.addPortfolio(payload).subscribe((result: any) => {
+        /* Successful call send "refresh" to modal close event binder
+         * which allows us to refresh the table
+         */
+        this.dialogRef.close('refresh');
+        this.progressRef.complete();
+      });
+    }
   }
 
   getCategories() {

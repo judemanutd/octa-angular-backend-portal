@@ -6,7 +6,6 @@ import {
   MatSnackBar,
   MatDialog,
 } from '@angular/material';
-import { CategoriesService } from '~app/services/categories.service';
 import { PortfolioService } from '~app/services/portfolio.service';
 import { Portfolio } from '~app/interfaces/Portfolio';
 import { AddPortfolioComponent } from './add-portfolio/add-portfolio.component';
@@ -22,7 +21,6 @@ import { NgProgressRef, NgProgress } from '@ngx-progressbar/core';
 export class PortfolioComponent implements OnInit {
   progressRef: NgProgressRef;
   constructor(
-    private categoriesService: CategoriesService,
     private portfolioService: PortfolioService,
     private progress: NgProgress,
     public dialog: MatDialog,

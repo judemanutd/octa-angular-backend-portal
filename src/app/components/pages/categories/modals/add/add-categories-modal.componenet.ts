@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material';
 import { CategoriesService } from '~app/services/categories.service';
 import { NgProgress, NgProgressRef } from '@ngx-progressbar/core';
@@ -12,7 +12,7 @@ import { NgProgress, NgProgressRef } from '@ngx-progressbar/core';
 export class AddCategoriesModalComponent implements OnInit {
   progressRef: NgProgressRef;
   AddFormGroup = new FormGroup({
-    name: new FormControl(''),
+    name: new FormControl('', [Validators.required]),
   });
 
   constructor(
@@ -31,18 +31,20 @@ export class AddCategoriesModalComponent implements OnInit {
   }
 
   addCategories() {
-    this.progressRef.start();
-    /* Onsubmit of add modal form */
-    const categoryName = this.AddFormGroup.value.name;
-    const payload = {
-      name: categoryName,
-    };
-    this.categoriesService.addCategory(payload).subscribe((result: any) => {
-      /* Successful call send "refresh" to modal close event binder
-       * which allows us to refresh the table
-       */
-      this.dialogRef.close('refresh');
-      this.progressRef.complete();
-    });
+    if (this.AddFormGroup.valid) {
+      this.progressRef.start();
+      /* Onsubmit of add modal form */
+      const categoryName = this.AddFormGroup.value.name;
+      const payload = {
+        name: categoryName,
+      };
+      this.categoriesService.addCategory(payload).subscribe((result: any) => {
+        /* Successful call send "refresh" to modal close event binder
+         * which allows us to refresh the table
+         */
+        this.dialogRef.close('refresh');
+        this.progressRef.complete();
+      });
+    }
   }
 }

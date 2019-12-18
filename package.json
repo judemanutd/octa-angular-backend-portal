@@ -43,6 +43,7 @@
     "jquery": "^3.4.1",
     "mdbootstrap": "^4.10.0",
     "moment": "^2.24.0",
+    "ngx-clipboard": "^12.3.0",
     "ngx-dropzone": "^2.2.0",
     "ngx-filepond": "^5.0.1",
     "ngx-gallery": "^5.10.0",
