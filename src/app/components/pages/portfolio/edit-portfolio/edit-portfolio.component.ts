@@ -74,9 +74,6 @@ export class EditPortfolioComponent implements OnInit {
     this.EditFormGroup.controls['projectId'].setValue(this.data.project);
     this.link = this.data.id;
     const res = this.data.technology;
-    console.log('TCL: EditPortfolioComponent -> ngOnInit -> this.data', this.data);
-    // var tech = [], cat = [], proj = [], comp = [];
-    console.log('TCL: ComponentComponent -> editComponent -> res', res);
     res.forEach(element => {
       this.technology.push(element.id);
       // this.technology = tech;
@@ -88,15 +85,11 @@ export class EditPortfolioComponent implements OnInit {
     });
 
     const res2 = this.data.project;
-    console.log('TCL: EditPortfolioComponent -> ngOnInit -> project', this.project);
-    console.log('TCL: EditPortfolioComponent -> ngOnInit -> res2', res2);
     res2.forEach(element => {
-      console.log('TCL: EditPortfolioComponent -> ngOnInit -> element', element);
       this.project.push(element.id);
 
       // this.project = proj
     });
-    console.log('TCL: EditPortfolioComponent -> ngOnInit -> project', this.project);
     const res3 = this.data.component;
     res3.forEach(element => {
       if (element.id !== undefined) {
@@ -105,7 +98,6 @@ export class EditPortfolioComponent implements OnInit {
 
       // this.component = comp;
     });
-    console.log('TCL: EditPortfolioComponent -> ngOnInit -> component', this.component);
     this.progressRef.complete();
 
     // this.portfolioService.getSinglePortfolio(this.data.id).subscribe((result: any) => {

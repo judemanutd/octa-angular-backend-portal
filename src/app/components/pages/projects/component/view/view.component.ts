@@ -28,10 +28,7 @@ export class ViewComponent implements OnInit {
     public gallery: Gallery, //
   ) {
     this.componentId = this.route.snapshot.params.cId;
-    console.log('TCL: ViewComponent -> this.componentId', this.componentId);
     this.projectId = this.route.snapshot.params.pId;
-    console.log('TCL: ViewComponent -> this.projectId', this.projectId);
-    console.log('TCL: ViewComponent -> this.route.snapshot.params', this.route.snapshot.params);
   }
 
   ngOnInit() {
@@ -45,7 +42,6 @@ export class ViewComponent implements OnInit {
     // Load item into different lightbox instance
     // With custom gallery config
     // this.withCustomGalleryConfig();
-    console.log('TCL: ViewComponent -> ngOnInit -> this.items', this.items);
   }
 
   basicLightboxExample() {
@@ -99,12 +95,10 @@ export class ViewComponent implements OnInit {
   uploadCover() {
     const formData2 = new FormData();
     formData2.append('cover', this.uploadForm.get('cover').value);
-    console.log('TCL: ViewComponent -> uploadCover -> formData2', formData2);
 
     this.componentService
       .addCover(this.projectId, this.componentId, formData2)
       .subscribe((result: any) => {
-        console.log(result);
         this.coverImage = result.payload.link;
       });
   }
@@ -113,12 +107,7 @@ export class ViewComponent implements OnInit {
     this.componentService
       .getSingleComponent(this.componentId, this.projectId)
       .subscribe((result: any) => {
-        console.log('TCL: ViewComponent -> ngOnInit -> result', result);
         this.coverImage = result.payload.cover.link;
-        console.log(
-          'TCL: ViewComponent -> ngOnInit -> result.payload.gallery',
-          result.payload.gallery,
-        );
       });
   }
 
@@ -127,7 +116,6 @@ export class ViewComponent implements OnInit {
       .getSingleComponent(this.componentId, this.projectId)
       .subscribe((result: any) => {
         this.gal = result.payload.gallery;
-        console.log('TCL: EditProjectModalComponent -> getProjects -> this.gal', this.gal);
         this.items = this.gal.map(
           item => new ImageItem({ src: item.link, thumb: item.link, name: item.name, id: item.id }),
         );

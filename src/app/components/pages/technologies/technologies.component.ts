@@ -33,7 +33,6 @@ export class TechnologiesComponent implements OnInit {
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   ngOnInit() {
     this.progressRef = this.progress.ref('myProgress');
-    console.log('sdsdsd', this.progressRef);
     this.getTechnologies();
   }
   getTechnologies() {

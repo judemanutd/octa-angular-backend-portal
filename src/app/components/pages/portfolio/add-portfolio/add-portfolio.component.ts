@@ -95,11 +95,6 @@ export class AddPortfolioComponent implements OnInit {
      * Paginator and Sorting is loaded to the dataSource object
      */
     this.categoryService.getCategories().subscribe((result: any) => {
-      console.log(
-        'TCL: AddPortfolioComponent -> getCategories -> this.categories',
-        this.categories,
-      );
-      console.log('TCL: AddPortfolioComponent -> getCategories ->  result.payload', result.payload);
       this.categories = result.payload;
     });
   }

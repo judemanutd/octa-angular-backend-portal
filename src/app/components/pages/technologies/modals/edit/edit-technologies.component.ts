@@ -31,7 +31,6 @@ export class EditTechnologiesComponent implements OnInit {
     this.progressRef = this.progress.ref('myProgress');
     console.log(this.data);
     this.getCategories();
-    console.log('TCL: AddTechnologiesComponent -> category', this.category);
   }
 
   onNoClick(): void {
@@ -59,10 +58,6 @@ export class EditTechnologiesComponent implements OnInit {
   getCategories() {
     this.categoriesService.getCategories().subscribe((result: any) => {
       this.category = result.payload;
-      console.log(
-        'TCL: AddTechnologiesComponent -> getCategories ->  this.category',
-        this.category,
-      );
     });
   }
 }

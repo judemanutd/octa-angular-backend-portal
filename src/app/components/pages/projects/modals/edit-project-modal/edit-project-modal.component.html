@@ -46,12 +46,7 @@
           </div>
           <div class="col-md-4">
             <mat-form-field class="form__field">
-              <mat-select
-                formControlName="client"
-                placeholder="Client"
-                [(ngModel)]="client.id"
-                required
-              >
+              <mat-select formControlName="client" placeholder="Client" required>
                 <mat-option [value]="client.id" *ngFor="let client of clients">
                   {{ client.name }}</mat-option
                 >

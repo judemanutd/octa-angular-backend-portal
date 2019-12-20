@@ -10,11 +10,12 @@ export class AuthHttpInterceptor implements HttpInterceptor {
     const user = localStorage.getItem('user');
     let newRequest;
     if (!user) return throwError(new Error('User is not logged in'));
-    if (req.responseType == 'blob') {
+    if (req.responseType === 'blob') {
       newRequest = req.clone({
         url: `${req.url}`,
         headers: req.headers.set('Authorization', `Bearer ${user}`),
       });
+      console.log('TCL: AuthHttpInterceptor -> newRequest', newRequest);
     } else {
       newRequest = req.clone({
         url: `${environment.baseUrl}/${req.url}`,
@@ -22,6 +23,7 @@ export class AuthHttpInterceptor implements HttpInterceptor {
       });
     }
 
+    console.log('TCL: AuthHttpInterceptor -> newRequest', newRequest);
     return next.handle(newRequest);
   }
 }

@@ -20,9 +20,7 @@ export class EditClientModalComponent implements OnInit {
     private clientsService: ClientsService,
     @Inject(MAT_DIALOG_DATA) public data: Client,
   ) {}
-  ngOnInit() {
-    console.log('TCL: EditClientModalComponent -> data', this.data);
-  }
+  ngOnInit() {}
 
   onNoClick(): void {
     this.dialogRef.close();

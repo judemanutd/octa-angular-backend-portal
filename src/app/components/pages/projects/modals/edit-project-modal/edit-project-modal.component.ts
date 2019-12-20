@@ -68,7 +68,7 @@ export class EditProjectModalComponent implements OnInit {
     this.projectsService.getSingleProject(this.param1).subscribe((result: any) => {
       this.project = result.payload;
       this.EditFormGroup.controls['name'].setValue(result.payload.name);
-      this.EditFormGroup.controls['client'].setValue(result.payload.client.name);
+      this.EditFormGroup.controls['client'].setValue(result.payload.client.id);
       this.EditFormGroup.controls['start'].setValue(result.payload.startDate);
       this.EditFormGroup.controls['end'].setValue(result.payload.endDate);
       this.EditFormGroup.controls['cost'].setValue(result.payload.cost);
@@ -82,7 +82,6 @@ export class EditProjectModalComponent implements OnInit {
       }
       this.progressRef.complete();
     });
-    console.log('TCL: EditProjectModalComponent -> ngOnInit -> this.project', this.project);
 
     this.uploadForm = this.fb.group({
       logo: [''],
@@ -171,7 +170,6 @@ export class EditProjectModalComponent implements OnInit {
      */
     this.projectsService.getSingleProject(this.param1).subscribe((result: any) => {
       this.gal = result.payload.gallery;
-      console.log('TCL: EditProjectModalComponent -> getProjects -> this.gal', this.gal);
       this.items = this.gal.map(
         item =>
           new ImageItem({
@@ -182,7 +180,6 @@ export class EditProjectModalComponent implements OnInit {
           }),
       );
       this.gallery.ref().load(this.items);
-      console.log('TCL: EditProjectModalComponent -> getProjects -> this.items', this.items);
       this.progressRef.complete();
     });
   }
@@ -221,7 +218,6 @@ export class EditProjectModalComponent implements OnInit {
 
   deleteLogo() {
     this.progressRef.start();
-    console.log('sdsd');
     this.projectsService.deleteLogo(this.param1).subscribe((result: any) => {
       this.logoImage = null;
       this.progressRef.complete();

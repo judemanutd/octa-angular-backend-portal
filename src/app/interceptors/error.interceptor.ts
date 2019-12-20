@@ -21,16 +21,14 @@ export class ErrorInterceptor implements HttpInterceptor {
 
     // console.log('TCL: ErrorInterceptor -> privateapplyCredentials -> req', req);
     const ab = req.clone({
-      headers: req.headers.set('Authorization', 'Bearer ' + localStorage.getItem('user')),
+      headers: req.headers.headers.set('Authorization', 'Bearer ' + localStorage.getItem('user')),
     });
-    console.log('applyCred');
     return ab;
   };
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     return next.handle(request).pipe(
       catchError(err => {
-        console.log('TCL: ErrorInterceptor -> constructor -> err', err);
         if (err.status === 401) {
           this.snackBar.open(err.error.error.message, '', {
             duration: 3000,
@@ -38,11 +36,12 @@ export class ErrorInterceptor implements HttpInterceptor {
           let token;
           let ssd = this.authenticationService.user.getIdToken().then(data => {
             token = data;
+            console.log('TCL: ErrorInterceptor -> token', token);
             localStorage.setItem('user', token);
 
             this.var = this.applyCredentials(request);
+            console.log('TCL: ErrorInterceptor -> this.var', this.var);
           });
-          console.log('end of interceptor', ssd);
           return next.handle(this.var);
           // this.authenticationService.saveUserToStorage(this.authenticationService.user);
           // auto logout if 401 response returned from api

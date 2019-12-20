@@ -49,7 +49,6 @@ export class PortfolioComponent implements OnInit {
     this.portfolioService.getPortfolios().subscribe((result: any) => {
       this.dataSource = result.payload;
       this.progressRef.complete();
-      console.log('TCL: PortfolioComponent -> getPortfolios -> result.payload', result.payload);
     });
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
@@ -80,7 +79,6 @@ export class PortfolioComponent implements OnInit {
   }
 
   openEditModal(element): void {
-    console.log(element);
     const dialogRef = this.dialog.open(EditPortfolioComponent, {
       width: '50rem',
       data: element,
