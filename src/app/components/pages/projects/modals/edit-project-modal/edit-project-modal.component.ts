@@ -19,9 +19,9 @@ export class EditProjectModalComponent implements OnInit {
   progressRef: NgProgressRef;
   items: [];
   private project: any;
-  private logoImage: any;
-  private coverImage: any;
-  private clients: [];
+  logoImage: any;
+  coverImage: any;
+  clients: [];
   EditFormGroup = new FormGroup({
     name: new FormControl(),
     client: new FormControl(''),

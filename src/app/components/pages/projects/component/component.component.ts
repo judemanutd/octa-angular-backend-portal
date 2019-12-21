@@ -18,7 +18,7 @@ export class ComponentComponent implements OnInit {
   editMode: boolean;
   componentId: any;
   editCat: any;
-  selectedValue: any[];
+  selectedValue: any;
   selectedTech: any = [];
   toppings = new FormControl();
   technologies: any = [];
@@ -149,4 +149,6 @@ export class ComponentComponent implements OnInit {
       this.progressRef.complete();
     });
   }
+
+  openAddModal() {}
 }

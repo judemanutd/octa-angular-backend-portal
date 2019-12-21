@@ -76,12 +76,7 @@
             <div class="col-md-6">
               <mat-form-field class="form__field">
                 <mat-label>Technologies</mat-label>
-                <mat-select
-                  [formControl]="technologyId"
-                  formControlName="technologyId"
-                  [(ngModel)]="selectedTech"
-                  multiple
-                >
+                <mat-select formControlName="technologyId" [(ngModel)]="selectedTech" multiple>
                   <mat-option *ngFor="let tech of technologies" [value]="tech.id">{{
                     tech.name
                   }}</mat-option>
@@ -143,7 +138,7 @@
             <div class="col-md-6">
               <mat-form-field class="form__field">
                 <mat-label>Technologies</mat-label>
-                <mat-select [formControl]="technologyId" formControlName="technologyId" multiple>
+                <mat-select formControlName="technologyId" multiple>
                   <mat-option *ngFor="let tech of technologies" [value]="tech.id">{{
                     tech.name
                   }}</mat-option>
