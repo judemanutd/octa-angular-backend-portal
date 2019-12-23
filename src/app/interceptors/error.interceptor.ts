@@ -9,11 +9,8 @@ import { MatSnackBar } from '@angular/material';
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
   public var: any;
-  constructor(
-    private authenticationService: AuthenticationService,
-    private snackBar: MatSnackBar,
-  ) {}
-  private applyCredentials = function(req) {
+  constructor(private snackBar: MatSnackBar) {}
+  private applyCredentials = req => {
     // console.log(
     //   "TCL: ErrorInterceptor -> privateapplyCredentials -> localStorage.getItem('user')",
     //   localStorage.getItem('user'),

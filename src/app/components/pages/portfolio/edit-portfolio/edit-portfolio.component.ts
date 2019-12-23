@@ -43,7 +43,7 @@ export class EditPortfolioComponent implements OnInit {
 
   constructor(
     private snackBar: MatSnackBar,
-    private _clipboardService: ClipboardService,
+    private clipboardService: ClipboardService,
     public dialogRef: MatDialogRef<EditPortfolioComponent>,
     private portfolioService: PortfolioService,
     private categoriesService: CategoriesService,
@@ -72,7 +72,7 @@ export class EditPortfolioComponent implements OnInit {
     this.EditFormGroup.controls['technologyId'].setValue(this.data.technology);
     this.EditFormGroup.controls['categoryId'].setValue(this.data.category);
     this.EditFormGroup.controls['projectId'].setValue(this.data.project);
-    this.link = this.data.id;
+    this.link = this.data.code;
     const res = this.data.technology;
     res.forEach(element => {
       this.technology.push(element.id);
@@ -114,7 +114,7 @@ export class EditPortfolioComponent implements OnInit {
   }
 
   callServiceToCopy() {
-    this._clipboardService.copyFromContent(environment.portfolioUrl + '' + this.link);
+    this.clipboardService.copyFromContent(environment.portfolioUrl + '' + this.link);
     this.snackBar.open('Link copied', '', {
       duration: 3000,
     });
@@ -131,7 +131,7 @@ export class EditPortfolioComponent implements OnInit {
     const payload = {
       payload: {
         title: portfolio,
-        description: description,
+        description,
         componentId: comp,
         technologyId: tech,
         categoryId: cat,

@@ -55,8 +55,8 @@ export class AuthenticationService {
   };
 
   public saveUserToStorage = (user: User) => {
-    let token;
-    let ssd = user.getIdToken().then(data => {
+    let token: string;
+    const ssd = user.getIdToken().then(data => {
       token = data;
       localStorage.setItem('user', token);
     });
