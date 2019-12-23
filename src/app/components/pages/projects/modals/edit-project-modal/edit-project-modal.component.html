@@ -1,0 +1,167 @@
+<div class="content-wrapper mat-typography">
+  <app-title [hasCrud]="true" (showCallBackPopUp)="openAddModal()"></app-title>
+
+  <mat-card class="example-card">
+    <mat-card-header>
+      <div mat-card-avatar class="example-header-image"></div>
+      <mat-card-title>Edit Project</mat-card-title>
+      <mat-card-subtitle>Project Details</mat-card-subtitle>
+    </mat-card-header>
+    <form class="form" [formGroup]="EditFormGroup" (ngSubmit)="editProjectsDetails()">
+      <mat-card-content>
+        <div class="content">
+          <div class="row log">
+            <div class="cell">
+              <button
+                id="clear"
+                class="btns"
+                type="button"
+                *ngIf="logoImage"
+                (click)="deleteLogo()"
+              >
+                <mat-icon>clear</mat-icon>
+              </button>
+              <img src="{{ logoImage }}" />
+            </div>
+            <div class="cell">
+              <button
+                class="btns"
+                id="clear"
+                type="button"
+                *ngIf="coverImage"
+                alt="Add a Logo Image"
+                (click)="deleteCover()"
+              >
+                <mat-icon>clear</mat-icon>
+              </button>
+              <img src="{{ coverImage }}" alt="Add a cover Image" />
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-4">
+            <mat-form-field class="form__field">
+              <input matInput type="text" formControlName="name" placeholder="Name" required />
+            </mat-form-field>
+          </div>
+          <div class="col-md-4">
+            <mat-form-field class="form__field">
+              <mat-select formControlName="client" placeholder="Client" required>
+                <mat-option [value]="client.id" *ngFor="let client of clients">
+                  {{ client.name }}</mat-option
+                >
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-4">
+            <mat-form-field class="form__field">
+              <input matInput type="number" formControlName="cost" placeholder="Cost" />
+            </mat-form-field>
+          </div>
+          <div class="col-md-4">
+            <mat-form-field class="form__field">
+              <input matInput type="text" formControlName="currency" placeholder="Currency" />
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-4">
+            <mat-form-field class="form__field">
+              <input
+                formControlName="start"
+                matInput
+                [matDatepicker]="picker1"
+                placeholder="Start date"
+              />
+              <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+              <mat-datepicker #picker1></mat-datepicker>
+            </mat-form-field>
+          </div>
+
+          <div class="col-md-4">
+            <mat-form-field class="form__field">
+              <input
+                formControlName="end"
+                matInput
+                [matDatepicker]="picker2"
+                placeholder="End date"
+              />
+              <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+              <mat-datepicker #picker2></mat-datepicker>
+            </mat-form-field>
+          </div>
+        </div>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-button type="submit">Submit</button>
+      </mat-card-actions>
+    </form>
+  </mat-card>
+
+  <mat-card class="example-card">
+    <mat-card-header>
+      <div mat-card-avatar class="example-header-image"></div>
+      <mat-card-title></mat-card-title>
+      <mat-card-subtitle>Cover and Logo images</mat-card-subtitle>
+    </mat-card-header>
+    <form class="form" [formGroup]="uploadForm" (ngSubmit)="editProjectsImages()">
+      <mat-card-content>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="file">Choose Logo Image</label>
+              <input type="file" id="file" (change)="uploadFileLogo($event)" />
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="file">Choose Cover Image</label>
+              <input type="file" id="file" (change)="uploadFileCover($event)" />
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-button type="submit">Submit</button>
+      </mat-card-actions>
+    </form>
+  </mat-card>
+
+  <mat-card class="example-card">
+    <mat-card-header>
+      <div mat-card-avatar class="example-header-image"></div>
+      <mat-card-title></mat-card-title>
+    </mat-card-header>
+    <button (click)="openAddModal()" mat-icon-button>
+      Add Image
+      <mat-icon color="accent" aria-hidden="false" aria-label="Add Button">
+        library_add
+      </mat-icon>
+    </button>
+    <mat-card-content>
+      <div class="row">
+        <div class="gallerize-example">
+          <h3>Project Images</h3>
+          <div class="container">
+            <div *ngFor="let item of items; index as i">
+              <a
+                id="clear"
+                class="btns"
+                type="button"
+                style="display: inherit; margin-bottom: 30px"
+                (click)="deleteGallery(item.data.id)"
+              >
+                <mat-icon>clear</mat-icon>
+              </a>
+              <img [lightbox]="i" [src]="item.data.thumb" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

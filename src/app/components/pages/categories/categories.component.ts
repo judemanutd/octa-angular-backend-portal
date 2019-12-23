@@ -12,6 +12,7 @@ import { CategoriesService } from '../../../services/categories.service';
 import { AddCategoriesModalComponent } from './modals/add/add-categories-modal.componenet';
 import { EditCategoriesModalComponent } from './modals/edit/edit-categories-modal.component';
 import { DeleteCategoriesModalComponent } from './modals/delete/delete-categories-modal.component';
+import { NgProgress, NgProgressRef } from '@ngx-progressbar/core';
 
 @Component({
   selector: 'app-categories',
@@ -19,8 +20,10 @@ import { DeleteCategoriesModalComponent } from './modals/delete/delete-categorie
   styleUrls: ['./categories.component.scss'],
 })
 export class CategoriesComponent implements OnInit {
+  progressRef: NgProgressRef;
   constructor(
     private categoriesService: CategoriesService,
+    private progress: NgProgress,
     public dialog: MatDialog,
     private snackBar: MatSnackBar,
   ) {}
@@ -32,11 +35,13 @@ export class CategoriesComponent implements OnInit {
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
   ngOnInit() {
+    this.progressRef = this.progress.ref('myProgress');
     // Call to fetch all Categories on page load
     this.getCategories();
   }
 
   getCategories() {
+    this.progressRef.start();
     /* Calls the getCategories function in the categories service and updates the
      * dataSource variable which has 2 way binding wih view layer
      * This enables the table component to update with the new data
@@ -44,6 +49,7 @@ export class CategoriesComponent implements OnInit {
      */
     this.categoriesService.getCategories().subscribe((result: any) => {
       this.dataSource = result.payload;
+      this.progressRef.complete();
     });
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;

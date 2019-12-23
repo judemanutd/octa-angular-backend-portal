@@ -11,6 +11,7 @@ import { EditTechnologiesComponent } from '../technologies/modals/edit/edit-tech
 
 import { AddTechnologiesComponent } from '../technologies/modals/add-technologies/add-technologies.component';
 import { DeleteTechnologiesModalComponent } from './modals/delete/delete-technologies.component';
+import { NgProgress, NgProgressRef } from '@ngx-progressbar/core';
 
 @Component({
   selector: 'app-technologies',
@@ -18,9 +19,11 @@ import { DeleteTechnologiesModalComponent } from './modals/delete/delete-technol
   styleUrls: ['./technologies.component.scss'],
 })
 export class TechnologiesComponent implements OnInit {
+  progressRef: NgProgressRef;
   constructor(
     private technologiesService: TechnologiesService,
     public dialog: MatDialog,
+    private progress: NgProgress,
     private snackBar: MatSnackBar,
   ) {}
   displayedColumns: string[] = ['name', 'updatedAt', 'createdAt', 'action'];
@@ -29,9 +32,11 @@ export class TechnologiesComponent implements OnInit {
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   ngOnInit() {
+    this.progressRef = this.progress.ref('myProgress');
     this.getTechnologies();
   }
   getTechnologies() {
+    this.progressRef.start();
     /* Calls the getCategories function in the categories service and updates the
      * dataSource variable which has 2 way binding wih view layer
      * This enables the table component to update with the new data
@@ -39,6 +44,7 @@ export class TechnologiesComponent implements OnInit {
      */
     this.technologiesService.getTechnologies().subscribe((result: any) => {
       this.dataSource = result.payload;
+      this.progressRef.complete();
     });
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;

@@ -1,0 +1,74 @@
+<div class="content-wrapper mat-typography">
+  <app-title [hasCrud]="false" (showCallBackPopUp)="openAddModal()"></app-title>
+
+  <mat-card class="example-card">
+    <mat-card-header>
+      <div mat-card-avatar class="example-header-image"></div>
+      <mat-card-title>Component</mat-card-title>
+    </mat-card-header>
+    <form class="form" [formGroup]="uploadForm" (ngSubmit)="uploadCover()">
+      <mat-card-content>
+        <div class="row cover">
+          <div class="cell">
+            <button
+              class="btns"
+              id="clear"
+              type="button"
+              *ngIf="coverImage"
+              alt="Add a Logo Image"
+              (click)="deleteCover()"
+            >
+              <mat-icon>clear</mat-icon>
+            </button>
+            <img src="{{ coverImage }}" alt="Add a cover Image" />
+          </div>
+        </div>
+        <div class="row" *ngIf="!coverImage">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="file">Choose Cover Image</label>
+              <input type="file" id="file" (change)="uploadFileCover($event)" />
+            </div>
+          </div>
+        </div>
+      </mat-card-content>
+      <mat-card-actions>
+        <button *ngIf="!coverImage" mat-button type="submit">Submit</button>
+      </mat-card-actions>
+    </form>
+  </mat-card>
+
+  <mat-card class="example-card">
+    <mat-card-header>
+      <div mat-card-avatar class="example-header-image"></div>
+      <mat-card-title></mat-card-title>
+    </mat-card-header>
+    <button (click)="openAddModal()" mat-icon-button>
+      Add Image
+      <mat-icon color="accent" aria-hidden="false" aria-label="Add Button">
+        library_add
+      </mat-icon>
+    </button>
+    <mat-card-content>
+      <div class="row">
+        <div class="gallerize-example">
+          <h3>Project Images</h3>
+          <div class="container">
+            <div *ngFor="let item of items; index as i">
+              <a
+                id="clear"
+                class="btns"
+                type="button"
+                style="display: inherit; margin-bottom: 30px"
+                (click)="deleteGallery(item.data.id)"
+              >
+                <mat-icon>clear</mat-icon>
+              </a>
+              <img [lightbox]="i" [src]="item.data.thumb" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

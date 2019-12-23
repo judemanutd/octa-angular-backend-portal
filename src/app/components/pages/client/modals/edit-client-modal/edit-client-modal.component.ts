@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { Client } from '~app/interfaces/client';
 import { ClientsService } from '~app/services/clients.service';
@@ -11,8 +11,8 @@ import { ClientsService } from '~app/services/clients.service';
 })
 export class EditClientModalComponent implements OnInit {
   EditFormGroup = new FormGroup({
-    name: new FormControl(this.data.name),
-    address: new FormControl(this.data.address),
+    name: new FormControl(this.data.name, [Validators.required]),
+    address: new FormControl(this.data.address, [Validators.required]),
   });
 
   constructor(
@@ -20,25 +20,25 @@ export class EditClientModalComponent implements OnInit {
     private clientsService: ClientsService,
     @Inject(MAT_DIALOG_DATA) public data: Client,
   ) {}
-  ngOnInit() {
-    console.log('TCL: EditClientModalComponent -> data', this.data);
-  }
+  ngOnInit() {}
 
   onNoClick(): void {
     this.dialogRef.close();
   }
 
   editClients() {
-    const clientName = this.EditFormGroup.value.name;
-    const address = this.EditFormGroup.value.address;
-    const id = this.data.id;
+    if (this.EditFormGroup.valid) {
+      const clientName = this.EditFormGroup.value.name;
+      const address = this.EditFormGroup.value.address;
+      const id = this.data.id;
 
-    const payload = {
-      name: clientName,
-      address: address,
-    };
-    this.clientsService.editClient(id, payload).subscribe((result: any) => {
-      this.dialogRef.close('refresh');
-    });
+      const payload = {
+        name: clientName,
+        address: address,
+      };
+      this.clientsService.editClient(id, payload).subscribe((result: any) => {
+        this.dialogRef.close('refresh');
+      });
+    }
   }
 }

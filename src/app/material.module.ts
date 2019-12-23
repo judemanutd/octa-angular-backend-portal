@@ -16,6 +16,7 @@ import {
   MatPaginatorModule,
   MatSortModule,
   MatSnackBarModule,
+  MatProgressBarModule,
 } from '@angular/material';
 
 @NgModule({
@@ -36,6 +37,7 @@ import {
     MatPaginatorModule,
     MatSortModule,
     MatSnackBarModule,
+    MatProgressBarModule,
   ],
   exports: [
     CommonModule,
@@ -52,6 +54,7 @@ import {
     MatDividerModule,
     MatTooltipModule,
     MatPaginatorModule,
+    MatProgressBarModule,
     MatSortModule,
     MatSnackBarModule,
   ],
