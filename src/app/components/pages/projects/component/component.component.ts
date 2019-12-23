@@ -24,6 +24,7 @@ export class ComponentComponent implements OnInit {
   technologies: any = [];
   components: any = [];
   categories: any = [];
+  technologyId = new FormControl();
   ComponentFormGroup = new FormGroup({
     name: new FormControl(),
     categoryId: new FormControl(''),
