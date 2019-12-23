@@ -1,13 +1,13 @@
-name: Deployment_Development
+name: Deployment_Release
 
 on:
   pull_request:
-    branches: develop
+    branches: master
     types: [closed]
 
 jobs:
   deploy:
-    name: Deploy
+    name: Deploy Production
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repo
@@ -19,11 +19,11 @@ jobs:
           yarn install
       - name: Build
         run: |
-          npm run-script build-dev
+          npm run-script build-prod
           cp robots.txt public/robots.txt
       - name: Deploy to Firebase
         uses: w9jds/firebase-action@v1.1.0
         with:
-          args: deploy -P default --only hosting:develop
+          args: deploy -P prod --only hosting:prod
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
