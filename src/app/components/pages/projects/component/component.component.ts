@@ -81,12 +81,12 @@ export class ComponentComponent implements OnInit {
 
   editComponent(id) {
     this.progressRef.start();
-    // this.selectedTech = [''];
 
     this.componentId = id;
     this.componentService
       .getSingleComponent(this.componentId, this.param1)
       .subscribe((result: any) => {
+        this.selectedTech = [];
         this.editMode = true;
         this.ComponentFormGroup.controls['name'].setValue(result.payload.name);
         this.ComponentFormGroup.controls['summary'].setValue(result.payload.summary);
@@ -96,6 +96,7 @@ export class ComponentComponent implements OnInit {
         this.editCat = result.payload.category.name;
         this.selectedValue = result.payload.category;
         let res = result.payload.technology;
+        console.log('TCL: ComponentComponent -> editComponent -> selectedTech', this.selectedTech);
         res.forEach(element => {
           this.selectedTech.push(element.id);
         });
