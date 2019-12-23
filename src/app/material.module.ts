@@ -17,6 +17,7 @@ import {
   MatSortModule,
   MatSnackBarModule,
 } from '@angular/material';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 @NgModule({
   imports: [
@@ -36,6 +37,7 @@ import {
     MatPaginatorModule,
     MatSortModule,
     MatSnackBarModule,
+    MatAutocompleteModule,
   ],
   exports: [
     CommonModule,
@@ -54,6 +56,7 @@ import {
     MatPaginatorModule,
     MatSortModule,
     MatSnackBarModule,
+    MatAutocompleteModule,
   ],
 })
 export class MaterialModule {}

@@ -36,6 +36,7 @@ import { AddTechnologiesComponent } from '~app/components/pages/technologies/mod
 import { EditTechnologiesComponent } from '~app/components/pages/technologies/modals/edit/edit-technologies.component';
 
 import { MatSelectModule } from '@angular/material';
+import { MatChipsModule } from '@angular/material/chips';
 import { ClientComponent } from './components/pages/client/client.component';
 import { AddClientModalComponent } from './components/pages/client/modals/add-client-modal/add-client-modal.component';
 import { EditClientModalComponent } from './components/pages/client/modals/edit-client-modal/edit-client-modal.component';
@@ -81,6 +82,7 @@ import { DeleteTechnologiesModalComponent } from './components/pages/technologie
     MatSelectModule,
     ReactiveFormsModule,
     AngularFireAuthModule,
+    MatChipsModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     TitleModule,
     HeaderModule,
