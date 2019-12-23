@@ -30,18 +30,18 @@ export class ErrorInterceptor implements HttpInterceptor {
     return next.handle(request).pipe(
       catchError(err => {
         if (err.status === 401) {
-          this.snackBar.open(err.error.error.message, '', {
-            duration: 3000,
-          });
-          let token;
-          let ssd = this.authenticationService.user.getIdToken().then(data => {
-            token = data;
-            console.log('TCL: ErrorInterceptor -> token', token);
-            localStorage.setItem('user', token);
+          // this.snackBar.open(err.error.error.message, '', {
+          //   duration: 3000,
+          // });
+          // let token;
+          // let ssd = this.authenticationService.user.getIdToken().then(data => {
+          //   token = data;
+          //   console.log('TCL: ErrorInterceptor -> token', token);
+          //   localStorage.setItem('user', token);
 
-            this.var = this.applyCredentials(request);
-            console.log('TCL: ErrorInterceptor -> this.var', this.var);
-          });
+          //   this.var = this.applyCredentials(request);
+          //   console.log('TCL: ErrorInterceptor -> this.var', this.var);
+          // });
           return next.handle(this.var);
           // this.authenticationService.saveUserToStorage(this.authenticationService.user);
           // auto logout if 401 response returned from api

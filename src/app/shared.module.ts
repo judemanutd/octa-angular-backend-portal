@@ -26,6 +26,7 @@ import { AngularFireModule } from '@angular/fire';
 import { environment } from '~environments/environment';
 import { NgProgressModule } from '@ngx-progressbar/core';
 import { ClipboardModule } from 'ngx-clipboard';
+GalleryModule.withConfig({ loadingMode: 'indeterminate' });
 
 @NgModule({
   declarations: [],
