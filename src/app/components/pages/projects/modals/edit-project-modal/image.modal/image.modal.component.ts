@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
+import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { ProjectsService } from '~app/services/projects.service';
 import { ActivatedRoute } from '@angular/router';
@@ -36,7 +36,7 @@ export class ImageModalComponent implements OnInit {
     });
     this.uploadForm = this.fb.group({
       image: [''],
-      name: new FormControl(''),
+      name: new FormControl('', [Validators.required]),
       desc: new FormControl(''),
     });
   }
@@ -55,33 +55,34 @@ export class ImageModalComponent implements OnInit {
 
   addImage() {
     /* Onsubmit of add modal form */
-
-    const formData = new FormData();
-    formData.append('gallery', this.uploadForm.get('image').value);
-    formData.append('name', this.uploadForm.get('name').value);
-    formData.append('description', this.uploadForm.get('desc').value);
-    // formData.append('file', this.uploadForm.get('cover').value);
-    if (this.data.projectImage) {
-      this.projectsService.addGallery(this.data.project, formData).subscribe((result: any) => {
-        console.log(result);
-        // this.image = result.payload.link;
-        this.dialogRef.close('refresh');
-      });
-    } else {
-      this.componentService
-        .addGallery(this.data.project, this.data.component, formData)
-        .subscribe((result: any) => {
+    if (this.uploadForm.valid) {
+      const formData = new FormData();
+      formData.append('gallery', this.uploadForm.get('image').value);
+      formData.append('name', this.uploadForm.get('name').value);
+      formData.append('description', this.uploadForm.get('desc').value);
+      // formData.append('file', this.uploadForm.get('cover').value);
+      if (this.data.projectImage) {
+        this.projectsService.addGallery(this.data.project, formData).subscribe((result: any) => {
           console.log(result);
           // this.image = result.payload.link;
           this.dialogRef.close('refresh');
         });
-    }
+      } else {
+        this.componentService
+          .addGallery(this.data.project, this.data.component, formData)
+          .subscribe((result: any) => {
+            console.log(result);
+            // this.image = result.payload.link;
+            this.dialogRef.close('refresh');
+          });
+      }
 
-    // this.technologiesService.addTechnology(payload).subscribe((result: any) => {
-    //   /* Successful call send "refresh" to modal close event binder
-    //    * which allows us to refresh the table
-    //    */
-    //   this.dialogRef.close('refresh');
-    // });
+      // this.technologiesService.addTechnology(payload).subscribe((result: any) => {
+      //   /* Successful call send "refresh" to modal close event binder
+      //    * which allows us to refresh the table
+      //    */
+      //   this.dialogRef.close('refresh');
+      // });
+    }
   }
 }
