@@ -36,6 +36,11 @@ export class AddProjectModalComponent {
   }
 
   addProjects() {
+    if (this.AddFormGroup.value.start > this.AddFormGroup.value.end) {
+      this.AddFormGroup.get('start').setErrors({ valid: false });
+      this.AddFormGroup.get('end').setErrors({ valid: false });
+      return;
+    }
     /* Onsubmit of add modal form */
     const projectName = this.AddFormGroup.value.name;
     const clientId = this.AddFormGroup.value.client;
