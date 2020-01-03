@@ -26,6 +26,7 @@
     "@angular/platform-browser-dynamic": "~8.2.14",
     "@angular/router": "~8.2.14",
     "@auth0/angular-jwt": "^3.0.1",
+    "@kolkov/angular-editor": "^1.0.2",
     "@ngx-gallery/core": "^4.0.3",
     "@ngx-gallery/lightbox": "^4.0.3",
     "@ngx-progressbar/core": "^5.3.2",

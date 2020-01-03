@@ -5,3 +5,35 @@
 button {
   margin-right: 4px;
 }
+
+.editor {
+  ::ng-deep {
+    &.angular-editor-toolbar {
+      background-color: #424242 !important;
+    }
+    &.angular-editor-button {
+      background-color: #424242 !important;
+      color: white;
+    }
+    &.ae-picker-label {
+      background-color: #424242 !important;
+      color: white;
+    }
+    &.angular-editor-button[title='Insert Image'] {
+      display: none;
+    }
+    &.angular-editor-button[title='Insert Video'] {
+      display: none;
+    }
+    &.angular-editor-button[title='Insert Link'] {
+      display: none;
+    }
+    &.angular-editor-button[title='Unlink'] {
+      display: none;
+    }
+  }
+}
+
+.editor-row {
+  margin-bottom: 1rem;
+}

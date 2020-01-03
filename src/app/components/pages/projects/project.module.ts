@@ -10,6 +10,7 @@ import { ViewComponent } from './component/view/view.component';
 import { SharedModule } from '~app/shared.module';
 // import { ProjectRoutingModule } from './project-routing.module';
 import { AppRoutingModule } from '~app/app-routing.module';
+import { AngularEditorModule } from '@kolkov/angular-editor';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,7 @@ import { AppRoutingModule } from '~app/app-routing.module';
     ComponentComponent,
     ViewComponent,
   ],
-  imports: [CommonModule, SharedModule, AppRoutingModule],
+  imports: [CommonModule, SharedModule, AppRoutingModule, AngularEditorModule],
   entryComponents: [
     ImageModalComponent,
     AddProjectModalComponent,

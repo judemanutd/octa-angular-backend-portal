@@ -39,6 +39,8 @@ import { EditPortfolioComponent } from './components/pages/portfolio/edit-portfo
 import { DeletePortfolioComponent } from './components/pages/portfolio/delete-portfolio/delete-portfolio.component';
 import { FormsModule } from '@angular/forms';
 
+import { AngularEditorModule } from '@kolkov/angular-editor';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -82,6 +84,7 @@ import { FormsModule } from '@angular/forms';
     ProjectModule,
     SharedModule,
     FormsModule,
+    AngularEditorModule,
   ],
   exports: [MaterialModule],
   providers: [

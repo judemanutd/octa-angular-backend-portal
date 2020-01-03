@@ -13,9 +13,6 @@
           <mat-panel-title>
             {{ comp.name }}
           </mat-panel-title>
-          <mat-panel-description>
-            {{ comp.description }}
-          </mat-panel-description>
         </mat-expansion-panel-header>
 
         <p>{{ comp.summary }}</p>
@@ -35,6 +32,19 @@
                 <input matInput type="text" formControlName="name" placeholder="Name" required />
               </mat-form-field>
             </div>
+          </div>
+          <div class="row editor-row">
+            <div class="col-md-10">
+              <p class="mat-input">Description</p>
+              <angular-editor
+                class="editor"
+                [placeholder]="Description"
+                formControlName="description"
+              >
+              </angular-editor>
+            </div>
+          </div>
+          <div class="row">
             <div class="col-md-6">
               <mat-form-field class="form__field">
                 <mat-select
@@ -53,14 +63,17 @@
           <div class="row">
             <div class="col-md-6">
               <mat-form-field class="form__field">
-                <textarea
-                  matInput
-                  placeholder="Description"
-                  formControlName="description"
-                  rows="5"
-                ></textarea>
+                <mat-label>Technologies</mat-label>
+                <mat-select formControlName="technologyId" [(ngModel)]="selectedTech" multiple>
+                  <mat-option *ngFor="let tech of technologies" [value]="tech.id">{{
+                    tech.name
+                  }}</mat-option>
+                </mat-select>
               </mat-form-field>
             </div>
+            <div class="col-md-6"></div>
+          </div>
+          <div class="row">
             <div class="col-md-6">
               <mat-form-field class="form__field">
                 <textarea
@@ -71,19 +84,6 @@
                 ></textarea>
               </mat-form-field>
             </div>
-          </div>
-          <div class="row">
-            <div class="col-md-6">
-              <mat-form-field class="form__field">
-                <mat-label>Technologies</mat-label>
-                <mat-select formControlName="technologyId" [(ngModel)]="selectedTech" multiple>
-                  <mat-option *ngFor="let tech of technologies" [value]="tech.id">{{
-                    tech.name
-                  }}</mat-option>
-                </mat-select>
-              </mat-form-field>
-            </div>
-            <div class="col-md-6"></div>
           </div>
         </mat-card-content>
         <mat-card-actions>
@@ -102,6 +102,19 @@
                 <input matInput type="text" formControlName="name" placeholder="Name" required />
               </mat-form-field>
             </div>
+          </div>
+          <div class="row editor-row">
+            <div class="col-md-10">
+              <p class="mat-input">Description</p>
+              <angular-editor
+                class="editor"
+                [placeholder]="Description"
+                formControlName="description"
+              >
+              </angular-editor>
+            </div>
+          </div>
+          <div class="row">
             <div class="col-md-6">
               <mat-form-field class="form__field">
                 <mat-select placeholder="Category" required formControlName="categoryId">
@@ -115,14 +128,16 @@
           <div class="row">
             <div class="col-md-6">
               <mat-form-field class="form__field">
-                <textarea
-                  matInput
-                  placeholder="Description"
-                  formControlName="description"
-                  rows="5"
-                ></textarea>
+                <mat-label>Technologies</mat-label>
+                <mat-select formControlName="technologyId" multiple>
+                  <mat-option *ngFor="let tech of technologies" [value]="tech.id">{{
+                    tech.name
+                  }}</mat-option>
+                </mat-select>
               </mat-form-field>
             </div>
+          </div>
+          <div class="row">
             <div class="col-md-6">
               <mat-form-field class="form__field">
                 <textarea
@@ -131,18 +146,6 @@
                   formControlName="summary"
                   rows="5"
                 ></textarea>
-              </mat-form-field>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-6">
-              <mat-form-field class="form__field">
-                <mat-label>Technologies</mat-label>
-                <mat-select formControlName="technologyId" multiple>
-                  <mat-option *ngFor="let tech of technologies" [value]="tech.id">{{
-                    tech.name
-                  }}</mat-option>
-                </mat-select>
               </mat-form-field>
             </div>
             <div class="col-md-6"></div>

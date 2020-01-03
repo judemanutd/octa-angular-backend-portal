@@ -1111,6 +1111,13 @@
     lodash.camelcase "^4.3.0"
     protobufjs "^6.8.6"
 
+"@kolkov/angular-editor@^1.0.2":
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/@kolkov/angular-editor/-/angular-editor-1.0.2.tgz#41c4c766b37a4becf10a25957dcc7cc248133fb0"
+  integrity sha512-zNnEDzFJYzCG5yONHNR8jCGiPwQbyyvg9OGOu5sIiKyoRmJBKvaaC/05jJd7lFE2HyqwstxlLAMa1mFZqnTXXA==
+  dependencies:
+    tslib "^1.9.0"
+
 "@ngtools/webpack@8.3.20":
   version "8.3.20"
   resolved "https://registry.yarnpkg.com/@ngtools/webpack/-/webpack-8.3.20.tgz#a5288171b67c96e8d3b219f5108f1d6cd962d6a3"
