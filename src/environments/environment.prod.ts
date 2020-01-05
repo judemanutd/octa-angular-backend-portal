@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
-  baseUrl: 'https://us-central1-octalogic-portfolio.cloudfunctions.net/api/v1/admin',
+  baseUrl: 'https://asia-east2-octalogic-portfolio.cloudfunctions.net/api/v1/admin',
   firebaseConfig: {
     apiKey: 'AIzaSyDeRFK9AsB3z-h6r4bx3cjMeivtWEIR_Tw',
     authDomain: 'octalogic-portfolio.firebaseapp.com',
