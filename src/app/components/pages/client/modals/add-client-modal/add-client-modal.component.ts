@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ClientsService } from '~app/services/clients.service';
 import { MatDialogRef } from '@angular/material';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-add-client-modal',
@@ -10,8 +10,8 @@ import { FormGroup, FormControl } from '@angular/forms';
 })
 export class AddClientModalComponent implements OnInit {
   AddFormGroup = new FormGroup({
-    name: new FormControl(''),
-    address: new FormControl(''),
+    name: new FormControl('', [Validators.required]),
+    address: new FormControl('', [Validators.required]),
   });
 
   constructor(
@@ -22,18 +22,20 @@ export class AddClientModalComponent implements OnInit {
   ngOnInit() {}
 
   addClient() {
-    /* Onsubmit of add modal form */
-    const clientName = this.AddFormGroup.value.name;
-    const address = this.AddFormGroup.value.address;
-    const payload = {
-      name: clientName,
-      address: address,
-    };
-    this.clientsService.addClient(payload).subscribe((result: any) => {
-      /* Successful call send "refresh" to modal close event binder
-       * which allows us to refresh the table
-       */
-      this.dialogRef.close('refresh');
-    });
+    if (this.AddFormGroup.valid) {
+      const clientName = this.AddFormGroup.value.name;
+      const address = this.AddFormGroup.value.address;
+      const payload = {
+        name: clientName,
+        address: address,
+      };
+      this.clientsService.addClient(payload).subscribe((result: any) => {
+        /* Successful call send "refresh" to modal close event binder
+         * which allows us to refresh the table
+         */
+        this.dialogRef.close('refresh');
+      });
+    }
   }
+  /* Onsubmit of add modal form */
 }

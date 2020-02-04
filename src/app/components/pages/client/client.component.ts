@@ -12,6 +12,7 @@ import { Client } from '../../../interfaces/client';
 import { AddClientModalComponent } from './modals/add-client-modal/add-client-modal.component';
 import { EditClientModalComponent } from './modals/edit-client-modal/edit-client-modal.component';
 import { DeleteClientModalComponent } from './modals/delete-client-modal/delete-client-modal.component';
+import { NgProgressRef, NgProgress } from '@ngx-progressbar/core';
 
 @Component({
   selector: 'app-client',
@@ -19,9 +20,11 @@ import { DeleteClientModalComponent } from './modals/delete-client-modal/delete-
   styleUrls: ['./client.component.scss'],
 })
 export class ClientComponent implements OnInit {
+  progressRef: NgProgressRef;
   constructor(
     private clientsService: ClientsService,
     public dialog: MatDialog,
+    private progress: NgProgress,
     private snackBar: MatSnackBar,
   ) {}
   displayedColumns: string[] = ['name', 'address', 'updatedAt', 'createdAt', 'action'];
@@ -30,10 +33,12 @@ export class ClientComponent implements OnInit {
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   ngOnInit() {
+    this.progressRef = this.progress.ref('myProgress');
     this.getClients();
   }
 
   getClients() {
+    this.progressRef.start();
     /* Calls the getCategories function in the categories service and updates the
      * dataSource variable which has 2 way binding wih view layer
      * This enables the table component to update with the new data
@@ -41,6 +46,7 @@ export class ClientComponent implements OnInit {
      */
     this.clientsService.getClient().subscribe((result: any) => {
       this.dataSource = result.payload;
+      this.progressRef.complete();
     });
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;

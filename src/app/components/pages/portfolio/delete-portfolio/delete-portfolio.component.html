@@ -1,0 +1,10 @@
+<h2 mat-dialog-title>Delete Portfolio</h2>
+<mat-dialog-content class="mat-typography">
+  <p>Are you sure you want to delete "{{ data.title }}"?</p>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button [mat-dialog-close]="false">Cancel</button>
+  <button (click)="deletePortfolio()" mat-button cdkFocusInitial color="warn">
+    Yes, Delete
+  </button>
+</mat-dialog-actions>

@@ -16,7 +16,7 @@
     "noImplicitReturns": false,
     "noImplicitAny": false,
     "suppressImplicitAnyIndexErrors": true,
-    "noUnusedLocals": true,
+    "noUnusedLocals": false,
     "pretty": true,
     "alwaysStrict": true,
     "paths": {

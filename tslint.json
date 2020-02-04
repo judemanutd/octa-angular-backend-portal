@@ -25,6 +25,7 @@
     "no-floating-promises": true,
     "no-invalid-this": true,
     "no-string-throw": true,
+    "no-string-literal": false,
     "no-unsafe-finally": true,
     "no-void-expression": [true, "ignore-arrow-function-shorthand"],
     "no-duplicate-imports": true,
