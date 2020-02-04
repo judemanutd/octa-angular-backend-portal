@@ -143,7 +143,7 @@ export class EditPortfolioComponent implements OnInit {
        * which allows us to refresh the table
        */
       this.progressRef.complete();
-      this.dialogRef.close();
+      this.dialogRef.close('refresh');
     });
   }
 

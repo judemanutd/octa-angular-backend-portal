@@ -135,6 +135,7 @@ export class ComponentComponent implements OnInit {
         /* Successful call send "refresh" to modal close event binder
          * which allows us to refresh the table
          */
+        this.viewComponent(result.payload.id);
         this.getProjectComponents();
       });
     }

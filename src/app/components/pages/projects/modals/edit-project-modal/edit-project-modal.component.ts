@@ -129,6 +129,12 @@ export class EditProjectModalComponent implements OnInit {
   }
 
   editProjectsDetails() {
+    if (this.EditFormGroup.value.start > this.EditFormGroup.value.end) {
+      this.EditFormGroup.get('start').setErrors({ valid: false });
+      this.EditFormGroup.get('end').setErrors({ valid: false });
+      return;
+    }
+
     this.progressRef.start();
     const projectName = this.EditFormGroup.value.name;
     const clientId = this.EditFormGroup.value.client;
@@ -176,6 +182,7 @@ export class EditProjectModalComponent implements OnInit {
             src: item.link,
             thumb: item.link,
             name: item.name,
+            desc: item.description,
             id: item.id,
           }),
       );

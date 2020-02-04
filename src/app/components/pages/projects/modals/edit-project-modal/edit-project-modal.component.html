@@ -157,7 +157,10 @@
               >
                 <mat-icon>clear</mat-icon>
               </a>
-              <img [lightbox]="i" [src]="item.data.thumb" />
+              <img [lightbox]="i" [src]="item.data.thumb" /><br />
+              <small>{{ item.data.name }}</small
+              ><br />
+              <small>{{ item.data.desc }}</small>
             </div>
           </div>
         </div>
